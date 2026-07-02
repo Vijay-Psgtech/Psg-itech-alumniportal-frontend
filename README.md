@@ -1,16 +1,21 @@
-# React + Vite
+# PSG iTech Alumni Association Portal - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive web application built using React.js, designed to facilitate seamless interaction and engagement among the alumni of PSG iTech. This portal serves as a hub for alumni to connect, share experiences, and stay updated with the latest news and events related to the institution.
 
-Currently, two official plugins are available:
+## 🎯 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **User Authentication**: Secure login and registration system for alumni members.
+- **Profile Management**: Alumni can create and manage their profiles, including personal information, professional
+  background, and achievements.
+- **Event Management**: View upcoming events, RSVP, and receive notifications about alumni gatherings and activities.
+- **Networking Opportunities**: Connect with fellow alumni, search for members based on various criteria, and engage in discussions through forums or chat features.
+- **News and Updates**: Stay informed with the latest news, announcements, and updates from PSG iTech and its alumni community.
+- **Responsive Design**: Optimized for various devices, ensuring a seamless experience on desktops, tablets, and smartphones.
 
-## React Compiler
+### 🛠️ Tech Stack 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend**: React.js, HTML5, CSS3, JavaScript (ES6+)
+- **State Management**: Context API
+- **Routing**: React Router
+- **Styling**: CSS Modules, Styled Components, or Tailwind CSS
+- **Deployment:** Docker + Nginx (SPA routing)
