@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 
 import Navbar from "./components/Navbar";
+import Footer from './components/Footer'
 
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
@@ -37,10 +38,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="text-slate-900 antialiased">
-        <ScrollProgressBar>
-          <Navbar />
-          <AnimatedRoutes />
-        </ScrollProgressBar>
+        <ScrollProgressBar />
+        <Navbar />
+        <AnimatedRoutes />
+        <Footer />
       </div>
     </BrowserRouter>
   )
