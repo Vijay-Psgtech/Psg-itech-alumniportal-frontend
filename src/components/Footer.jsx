@@ -109,7 +109,7 @@ export default function Footer() {
         </motion.div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/35">
-          <p>Copyright 2026 PSG iTech Alumni Association. All rights reserved.</p>
+          <p>Copyright © 2026 PSG iTech Alumni Association. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <a href="#" className="hover:text-white/60 transition-colors">
               Privacy policy
