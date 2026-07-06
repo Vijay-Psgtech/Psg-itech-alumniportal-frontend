@@ -134,7 +134,13 @@ export default function EventsPage() {
           <div className="lg:sticky lg:top-28 flex flex-col gap-6">
             <div className="relative">
               <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-               
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search events"
+                className="w-full bg-white border border-slate-100 rounded-2xl pl-11 pr-4 py-3 text-sm text-slate-600 outline-none transition-colors placeholder:text-slate-400 focus:border-orange-400"
+              />
             </div>
 
             <div className="bg-white border border-slate-100 rounded-2xl p-5">
