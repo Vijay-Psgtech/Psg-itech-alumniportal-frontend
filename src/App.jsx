@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
 
-const Home = lazy(() => import("./components/Pages/Home"));
+const Home = lazy(() => import("./Pages/Home"));
 
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
