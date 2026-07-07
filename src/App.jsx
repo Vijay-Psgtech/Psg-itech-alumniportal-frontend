@@ -1,8 +1,11 @@
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 
 import Navbar from "./components/Navbar";
-import Footer from './components/Footer'
+import Footer from './components/Footer';
+
+const Home = lazy(() => import("./components/Pages/Home"));
 
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
@@ -27,9 +30,8 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-
+        <Route path="/" element={<Home />} />
       </Routes>
-
     </AnimatePresence>
   )
 }
@@ -37,12 +39,14 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="text-slate-900 antialiased">
-        <ScrollProgressBar />
-        <Navbar />
-        <AnimatedRoutes />
-        <Footer />
-      </div>
+      <Suspense fallback={<div className="fixed inset-0 grid place-items-center bg-slate-900/70 z-[60]"><div className="w-12 h-12 rounded-full border-4 border-t-orange-400 border-r-orange-400 border-b-transparent border-l-transparent animate-spin" /></div>}>
+        <div className="text-slate-900 antialiased">
+          <ScrollProgressBar />
+          <Navbar />
+          <AnimatedRoutes />
+          <Footer />
+        </div>
+      </Suspense>
     </BrowserRouter>
   )
 }
