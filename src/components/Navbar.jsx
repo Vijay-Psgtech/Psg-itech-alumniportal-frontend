@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAuth } from '../context/AuthContext.jsx';
 import logo from '../assets/1723.png'
 
 const links = [
-  { label: 'Flash Mentorship', href: '#mentorship' },
   { label: 'About', to: '/about' },
   {
     label: 'Events',
@@ -15,10 +15,36 @@ const links = [
       { label: 'NewsCorner', to: '/feed' },
     ],
   },
-  { label: 'Find Alumni', href: '#directory' },
-  { label: 'Batchmates', href: '#batchmates' },
-  { label: 'Careers', href: '#careers' },
-  { label: 'Engagement', href: '#engagement' },
+  {
+    label: 'Alumni',
+    to: '/alumni/dashboard',
+    children: [
+      { label: 'Login', to: '/alumni/login' },
+      { label: 'Register', to: '/alumni/register' },
+      { label: 'Dashboard', to: '/alumni/dashboard' },
+      { label: 'Directory', to: '/alumni/directory' },
+      { label: 'Profile', to: '/alumni/profile' },
+      { label: 'Map', to: '/alumni/map' },
+      { label: 'Chapters', to: '/alumni/chapters' },
+      { label: 'Donations', to: '/alumni/donations' },
+      { label: 'Notifications', to: '/alumni/notifications' },
+      { label: 'Send Notification', to: '/alumni/notifications/new' },
+      { label: 'Campaigns', to: '/campaigns' },
+    ],
+  },
+  {
+    label: 'Admin',
+    to: '/admin/dashboard',
+    children: [
+      { label: 'Login', to: '/admin/login' },
+      { label: 'Dashboard', to: '/admin/dashboard' },
+      { label: 'Events', to: '/admin/events' },
+      { label: 'Alumni Users', to: '/admin/alumni' },
+      { label: 'Newsletter', to: '/admin/newsletter' },
+      { label: 'Notifications', to: '/admin/notifications' },
+      { label: 'Reports', to: '/admin/reports' },
+    ],
+  },
   { label: 'Institute', href: 'https://psgitech.ac.in/' },
 ]
 
@@ -35,8 +61,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [desktopDropdown, setDesktopDropdown] = useState(null)
   const [mobileDropdown, setMobileDropdown] = useState(null)
+  const [authDropdown, setAuthDropdown] = useState(false)
   const closeTimer = useRef(null)
-  const location = useLocation()
+  const authCloseTimer = useRef(null)
+  const navigate = useNavigate()
+  const { user, isAuthenticated, logout } = useAuth()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -45,12 +74,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => {
+  const closeMobileMenu = () => {
     setOpen(false)
     setMobileDropdown(null)
-  }, [location.pathname])
+    setAuthDropdown(false)
+  }
 
-  const solid = scrolled || open
+  const solid = scrolled || open || authDropdown
 
   const openDropdown = (label) => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
@@ -59,6 +89,36 @@ export default function Navbar() {
   const scheduleClose = () => {
     closeTimer.current = setTimeout(() => setDesktopDropdown(null), 150)
   }
+  const openAuthDropdown = () => {
+    if (authCloseTimer.current) clearTimeout(authCloseTimer.current)
+    setAuthDropdown(true)
+  }
+  const scheduleAuthClose = () => {
+    authCloseTimer.current = setTimeout(() => setAuthDropdown(false), 150)
+  }
+  const handleAuthAction = (path) => {
+    setAuthDropdown(false)
+    closeMobileMenu()
+    if (path === 'logout') {
+      logout()
+      navigate('/')
+      return
+    }
+    navigate(path)
+  }
+
+  const accountLinks = isAuthenticated
+    ? [
+        { label: 'Alumni Dashboard', to: '/alumni/dashboard' },
+        { label: 'Admin Dashboard', to: '/admin/dashboard' },
+        { label: 'My Profile', to: '/alumni/profile' },
+        { label: 'Logout', action: 'logout' },
+      ]
+    : [
+        { label: 'Alumni Login', to: '/alumni/login' },
+        { label: 'Create Alumni Account', to: '/alumni/register' },
+        { label: 'Admin Login', to: '/admin/login' },
+      ]
 
   return (
     <header
@@ -135,7 +195,7 @@ export default function Navbar() {
                         transition={{ duration: 0.15 }}
                         className="absolute top-full left-0 pt-3"
                       >
-                        <div className="bg-white rounded-xl shadow-lg shadow-black/10 border border-slate-100 py-1.5 w-44 overflow-hidden">
+                        <div className="bg-white rounded-xl shadow-lg shadow-black/10 border border-slate-100 py-1.5 w-56 overflow-hidden">
                           {l.children.map((child) => (
                             <NavLink
                               key={child.label}
@@ -192,13 +252,52 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="hidden sm:inline-flex bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors"
+          <div
+            className="relative hidden sm:block"
+            onMouseEnter={openAuthDropdown}
+            onMouseLeave={scheduleAuthClose}
           >
-            Sign up / Login
-          </motion.button>
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => setAuthDropdown((current) => !current)}
+              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors"
+              aria-expanded={authDropdown}
+              aria-haspopup="menu"
+            >
+              {isAuthenticated ? user?.name || 'Account' : 'Sign up / Login'}
+              <ChevronIcon className={`transition-transform ${authDropdown ? 'rotate-180' : ''}`} />
+            </motion.button>
+            <AnimatePresence>
+              {authDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 top-full pt-3"
+                >
+                  <div className="w-56 overflow-hidden rounded-xl border border-slate-100 bg-white py-1.5 shadow-lg shadow-black/10">
+                    {accountLinks.map((item) => (
+                      <button
+                        key={item.label}
+                        type="button"
+                        onClick={() => handleAuthAction(item.action || item.to)}
+                        className={`block w-full px-4 py-2.5 text-left text-sm transition-colors ${
+                          item.action === 'logout'
+                            ? 'text-red-500 hover:bg-red-50'
+                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <button
             onClick={() => setOpen((o) => !o)}
             className={`lg:hidden w-9 h-9 grid place-items-center rounded-full border transition-colors duration-300 ${
@@ -231,7 +330,7 @@ export default function Navbar() {
                   return (
                     <div key={l.label} className="border-b border-slate-50 last:border-none">
                       <div className="flex items-center justify-between py-3">
-                        <Link to={l.to} onClick={() => setOpen(false)}>
+                        <Link to={l.to} onClick={closeMobileMenu}>
                           {l.label}
                         </Link>
                         <button
@@ -255,7 +354,7 @@ export default function Navbar() {
                               <Link
                                 key={child.label}
                                 to={child.to}
-                                onClick={() => setOpen(false)}
+                                onClick={closeMobileMenu}
                                 className="text-slate-500 py-1"
                               >
                                 {child.label}
@@ -269,7 +368,7 @@ export default function Navbar() {
                 }
 
                 return l.to ? (
-                  <Link key={l.label} to={l.to} onClick={() => setOpen(false)} className="py-3">
+                  <Link key={l.label} to={l.to} onClick={closeMobileMenu} className="py-3">
                     {l.label}
                   </Link>
                 ) : (
@@ -278,16 +377,34 @@ export default function Navbar() {
                     href={l.href}
                     target={l.href?.startsWith('http') ? '_blank' : undefined}
                     rel={l.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    onClick={() => setOpen(false)}
+                    onClick={closeMobileMenu}
                     className="py-3"
                   >
                     {l.label}
                   </a>
                 )
               })}
-              <button className="mt-2 bg-orange-500 text-white font-medium px-5 py-2.5 rounded-full">
-                Sign up / Login
-              </button>
+              <div className="pt-3">
+                <p className="px-1 pb-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                  Account
+                </p>
+                <div className="grid gap-2">
+                  {accountLinks.map((item) => (
+                    <button
+                      key={item.label}
+                      type="button"
+                      onClick={() => handleAuthAction(item.action || item.to)}
+                      className={`rounded-xl px-4 py-3 text-left text-sm font-semibold ${
+                        item.action === 'logout'
+                          ? 'bg-red-50 text-red-500'
+                          : 'bg-orange-500 text-white'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
