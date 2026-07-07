@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PSG iTech Alumni — Every Alumnus, One Legacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              navy: {
+                DEFAULT: "#0f1c40",
+                50: "#eef0f7",
+                100: "#d7dcec",
+                400: "#3a4a83",
+                600: "#1c2b5e",
+                700: "#141f4a",
+                800: "#101a3d",
+                900: "#0a1230",
+              },
+              maroon: {
+                DEFAULT: "#a3272e",
+                50: "#fbebe9",
+                400: "#c23a3f",
+                600: "#8f2129",
+                700: "#711a20",
+              },
+              gold: {
+                DEFAULT: "#c9a227",
+                100: "#f6ecc9",
+                400: "#d9b545",
+                600: "#a9821a",
+              },
+              cream: "#faf6ee",
+              paper: "#fffdf8",
+            },
+            fontFamily: {
+              display: ["Fraunces", "serif"],
+              body: ["Manrope", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Manrope", sans-serif;
+        background: #faf6ee;
+      }
+      .font-display {
+        font-family: "Fraunces", "serif";
+      }
+      .grain {
+        position: relative;
+      }
+      .grain::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.05;
+        mix-blend-mode: multiply;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      .shield-notch {
+        clip-path: polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%);
+      }
+      .diag {
+        clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1ece0;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c7bb9d;
+        border-radius: 8px;
+      }
+      .fade-up {
+        animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .stagger > * {
+        animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+      .stagger > *:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .stagger > *:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .stagger > *:nth-child(3) {
+        animation-delay: 0.25s;
+      }
+      .stagger > *:nth-child(4) {
+        animation-delay: 0.35s;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .fade-up,
+        .stagger > * {
+          animation: none;
+        }
+      }
+      .card-hover {
+        transition:
+          transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+          box-shadow 0.35s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 48px -18px rgba(15, 28, 64, 0.28);
+      }
+      .marquee-track {
+        animation: marquee 28s linear infinite;
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .stripe-underline {
+        position: relative;
+        display: inline-block;
+      }
+      .stripe-underline::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.06em;
+        height: 0.28em;
+        background: #c9a227;
+        z-index: -1;
+        opacity: 0.55;
+      }
+    </style>
+  </head>
+  <body class="text-navy-800 antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
