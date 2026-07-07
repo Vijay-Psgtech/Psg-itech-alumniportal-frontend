@@ -6,6 +6,12 @@ import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
 
 const Home = lazy(() => import("./Pages/Home"));
+const AboutPage = lazy(() => import("./Pages/Aboutpage"));
+const EventsPage = lazy(() => import("./Pages/Eventspage"));
+const EventDetailPage = lazy(() => import("./Pages/Eventdetailpage"));
+const FeedPage = lazy(() => import("./Pages/Feedpage"));
+const FeedDetailPage = lazy(() => import("./Pages/Feeddetailpage"));
+const GalleryPage = lazy(() => import("./Pages/Gallerypage"));
 
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
@@ -31,6 +37,12 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/events/:slug" element={<EventDetailPage />} />
+        <Route path="/feed" element={<FeedPage />} />
+        <Route path="/feed/:slug" element={<FeedDetailPage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
       </Routes>
     </AnimatePresence>
   )
