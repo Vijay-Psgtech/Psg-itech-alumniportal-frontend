@@ -13,6 +13,8 @@ const FeedPage = lazy(() => import("./Pages/Feedpage"));
 const FeedDetailPage = lazy(() => import("./Pages/Feeddetailpage"));
 const GalleryPage = lazy(() => import("./Pages/Gallerypage"));
 
+const AlumniRegistration = lazy(() => import("./Pages/alumni/AlumniRegistration"));
+
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
 function ScrollProgressBar() {
@@ -43,6 +45,10 @@ function AnimatedRoutes() {
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:slug" element={<FeedDetailPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
+        
+        {/* Alumni Routes */}
+        <Route path="/alumni/register" element={<AlumniRegistration />} />
+
       </Routes>
     </AnimatePresence>
   )
