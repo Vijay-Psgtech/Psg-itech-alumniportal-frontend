@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
+import ScrolltoTop from './components/ScrolltoTop';
 
 const Home = lazy(() => import("./Pages/Home"));
 const AboutPage = lazy(() => import("./Pages/Aboutpage"));
@@ -63,6 +64,7 @@ export default function App() {
         <div className="text-slate-900 antialiased">
           <ScrollProgressBar />
           <Navbar />
+          <ScrolltoTop />
           <AnimatedRoutes />
           <Footer />
         </div>
