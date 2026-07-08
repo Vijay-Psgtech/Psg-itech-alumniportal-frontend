@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
+import ScrolltoTop from './components/ScrolltoTop';
 
 const Home = lazy(() => import("./Pages/Home"));
 const AboutPage = lazy(() => import("./Pages/Aboutpage"));
@@ -15,6 +16,7 @@ const GalleryPage = lazy(() => import("./Pages/Gallerypage"));
 
 const AlumniRegistration = lazy(() => import("./Pages/alumni/AlumniRegistration"));
 const AlumniLogin = lazy(() => import("./Pages/alumni/AlumniLogin"));
+const AlumniChapters = lazy(() => import("./Pages/alumni/AlumniChapters"));
 
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
@@ -50,6 +52,7 @@ function AnimatedRoutes() {
         {/* Alumni Routes */}
         <Route path="/alumni/register" element={<AlumniRegistration />} />
         <Route path="/alumni/login" element={<AlumniLogin />} />
+        <Route path="/alumni/chapters" element={<AlumniChapters />} />
 
       </Routes>
     </AnimatePresence>
@@ -63,6 +66,7 @@ export default function App() {
         <div className="text-slate-900 antialiased">
           <ScrollProgressBar />
           <Navbar />
+          <ScrolltoTop />
           <AnimatedRoutes />
           <Footer />
         </div>
