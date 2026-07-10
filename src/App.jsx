@@ -14,6 +14,7 @@ const FeedPage = lazy(() => import("./Pages/Feedpage"));
 const FeedDetailPage = lazy(() => import("./Pages/Feeddetailpage"));
 const GalleryPage = lazy(() => import("./Pages/Gallerypage"));
 
+const AlumniDashboard = lazy(() => import("./Pages/alumni/AlumniDashboard"));
 const AlumniRegistration = lazy(() => import("./Pages/alumni/AlumniRegistration"));
 const AlumniLogin = lazy(() => import("./Pages/alumni/AlumniLogin"));
 const AlumniChapters = lazy(() => import("./Pages/alumni/AlumniChapters"));
@@ -23,6 +24,9 @@ const AlumniMap = lazy(() => import("./Pages/alumni/AlumniMap"));
 const CampaignsPage = lazy(() => import("./Pages/alumni/CampaignsPage"));
 const CampaignFormPage = lazy(() => import("./Pages/alumni/CampaignFormPage"));
 const AlumniDonations = lazy(() => import("./Pages/alumni/AlumniDonations"));
+const SendNotification = lazy(() => import("./Pages/alumni/SendNotification"));
+const NotificationInbox = lazy(() => import("./Pages/alumni/NotificationInbox"));
+const ForgotPassword = lazy(() => import("./Pages/alumni/ForgotPassword"));
 
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
@@ -56,6 +60,7 @@ function AnimatedRoutes() {
         <Route path="/gallery" element={<GalleryPage />} />
 
         {/* Alumni Routes */}
+        <Route path="/alumni/dashboard" element={<AlumniDashboard />} />
         <Route path="/alumni/register" element={<AlumniRegistration />} />
         <Route path="/alumni/login" element={<AlumniLogin />} />
         <Route path="/alumni/chapters" element={<AlumniChapters />} />
@@ -65,6 +70,9 @@ function AnimatedRoutes() {
         <Route path="/campaigns" element={<CampaignsPage />} />
         <Route path="/campaigns/:campaignId" element={<CampaignFormPage />} />
         <Route path="/alumni/donations" element={<AlumniDonations />} />
+        <Route path="/alumni/notifications/new" element={<SendNotification />} />
+        <Route path="/alumni/notifications" element={<NotificationInbox />} />
+        <Route path="/alumni/forgot-password" element={<ForgotPassword />} />
 
       </Routes>
     </AnimatePresence>
