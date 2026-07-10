@@ -25,6 +25,7 @@ const CampaignFormPage = lazy(() => import("./Pages/alumni/CampaignFormPage"));
 const AlumniDonations = lazy(() => import("./Pages/alumni/AlumniDonations"));
 const SendNotification = lazy(() => import("./Pages/alumni/SendNotification"));
 const NotificationInbox = lazy(() => import("./Pages/alumni/NotificationInbox"));
+const ForgotPassword = lazy(() => import("./Pages/alumni/ForgotPassword"));
 
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
@@ -69,6 +70,7 @@ function AnimatedRoutes() {
         <Route path="/alumni/donations" element={<AlumniDonations />} />
         <Route path="/alumni/notifications/new" element={<SendNotification />} />
         <Route path="/alumni/notifications" element={<NotificationInbox />} />
+        <Route path="/alumni/forgot-password" element={<ForgotPassword />} />
 
       </Routes>
     </AnimatePresence>
