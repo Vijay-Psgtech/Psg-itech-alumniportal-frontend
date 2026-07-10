@@ -17,6 +17,7 @@ const GalleryPage = lazy(() => import("./Pages/Gallerypage"));
 const AlumniRegistration = lazy(() => import("./Pages/alumni/AlumniRegistration"));
 const AlumniLogin = lazy(() => import("./Pages/alumni/AlumniLogin"));
 const AlumniChapters = lazy(() => import("./Pages/alumni/AlumniChapters"));
+const AlumniDirectory = lazy(() => import("./Pages/alumni/AlumniDirectory"));
 const CampaignsPage = lazy(() => import("./Pages/alumni/CampaignsPage"));
 const CampaignFormPage = lazy(() => import("./Pages/alumni/CampaignFormPage"));
 
@@ -55,6 +56,7 @@ function AnimatedRoutes() {
         <Route path="/alumni/register" element={<AlumniRegistration />} />
         <Route path="/alumni/login" element={<AlumniLogin />} />
         <Route path="/alumni/chapters" element={<AlumniChapters />} />
+        <Route path="/alumni/directory" element={<AlumniDirectory />} />
         <Route path="/campaigns" element={<CampaignsPage />} />
         <Route path="/campaigns/:campaignId" element={<CampaignFormPage />} />
 
