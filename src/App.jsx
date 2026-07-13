@@ -31,6 +31,10 @@ const ForgotPassword = lazy(() => import("./Pages/alumni/ForgotPassword"));
 const AdminLogin = lazy(() => import("./Pages/admin/AdminLogin"));
 const AdminEvents = lazy(() => import("./Pages/admin/AdminEvents"));
 const AdminNewsLetter = lazy(() => import("./Pages/admin/AdminNewsletter"));
+const AdminDashboard = lazy(() => import("./Pages/admin/AdminDashboard"));
+const AlumniUsersList = lazy(() => import("./Pages/admin/AlumniUsersList"));
+const AdminNotifications = lazy(() => import("./Pages/admin/AdminNotifications"));
+const AdminReports = lazy(() => import("./Pages/admin/AdminReports"));
 
 // Thin progress bar pinned under the navbar, filled by scroll position.
 // useSpring smooths the raw scroll value so it glides instead of jittering.
@@ -82,6 +86,10 @@ function AnimatedRoutes() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/events" element={<AdminEvents />} />
         <Route path="/admin/newsletter" element={<AdminNewsLetter />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/alumni" element={<AlumniUsersList />} />
+        <Route path="/admin/notifications" element={<AdminNotifications />} />
+        <Route path="/admin/reports" element={<AdminReports />} />
 
       </Routes>
     </AnimatePresence>
