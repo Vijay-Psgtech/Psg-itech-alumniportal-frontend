@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
 import ScrolltoTop from './components/ScrolltoTop';
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 const Home = lazy(() => import("./Pages/Home"));
 const AboutPage = lazy(() => import("./Pages/Aboutpage"));
 const EventsPage = lazy(() => import("./Pages/Eventspage"));
@@ -68,18 +70,18 @@ function AnimatedRoutes() {
         <Route path="/gallery" element={<GalleryPage />} />
 
         {/* Alumni Routes */}
-        <Route path="/alumni/dashboard" element={<AlumniDashboard />} />
+        <Route path="/alumni/dashboard" element={<ProtectedRoute><AlumniDashboard /></ProtectedRoute>} />
         <Route path="/alumni/register" element={<AlumniRegistration />} />
         <Route path="/alumni/login" element={<AlumniLogin />} />
         <Route path="/alumni/chapters" element={<AlumniChapters />} />
-        <Route path="/alumni/directory" element={<AlumniDirectory />} />
-        <Route path="/alumni/profile/" element={<AlumniProfile />} />
-        <Route path="/alumni/map" element={<AlumniMap />} />
+        <Route path="/alumni/directory" element={<ProtectedRoute><AlumniDirectory /></ProtectedRoute>} />
+        <Route path="/alumni/profile/" element={<ProtectedRoute><AlumniProfile /></ProtectedRoute>} />
+        <Route path="/alumni/map" element={<ProtectedRoute><AlumniMap /></ProtectedRoute>} />
         <Route path="/campaigns" element={<CampaignsPage />} />
         <Route path="/campaigns/:campaignId" element={<CampaignFormPage />} />
-        <Route path="/alumni/donations" element={<AlumniDonations />} />
+        <Route path="/alumni/donations" element={<ProtectedRoute><AlumniDonations /></ProtectedRoute>} />
         <Route path="/alumni/notifications/new" element={<SendNotification />} />
-        <Route path="/alumni/notifications" element={<NotificationInbox />} />
+        <Route path="/alumni/notifications" element={<ProtectedRoute><NotificationInbox /></ProtectedRoute>} />
         <Route path="/alumni/forgot-password" element={<ForgotPassword />} />
 
         {/* Admin Routes */}
