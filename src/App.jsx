@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import ScrolltoTop from './components/ScrolltoTop';
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 const Home = lazy(() => import("./Pages/Home"));
 const AboutPage = lazy(() => import("./Pages/Aboutpage"));
@@ -86,12 +87,12 @@ function AnimatedRoutes() {
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/events" element={<AdminEvents />} />
+        <Route path="/admin/events" element={<ProtectedAdminRoute><AdminEvents /></ProtectedAdminRoute>} />
         <Route path="/admin/newsletter" element={<AdminNewsLetter />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/alumni" element={<AlumniUsersList />} />
-        <Route path="/admin/notifications" element={<AdminNotifications />} />
-        <Route path="/admin/reports" element={<AdminReports />} />
+        <Route path="/admin/dashboard" element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>} />
+        <Route path="/admin/alumni" element={<ProtectedAdminRoute><AlumniUsersList /></ProtectedAdminRoute>} />
+        <Route path="/admin/notifications" element={<ProtectedAdminRoute><AdminNotifications /></ProtectedAdminRoute>} />
+        <Route path="/admin/reports" element={<ProtectedAdminRoute><AdminReports /></ProtectedAdminRoute>} />
 
       </Routes>
     </AnimatePresence>
