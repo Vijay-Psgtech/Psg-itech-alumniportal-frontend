@@ -160,7 +160,7 @@ const AlumniUsersList = () => {
       setPageData({
         totalAlumni: res.data.totalAlumni || 0,
         totalPages: res.data.totalPages || 1,
-        currentPage: res.data.currentPage || 1,
+        currentPage: res.data.currentPage || 1, 
       });
     } catch (error) {
       console.error("Approve error:", error);
@@ -179,7 +179,7 @@ const AlumniUsersList = () => {
           />
           <p className="text-gray-600 font-medium">Loading alumni users...</p>
         </div>
-      </div>
+      </div> 
     );
   }
 
@@ -296,7 +296,7 @@ const AlumniUsersList = () => {
               className="w-full py-3 px-4 pl-10 border border-slate-200 rounded-xl text-sm outline-none bg-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all"
             />
           </div>
-
+ 
           {/* Filters and View Toggle */}
           <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
             <div className="flex bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
@@ -536,12 +536,12 @@ const AlumniUsersList = () => {
                     </div>
 
                     {alumni.linkedin && (
-                      <a
-                        href={alumni.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm text-orange-600 hover:text-orange-800"
-                      >
+                        <a 
+                          href={alumni.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-sm text-orange-600 hover:text-orange-800"
+                        >
                         <Linkedin size={14} />
                         LinkedIn Profile
                       </a>

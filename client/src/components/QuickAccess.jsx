@@ -1,11 +1,12 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../motion'
+import { alumniAPI } from '../services/api'
 
-const cards = [
+const baseCards = [
   {
     index: '01',
     title: 'Alumni in your city',
-    desc: 'Find alumni living nearby and build your local circle.',
     cta: 'Alumni in my city',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -17,7 +18,6 @@ const cards = [
   {
     index: '02',
     title: 'Your batchmates',
-    desc: 'See where your exclusive batch is today, all in one place.',
     cta: 'My batchmates',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -29,7 +29,6 @@ const cards = [
   {
     index: '03',
     title: 'Alumni directory',
-    desc: 'Explore the full directory and connect by interest or domain.',
     cta: 'View directory',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -41,7 +40,6 @@ const cards = [
   {
     index: '04',
     title: 'Your alumni profile',
-    desc: 'Complete your profile and stay matched with opportunities.',
     cta: 'My profile',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -52,8 +50,11 @@ const cards = [
   },
 ]
 
-// Slow-drifting blob used behind the card grid. Pure transform/opacity so it
-// stays cheap to animate.
+const formatCount = (value) => {
+  const num = Number(value || 0)
+  return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(num)
+}
+
 function Blob({ className, size, duration, delay = 0, path }) {
   return (
     <motion.div
@@ -76,6 +77,42 @@ function Blob({ className, size, duration, delay = 0, path }) {
 }
 
 export default function QuickAccess() {
+  const [stats, setStats] = useState({ totalAlumni: 8500, batchStats: 12, countryStats: 45 })
+
+  useEffect(() => {
+    let isMounted = true
+    alumniAPI.getStats()
+      .then((response) => {
+        if (!isMounted) return
+        const payload = response?.data?.data || response?.data || response
+        const statsData = payload?.success ? payload.data : payload
+        if (statsData) {
+          setStats({
+            totalAlumni: statsData.totalAlumni || stats.totalAlumni,
+            batchStats: statsData.batchStats || stats.batchStats,
+            countryStats: statsData.countryStats || stats.countryStats,
+          })
+        }
+      })
+      .catch(() => {})
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  const cards = baseCards.map((card, index) => ({
+    ...card,
+    desc:
+      index === 0
+        ? `Meet more than ${formatCount(stats.totalAlumni)} alumni who are already connected across the network.`
+        : index === 1
+          ? `Browse alumni from ${formatCount(stats.batchStats)} batches and find the right connection.`
+          : index === 2
+            ? `Explore the directory of ${formatCount(stats.totalAlumni)} alumni by department, city and country.`
+            : `Complete your profile and stay visible to mentors and recruiters across ${formatCount(stats.countryStats)} countries.`,
+  }))
+
   return (
     <section className="relative -mt-16 z-10 max-w-7xl mx-auto px-6 lg:px-10">
       {/* ambient background layer */}

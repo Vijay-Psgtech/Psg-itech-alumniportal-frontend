@@ -1,32 +1,49 @@
-import { Link, useParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { fadeUp, staggerContainer, viewport } from '../../motion'
+import { Link, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { fadeUp, staggerContainer, viewport } from "../../motion";
 
-import { feedPosts } from '../data/feed'
-import bannerImage from '../../assets/t1725016098_OVsmN6OAPi.jpg'
+import { feedPosts } from "../data/feed";
+import bannerImage from "../../assets/t1725016098_OVsmN6OAPi.jpg";
 
 function EyeIcon(props) {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" {...props}>
-      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
       <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.6" />
     </svg>
-  )
+  );
 }
 
 function CalendarIcon(props) {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" {...props}>
-      <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <rect
+        x="3"
+        y="5"
+        width="18"
+        height="16"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M3 10h18M8 3v4M16 3v4"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
-  )
+  );
 }
 
 const shareChannels = [
   {
-    label: 'Facebook',
-    color: 'bg-[#1877F2]',
+    label: "Facebook",
+    color: "bg-[#1877F2]",
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
         <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.25-1.5 1.55-1.5H17V3.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.6v3.1h2.7v8h3.2Z" />
@@ -34,8 +51,8 @@ const shareChannels = [
     ),
   },
   {
-    label: 'WhatsApp',
-    color: 'bg-[#25D366]',
+    label: "WhatsApp",
+    color: "bg-[#25D366]",
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
         <path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Zm0 16.3a7.3 7.3 0 0 1-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.3 7.3 0 1 1 12 19.3Z" />
@@ -43,25 +60,29 @@ const shareChannels = [
     ),
   },
   {
-    label: 'LinkedIn',
-    color: 'bg-[#0A66C2]',
+    label: "LinkedIn",
+    color: "bg-[#0A66C2]",
     icon: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
         <path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5ZM3 21h4V9H3v12ZM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.7c0-1.35-.02-3.1-1.9-3.1-1.9 0-2.2 1.48-2.2 3v5.8H9V9Z" />
       </svg>
     ),
   },
-]
+];
 
 export default function FeedDetailPage() {
-  const { slug } = useParams()
-  const post = feedPosts.find((p) => p.slug === slug)
+  const { slug } = useParams();
+  const post = feedPosts.find((p) => p.slug === slug);
 
   if (!post) {
     return (
       <div className="bg-slate-50 min-h-screen pt-32 pb-24 text-center">
-        <p className="font-display text-2xl font-semibold text-slate-900">Post not found</p>
-        <p className="text-slate-500 mt-2">This post may have been removed or the link is incorrect.</p>
+        <p className="font-display text-2xl font-semibold text-slate-900">
+          Post not found
+        </p>
+        <p className="text-slate-500 mt-2">
+          This post may have been removed or the link is incorrect.
+        </p>
         <Link
           to="/feed"
           className="inline-flex mt-6 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
@@ -69,10 +90,10 @@ export default function FeedDetailPage() {
           Back to NewsCorner
         </Link>
       </div>
-    )
+    );
   }
 
-  const morePosts = feedPosts.filter((p) => p.slug !== post.slug).slice(0, 3)
+  const morePosts = feedPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
     <div className="bg-slate-50 min-h-screen pt-24">
@@ -83,7 +104,13 @@ export default function FeedDetailPage() {
             className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-orange-600 transition-colors"
           >
             <svg width="14" height="10" viewBox="0 0 16 12" fill="none">
-              <path d="M1 6h14M1 6l5-5M1 6l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M1 6h14M1 6l5-5M1 6l5 5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             Go Back
           </Link>
@@ -103,7 +130,11 @@ export default function FeedDetailPage() {
           transition={{ delay: 0.08 }}
           className="mt-8 rounded-2xl overflow-hidden bg-slate-100"
         >
-          <img src={bannerImage} alt={post.title} className="w-full max-h-[560px] object-cover" />
+          <img
+            src={bannerImage}
+            alt={post.title}
+            className="w-full max-h-[560px] object-cover"
+          />
         </motion.div>
 
         <motion.div
@@ -115,10 +146,10 @@ export default function FeedDetailPage() {
         >
           <div className="w-10 h-10 rounded-full bg-orange-50 grid place-items-center font-display font-semibold text-orange-500 text-sm shrink-0">
             {post.author
-              .split(' ')
+              .split(" ")
               .map((w) => w[0])
               .slice(0, 2)
-              .join('')}
+              .join("")}
           </div>
           <p className="font-medium text-slate-900 text-sm">{post.author}</p>
         </motion.div>
@@ -130,7 +161,11 @@ export default function FeedDetailPage() {
           className="flex flex-col gap-5 py-8"
         >
           {post.content.map((p, i) => (
-            <motion.p key={i} variants={fadeUp} className="text-slate-600 leading-relaxed">
+            <motion.p
+              key={i}
+              variants={fadeUp}
+              className="text-slate-600 leading-relaxed"
+            >
               {p}
             </motion.p>
           ))}
@@ -169,7 +204,8 @@ export default function FeedDetailPage() {
             </span>
           </div>
           <p>
-            Posted by <span className="text-slate-600 font-medium">{post.postedBy}</span>
+            Posted by{" "}
+            <span className="text-slate-600 font-medium">{post.postedBy}</span>
           </p>
         </div>
 
@@ -199,7 +235,9 @@ export default function FeedDetailPage() {
         {/* More posts */}
         {morePosts.length > 0 && (
           <div className="mt-14 pt-10 border-t border-slate-200">
-            <h2 className="font-display text-lg font-semibold text-slate-900 mb-5">More from NewsCorner</h2>
+            <h2 className="font-display text-lg font-semibold text-slate-900 mb-5">
+              More from NewsCorner
+            </h2>
             <div className="flex flex-col gap-4">
               {morePosts.map((p) => (
                 <Link
@@ -208,10 +246,16 @@ export default function FeedDetailPage() {
                   className="group flex items-center gap-4 bg-white border border-slate-100 rounded-xl p-3 hover:border-orange-300 transition-colors"
                 >
                   <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-slate-100">
-                    <img src={bannerImage} alt={p.title} className="w-full h-full object-cover" />
+                    <img
+                      src={bannerImage}
+                      alt={p.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs text-orange-500 font-medium">{p.category}</p>
+                    <p className="text-xs text-orange-500 font-medium">
+                      {p.category}
+                    </p>
                     <p className="text-sm font-medium text-slate-900 group-hover:text-orange-600 transition-colors leading-snug truncate">
                       {p.title}
                     </p>
@@ -223,5 +267,5 @@ export default function FeedDetailPage() {
         )}
       </div>
     </div>
-  )
+  );
 }

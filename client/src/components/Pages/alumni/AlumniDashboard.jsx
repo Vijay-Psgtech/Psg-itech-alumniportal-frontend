@@ -128,7 +128,7 @@ const AlumniDashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const [stats, setStats] = useState([]);
+  const [stats, setStats] = useState({});
   const [showSendModal, setShowSendModal] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -143,7 +143,7 @@ const AlumniDashboard = () => {
   const STATS = [
     {
       label: "Alumni Network",
-      value: formatNumber(stats.totalAlumni), 
+      value: formatNumber(stats.totalAlumni),
       icon: GraduationCap,
       color: "text-orange-600",
       bg: "bg-orange-50",
@@ -172,10 +172,23 @@ const AlumniDashboard = () => {
   ];
 
   useEffect(() => {
+    let isMounted = true
     alumniAPI
       .getStats()
-      .then((r) => setStats(r.data.data))
-      .catch(() => setStats([]));
+      .then((r) => {
+        if (!isMounted) return
+        // Handle both { data: { data: {...} } } and { data: {...} } response shapes,
+        // and never let stats become undefined — that's what crashes STATS above.
+        const payload = r?.data?.data ?? r?.data ?? {}
+        setStats(payload && typeof payload === "object" ? payload : {})
+      })
+      .catch(() => {
+        if (isMounted) setStats({})
+      });
+
+    return () => {
+      isMounted = false
+    }
   }, []);
 
   /* --- Notification Count ---- */

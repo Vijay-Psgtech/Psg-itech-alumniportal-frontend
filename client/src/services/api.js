@@ -97,6 +97,14 @@ export const authAPI = makeApi({
   socialLogin: (payload) => request('/auth/social-login', { method: 'POST', body: payload }),
 })
 
+export const bannerAPI = makeApi({
+  getActive: () => request('/banners/active', { method: 'GET' }),
+})
+
+export const notificationScrollAPI = makeApi({
+  getActive: () => request('/notification-scrolls/active', { method: 'GET' }),
+})
+
 export const adminAPI = makeApi({
   getStats: () => request('/admin/dashboard/stats', { method: 'GET' }),
   getAllAlumni: (params = {}) => request(withQuery('/admin/dashboard/alumni/all', params), { method: 'GET' }),

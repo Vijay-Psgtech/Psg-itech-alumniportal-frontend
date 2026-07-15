@@ -1,45 +1,94 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { fadeUp, fadeIn, staggerContainer, viewport } from '../../motion'
-import bannerImage from '../../assets/t1725016098_OVsmN6OAPi.jpg'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { fadeUp, fadeIn, staggerContainer, viewport } from "../../motion";
+import bannerImage from "../../assets/t1725016098_OVsmN6OAPi.jpg";
 
 const team = [
-  { initials: 'NK', name: 'Navaneetha Krishnan', role: 'President', batch: 'Class of 2018' },
-  { initials: 'HK', name: 'Hariharan K', role: 'Vice-President', batch: 'Class of 2019' },
-  { initials: 'VJ', name: 'Vijay Jayaram', role: 'Secretary', batch: 'Class of 2018' },
-  { initials: 'SS', name: 'Shivanginadia S', role: 'Treasurer', batch: 'Class of 2018' },
-  { initials: 'KS', name: 'Karthik S', role: 'Joint-Secretary', batch: 'Class of 2018' },
-  { initials: 'BA', name: 'Bharath Arun P', role: 'Joint-Secretary', batch: 'Class of 2018' },
-  { initials: 'SP', name: 'Samyuktha Priyadharshini', role: 'Joint-Secretary', batch: 'Class of 2019' },
-  { initials: 'ST', name: 'Srinidhi Thangam S', role: 'Joint-Secretary', batch: 'Class of 2019' },
-]
+  {
+    initials: "NK",
+    name: "Navaneetha Krishnan",
+    role: "President",
+    batch: "Class of 2018",
+  },
+  {
+    initials: "HK",
+    name: "Hariharan K",
+    role: "Vice-President",
+    batch: "Class of 2019",
+  },
+  {
+    initials: "VJ",
+    name: "Vijay Jayaram",
+    role: "Secretary",
+    batch: "Class of 2018",
+  },
+  {
+    initials: "SS",
+    name: "Shivanginadia S",
+    role: "Treasurer",
+    batch: "Class of 2018",
+  },
+  {
+    initials: "KS",
+    name: "Karthik S",
+    role: "Joint-Secretary",
+    batch: "Class of 2018",
+  },
+  {
+    initials: "BA",
+    name: "Bharath Arun P",
+    role: "Joint-Secretary",
+    batch: "Class of 2018",
+  },
+  {
+    initials: "SP",
+    name: "Samyuktha Priyadharshini",
+    role: "Joint-Secretary",
+    batch: "Class of 2019",
+  },
+  {
+    initials: "ST",
+    name: "Srinidhi Thangam S",
+    role: "Joint-Secretary",
+    batch: "Class of 2019",
+  },
+];
 
 const aboutParagraphs = [
-  'PSG Institute of Technology and Applied Research (PSG iTech) has emerged as one of the most preferred institutions for engineering aspirants in our country. PSG iTech is renowned for its commitment towards the teaching-learning process for the effective transfer of knowledge, pursuit of truth, and moulding students to become ideal citizens of the country.',
-  'PSG iTech Alumni Association is established with the support of PSG Management to re-connect alumni with their fellow alumni, institutes, and students on campus; to engage through various activities among all stakeholders; and to create impact through social and academic initiatives for collective development. The Association is registered under the Tamil Nadu Societies Act 1975, Coimbatore, India.',
-  'The alumni association carries out numerous activities with the support of Management, Principal, and faculty members of PSG iTech. We represent about 2,000+ PSG iTech alumni across chapters spread around the globe, joining hands to make PSG iTech a world-class institution.',
-  'The association provides financial support to underprivileged students through scholarships. PSG iTech is proud of its distinguished and talented alumni who have made outstanding contributions to the betterment of the institute and society.',
-]
+  "PSG Institute of Technology and Applied Research (PSG iTech) has emerged as one of the most preferred institutions for engineering aspirants in our country. PSG iTech is renowned for its commitment towards the teaching-learning process for the effective transfer of knowledge, pursuit of truth, and moulding students to become ideal citizens of the country.",
+  "PSG iTech Alumni Association is established with the support of PSG Management to re-connect alumni with their fellow alumni, institutes, and students on campus; to engage through various activities among all stakeholders; and to create impact through social and academic initiatives for collective development. The Association is registered under the Tamil Nadu Societies Act 1975, Coimbatore, India.",
+  "The alumni association carries out numerous activities with the support of Management, Principal, and faculty members of PSG iTech. We represent about 2,000+ PSG iTech alumni across chapters spread around the globe, joining hands to make PSG iTech a world-class institution.",
+  "The association provides financial support to underprivileged students through scholarships. PSG iTech is proud of its distinguished and talented alumni who have made outstanding contributions to the betterment of the institute and society.",
+];
 
 export default function AboutPage() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
-  const [sent, setSent] = useState(false)
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [sent, setSent] = useState(false);
 
   const handleChange = (e) => {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
-  }
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setSent(true)
-  }
+    e.preventDefault();
+    setSent(true);
+  };
 
   return (
     <div className="bg-white">
       {/* Page header */}
       <section className="relative overflow-hidden bg-slate-900">
         <div className="absolute inset-0">
-          <img src={bannerImage} alt="" className="w-full h-full object-cover" />
+          <img
+            src={bannerImage}
+            alt=""
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-slate-900/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-20 lg:pt-24 lg:pb-24">
@@ -95,15 +144,21 @@ export default function AboutPage() {
             </div>
             <div className="mt-8 flex gap-8 border-t border-slate-100 pt-6">
               <div>
-                <p className="font-display text-2xl font-semibold text-slate-900">2013</p>
+                <p className="font-display text-2xl font-semibold text-slate-900">
+                  2013
+                </p>
                 <p className="text-xs text-slate-400 mt-1">Founding year</p>
               </div>
               <div>
-                <p className="font-display text-2xl font-semibold text-slate-900">2,000+</p>
+                <p className="font-display text-2xl font-semibold text-slate-900">
+                  2,000+
+                </p>
                 <p className="text-xs text-slate-400 mt-1">Registered alumni</p>
               </div>
               <div>
-                <p className="font-display text-2xl font-semibold text-slate-900">TN Act</p>
+                <p className="font-display text-2xl font-semibold text-slate-900">
+                  TN Act
+                </p>
                 <p className="text-xs text-slate-400 mt-1">1975 registered</p>
               </div>
             </div>
@@ -125,7 +180,10 @@ export default function AboutPage() {
                 {p}
               </motion.p>
             ))}
-            <motion.p variants={fadeUp} className="text-slate-900 font-medium pl-6 border-l-2 border-orange-500">
+            <motion.p
+              variants={fadeUp}
+              className="text-slate-900 font-medium pl-6 border-l-2 border-orange-500"
+            >
               We encourage you to communicate with fellow alumni on this forum
               and discover possibilities for giving back to your alma mater.
             </motion.p>
@@ -219,7 +277,9 @@ export default function AboutPage() {
               className="lg:col-span-4 flex flex-col gap-6"
             >
               <div className="bg-white/5 border border-white/10 rounded-2xl p-7">
-                <h3 className="font-display text-white font-semibold mb-4">Contact info</h3>
+                <h3 className="font-display text-white font-semibold mb-4">
+                  Contact info
+                </h3>
                 <div className="text-white/60 text-sm leading-relaxed space-y-0.5">
                   <p>PSG iTech Alumni Association</p>
                   <p>PSG Institute of Technology and Applied Research</p>
@@ -232,7 +292,7 @@ export default function AboutPage() {
                   <p>psgitech.ac.in</p>
                 </div>
                 <div className="mt-6 flex items-center gap-3">
-                  {['facebook', 'linkedin', 'instagram'].map((s) => (
+                  {["facebook", "linkedin", "instagram"].map((s) => (
                     <span
                       key={s}
                       className="w-9 h-9 rounded-full border border-white/15 grid place-items-center text-white/60 hover:text-orange-400 hover:border-orange-400 transition-colors text-[11px] uppercase"
@@ -247,7 +307,9 @@ export default function AboutPage() {
                 onSubmit={handleSubmit}
                 className="bg-white/5 border border-white/10 rounded-2xl p-7 flex flex-col gap-4"
               >
-                <h3 className="font-display text-white font-semibold mb-1">Reach out</h3>
+                <h3 className="font-display text-white font-semibold mb-1">
+                  Reach out
+                </h3>
                 <div>
                   <label className="text-xs text-white/50 mb-1.5 block">
                     Your name <span className="text-orange-400">*</span>
@@ -276,7 +338,9 @@ export default function AboutPage() {
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-white/50 mb-1.5 block">Phone no.</label>
+                  <label className="text-xs text-white/50 mb-1.5 block">
+                    Phone no.
+                  </label>
                   <input
                     name="phone"
                     value={form.phone}
@@ -339,5 +403,5 @@ export default function AboutPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

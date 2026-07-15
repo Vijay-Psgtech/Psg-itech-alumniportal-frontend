@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AlertCircle, Eye, EyeOff, Lock } from "lucide-react";
 import { authAPI } from "../../services/api";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 import usePageTitle from "../../hooks/usePageTitle";
 
 const AdminLogin = () => {
   usePageTitle("Admin Login");
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");  
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -107,7 +107,7 @@ const AdminLogin = () => {
         </div>
         {/* Right Panel - Login Form */}
         <div className="w-full md:w-1/2 p-8">
-          <div className="flex flex-col items-center mb-6">
+          <div className="flex flex-col items-center mb-6"> 
             <div className="bg-orange-100 p-3 rounded-full mb-2">
               <Lock className="text-orange-700" size={32} />
             </div>
@@ -140,7 +140,7 @@ const AdminLogin = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 pr-10"
-              />
+              />  
               <span
                 className="absolute right-3 top-2.5 cursor-pointer text-gray-600"
                 onClick={() => setShowPassword(!showPassword)}

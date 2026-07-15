@@ -1,25 +1,25 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../motion'
-
-const news = [
-  {
-    badge: 'Spotlight',
-    date: 'Jul 2, 2026',
-    title: 'Alumni spotlight: Shrihari S, Digital Trust Consultant at KPMG',
-  },
-  {
-    badge: 'Testimonial',
-    date: 'Jul 2, 2026',
-    title: 'Testimonial: Shyam Sudan Thanikachalam',
-  },
-  {
-    badge: 'Testimonial',
-    date: 'Jun 30, 2026',
-    title: 'Testimonial: Abhi C',
-  },
-]
+import { newsLetterAPI } from '../services/api'
 
 export default function News() {
+  const [news, setNews] = useState([])
+
+  useEffect(() => {
+    let isMounted = true
+    newsLetterAPI.getAll()
+      .then((response) => {
+        if (!isMounted) return
+        const payload = Array.isArray(response?.data) ? response.data : response?.data?.data || []
+        setNews(payload.slice(0, 3))
+      })
+      .catch(() => setNews([]))
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
   return (
     <section id="careers" className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-28">
       <motion.div
@@ -49,7 +49,7 @@ export default function News() {
       >
         {news.map((n) => (
           <motion.article
-            key={n.title}
+            key={n._id || n.title}
             variants={fadeUp}
             whileHover={{ y: -6 }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
@@ -68,12 +68,13 @@ export default function News() {
                 </g>
               </svg>
               <span className="absolute top-4 left-4 bg-orange-500 text-white text-[11px] font-medium px-3 py-1.5 rounded-full">
-                {n.badge}
+                {n.category || 'Story'}
               </span>
             </div>
             <div className="p-6">
-              <p className="text-xs font-medium text-orange-500 uppercase tracking-wide mb-2">{n.date}</p>
+              <p className="text-xs font-medium text-orange-500 uppercase tracking-wide mb-2">{n.date || 'Latest update'}</p>
               <h3 className="font-display font-semibold text-lg text-slate-900 leading-snug">{n.title}</h3>
+              <p className="text-sm text-slate-500 mt-3 leading-relaxed">{n.description?.slice(0, 140) || 'Fresh updates from the alumni network.'}</p>
             </div>
           </motion.article>
         ))}

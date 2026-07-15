@@ -1,6 +1,3 @@
-// src/pages/alumni/AlumniDirectory.jsx
-// ✅ Batch-first directory — Admin sees all, Alumni sees own batch full / others limited
-
 import React, {
   useState,
   useEffect,

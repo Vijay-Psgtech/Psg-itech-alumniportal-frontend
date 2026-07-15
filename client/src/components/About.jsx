@@ -1,15 +1,47 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../motion'
 import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import { alumniAPI } from '../services/api'
 
-const stats = [
-  { value: '12+', label: 'Years of legacy' },
-  { value: '8.5K+', label: 'Alumni worldwide' },
-  { value: '45+', label: 'Countries reached' },
-  { value: '98%', label: 'Would recommend' },
-]
+const formatCount = (value) => {
+  const num = Number(value || 0)
+  return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(num)
+}
 
 export default function About() {
+  const [stats, setStats] = useState({ totalAlumni: 8500, batchStats: 12, countryStats: 45, departmentStats: 300 })
+
+  useEffect(() => {
+    let isMounted = true
+    alumniAPI.getStats()
+      .then((response) => {
+        if (!isMounted) return
+        const payload = response?.data?.data || response?.data || response
+        const statsData = payload?.success ? payload.data : payload
+        if (statsData) {
+          setStats({
+            totalAlumni: statsData.totalAlumni || stats.totalAlumni,
+            batchStats: statsData.batchStats || stats.batchStats,
+            countryStats: statsData.countryStats || stats.countryStats,
+            departmentStats: statsData.departmentStats || stats.departmentStats,
+          })
+        }
+      })
+      .catch(() => {})
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  const statCards = [
+    { value: `${formatCount(stats.totalAlumni)}+`, label: 'Alumni worldwide' },
+    { value: `${formatCount(stats.batchStats)}+`, label: 'Batches represented' },
+    { value: `${formatCount(stats.countryStats)}+`, label: 'Countries reached' },
+    { value: `${formatCount(stats.departmentStats)}+`, label: 'Departments connected' },
+  ]
+
   return (
     <section id="about" className="bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-28 grid lg:grid-cols-2 gap-14 items-center relative">
@@ -60,7 +92,7 @@ export default function About() {
           whileInView="show"
           viewport={viewport}
         >
-          {stats.map((s) => (
+          {statCards.map((s) => (
             <motion.div
               key={s.label}
               variants={fadeUp}

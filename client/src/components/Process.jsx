@@ -45,7 +45,7 @@ export default function Process() {
 
         <motion.div
           className="grid sm:grid-cols-3 gap-6"
-          variants={staggerContainer(0.15)}
+          variants={staggerContainer(0.15)}  
           initial="hidden"
           whileInView="show"
           viewport={viewport}

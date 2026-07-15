@@ -61,7 +61,7 @@ function ArrowIcon({ direction = 'right', ...props }) {
       width="22"
       height="22"
       viewBox="0 0 24 24"
-      fill="none"
+      fill="none"  
       className={direction === 'left' ? 'rotate-180' : ''}
       {...props}
     >

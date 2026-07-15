@@ -1,25 +1,48 @@
-import { Link, useParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { fadeUp, staggerContainer, viewport } from '../../motion'
+import { Link, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { fadeUp, staggerContainer, viewport } from "../../motion";
 
-import { events } from '../data/events'
+import { events } from "../data/events";
 
 function CalendarIcon(props) {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" {...props}>
-      <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <rect
+        x="3"
+        y="5"
+        width="18"
+        height="16"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M3 10h18M8 3v4M16 3v4"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
     </svg>
-  )
+  );
 }
 
 function PinIcon(props) {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" {...props}>
-      <path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="12" cy="9.5" r="2.3" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <circle
+        cx="12"
+        cy="9.5"
+        r="2.3"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
     </svg>
-  )
+  );
 }
 
 function ShareIcon(props) {
@@ -28,41 +51,71 @@ function ShareIcon(props) {
       <circle cx="18" cy="5" r="2.4" stroke="currentColor" strokeWidth="1.6" />
       <circle cx="6" cy="12" r="2.4" stroke="currentColor" strokeWidth="1.6" />
       <circle cx="18" cy="19" r="2.4" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M8.1 10.8 15.9 6.2M8.1 13.2l7.8 4.6" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M8.1 10.8 15.9 6.2M8.1 13.2l7.8 4.6"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
     </svg>
-  )
+  );
 }
 
 const categoryIcon = {
   chapter: (
     <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-      <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   ),
   meet: (
     <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
       <circle cx="9" cy="8" r="3" stroke="currentColor" strokeWidth="1.4" />
       <circle cx="17" cy="9" r="2.4" stroke="currentColor" strokeWidth="1.4" />
-      <path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M14.5 15.2c2.6.3 4.5 2 4.5 4.8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path
+        d="M3 20c0-3 2.7-5 6-5s6 2 6 5M14.5 15.2c2.6.3 4.5 2 4.5 4.8"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
     </svg>
   ),
   congress: (
     <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-      <path d="M4 21V10l8-6 8 6v11M4 21h16M9 21v-5h6v5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M12 4v3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path
+        d="M4 21V10l8-6 8 6v11M4 21h16M9 21v-5h6v5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 4v3"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
     </svg>
   ),
-}
+};
 
 export default function EventDetailPage() {
-  const { slug } = useParams()
-  const event = events.find((e) => e.slug === slug)
+  const { slug } = useParams();
+  const event = events.find((e) => e.slug === slug);
 
   if (!event) {
     return (
       <div className="bg-slate-50 min-h-screen pt-32 pb-24 text-center">
-        <p className="font-display text-2xl font-semibold text-slate-900">Event not found</p>
-        <p className="text-slate-500 mt-2">This event may have been removed or the link is incorrect.</p>
+        <p className="font-display text-2xl font-semibold text-slate-900">
+          Event not found
+        </p>
+        <p className="text-slate-500 mt-2">
+          This event may have been removed or the link is incorrect.
+        </p>
         <Link
           to="/events"
           className="inline-flex mt-6 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
@@ -70,10 +123,10 @@ export default function EventDetailPage() {
           Back to Events
         </Link>
       </div>
-    )
+    );
   }
 
-  const otherEvents = events.filter((e) => e.slug !== event.slug).slice(0, 3)
+  const otherEvents = events.filter((e) => e.slug !== event.slug).slice(0, 3);
 
   return (
     <div className="bg-slate-50 min-h-screen">
@@ -87,11 +140,17 @@ export default function EventDetailPage() {
             animate="show"
             className="flex flex-wrap items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-orange-400 mb-5"
           >
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <Link to="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
             <span className="text-white/30">/</span>
-            <Link to="/events" className="hover:text-white transition-colors">Events</Link>
+            <Link to="/events" className="hover:text-white transition-colors">
+              Events
+            </Link>
             <span className="text-white/30">/</span>
-            <span className="text-white/50 normal-case tracking-normal">{event.title}</span>
+            <span className="text-white/50 normal-case tracking-normal">
+              {event.title}
+            </span>
           </motion.p>
 
           <div className="flex items-start gap-5">
@@ -123,7 +182,7 @@ export default function EventDetailPage() {
               >
                 <span className="flex items-center gap-1.5">
                   <CalendarIcon className="text-orange-400" />
-                  {event.date}, {event.time} 
+                  {event.date}, {event.time}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <PinIcon className="text-orange-400" />
@@ -148,7 +207,9 @@ export default function EventDetailPage() {
             viewport={viewport}
             className="lg:col-span-8 flex flex-col gap-5"
           >
-            <p className="text-slate-900 font-medium text-lg leading-relaxed">{event.summary}</p>
+            <p className="text-slate-900 font-medium text-lg leading-relaxed">
+              {event.summary}
+            </p>
             {event.description.map((p, i) => (
               <p key={i} className="text-slate-500 leading-relaxed">
                 {p}
@@ -178,19 +239,27 @@ export default function EventDetailPage() {
               <dl className="flex flex-col gap-4 text-sm">
                 <div>
                   <dt className="text-slate-400">Date &amp; time</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{event.date}, {event.time}</dd>
+                  <dd className="text-slate-900 font-medium mt-0.5">
+                    {event.date}, {event.time}
+                  </dd>
                 </div>
                 <div>
                   <dt className="text-slate-400">Venue</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{event.venue}, {event.city}</dd>
+                  <dd className="text-slate-900 font-medium mt-0.5">
+                    {event.venue}, {event.city}
+                  </dd>
                 </div>
                 <div>
                   <dt className="text-slate-400">Mode</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{event.mode}</dd>
+                  <dd className="text-slate-900 font-medium mt-0.5">
+                    {event.mode}
+                  </dd>
                 </div>
                 <div>
                   <dt className="text-slate-400">Status</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{event.status}</dd>
+                  <dd className="text-slate-900 font-medium mt-0.5">
+                    {event.status}
+                  </dd>
                 </div>
               </dl>
             </div>
@@ -200,7 +269,9 @@ export default function EventDetailPage() {
         {/* More events */}
         {otherEvents.length > 0 && (
           <div className="mt-16 pt-12 border-t border-slate-200">
-            <h2 className="font-display text-xl font-semibold text-slate-900 mb-6">More events</h2>
+            <h2 className="font-display text-xl font-semibold text-slate-900 mb-6">
+              More events
+            </h2>
             <motion.div
               variants={staggerContainer(0.06)}
               initial="hidden"
@@ -231,5 +302,5 @@ export default function EventDetailPage() {
         )}
       </section>
     </div>
-  )
+  );
 }

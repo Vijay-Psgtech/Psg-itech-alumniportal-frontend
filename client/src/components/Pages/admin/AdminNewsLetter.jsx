@@ -69,8 +69,8 @@ const NewsLetterFormModal = ({ initial, onSave, onClose, isLoading }) => {
     return {
       ...initial,
       date: formatDate(initial.date),
-      tags: Array.isArray(initial.tags)
-        ? initial.tags.join(", ")
+      tags: Array.isArray(initial.tags)  
+        ? initial.tags.join(", ") 
         : initial.tags || "",
       imageUrl: initial.imageUrl || null,
       pdfUrl: initial.pdfUrl || null,

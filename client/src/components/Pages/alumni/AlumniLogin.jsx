@@ -5,7 +5,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LogIn, AlertCircle, Eye, EyeOff, Loader } from "lucide-react";
 import { authAPI } from "../../services/api";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";   // ✅ correct
 import usePageTitle from "../../hooks/usePageTitle";
 
 const AlumniLogin = () => {
@@ -322,6 +322,7 @@ const AlumniLogin = () => {
                 <input
                   type="email"
                   name="email"
+                  autoComplete="username"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -343,6 +344,7 @@ const AlumniLogin = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
+                    autoComplete="current-password"
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -421,7 +423,7 @@ const AlumniLogin = () => {
               {/* Google Sign-In Button */}
               <div id="google-signin-button" className="w-full flex justify-center"></div>
 
-              {/* Facebook Login Button */}
+              {/* Facebook Login Button */}  
               <button
                 type="button"
                 onClick={handleFacebookLogin}

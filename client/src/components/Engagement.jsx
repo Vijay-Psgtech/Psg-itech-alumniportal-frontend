@@ -43,7 +43,7 @@ export default function Engagement() {
               whileHover={{ y: -6 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
               className="group relative rounded-2xl overflow-hidden h-80 bg-slate-100"
-            >
+            >  
               <svg
                 viewBox="0 0 300 320"
                 className="absolute inset-0 w-full h-full"
