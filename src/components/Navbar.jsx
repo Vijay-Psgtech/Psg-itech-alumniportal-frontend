@@ -109,55 +109,38 @@ export default function Navbar() {
 
   const accountLinks = isAuthenticated
     ? [
-        { label: 'Alumni Dashboard', to: '/alumni/dashboard' },
-        { label: 'Admin Dashboard', to: '/admin/dashboard' },
-        { label: 'My Profile', to: '/alumni/profile' },
-        { label: 'Logout', action: 'logout' },
-      ]
+      { label: 'Alumni Dashboard', to: '/alumni/dashboard' },
+      { label: 'Admin Dashboard', to: '/admin/dashboard' },
+      { label: 'My Profile', to: '/alumni/profile' },
+      { label: 'Logout', action: 'logout' },
+    ]
     : [
-        { label: 'Alumni Login', to: '/alumni/login' },
-        { label: 'Create Alumni Account', to: '/alumni/register' },
-        { label: 'Admin Login', to: '/admin/login' },
-      ]
+      { label: 'Alumni Login', to: '/alumni/login' },
+      { label: 'Create Alumni Account', to: '/alumni/register' },
+      { label: 'Admin Login', to: '/admin/login' },
+    ]
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        solid ? 'bg-white/90 backdrop-blur shadow-sm shadow-black/[0.03]' : 'bg-transparent'
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur shadow-sm shadow-black/[0.03] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 shrink-0">
           <div
-            className={`w-11 h-11 rounded-full flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-300 ${
-              solid ? 'bg-white shadow-sm shadow-black/5 ring-1 ring-slate-100' : 'bg-white/90 backdrop-blur'
-            }`}
+            className={`w-11 h-11 rounded-full flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-300 ${solid ? 'bg-white shadow-sm shadow-black/5 ring-1 ring-slate-100' : 'bg-white/90 backdrop-blur'
+              }`}
           >
             <img src={logo} alt="PSG logo" className="w-8 h-8 object-contain" />
           </div>
           <div className="leading-tight">
-            <p
-              className={`font-display font-semibold text-[15px] tracking-tight transition-colors duration-300 ${
-                solid ? 'text-slate-900' : 'text-white'
-              }`}
-            >
-              iTech Alumni
+            <p className="font-display font-semibold text-[15px] tracking-tight text-slate-900">
+              PSG iTech Alumni
             </p>
-            <p
-              className={`text-[10px] uppercase tracking-[0.18em] font-medium transition-colors duration-300 ${
-                solid ? 'text-slate-400' : 'text-white/60'
-              }`}
-            >
+            <p className="text-[10px] uppercase tracking-[0.18em] font-medium text-slate-500">
               Since 2013
             </p>
           </div>
         </Link>
 
-        <nav
-          className={`hidden lg:flex items-center gap-7 text-[14px] font-medium transition-colors duration-300 ${
-            solid ? 'text-slate-500' : 'text-white/80'
-          }`}
-        >
+        <nav className="hidden lg:flex items-center gap-7 text-[14px] font-medium text-slate-700 transition-colors duration-300">
           {links.map((l) => {
             if (l.children) {
               const isOpen = desktopDropdown === l.label
@@ -171,14 +154,7 @@ export default function Navbar() {
                   <NavLink
                     to={l.to}
                     className={({ isActive }) =>
-                      `flex items-center gap-1.5 transition-colors ${
-                        solid
-                          ? isActive
-                            ? 'text-slate-900'
-                            : 'hover:text-slate-900'
-                          : isActive
-                          ? 'text-white'
-                          : 'hover:text-white'
+                      `flex items-center gap-1.5 transition-colors ${isActive ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'
                       }`
                     }
                   >
@@ -201,10 +177,9 @@ export default function Navbar() {
                               key={child.label}
                               to={child.to}
                               className={({ isActive }) =>
-                                `block px-4 py-2.5 text-sm transition-colors ${
-                                  isActive
-                                    ? 'text-orange-600 font-medium bg-orange-50'
-                                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                                `block px-4 py-2.5 text-sm transition-colors ${isActive
+                                  ? 'text-orange-600 font-medium bg-orange-50'
+                                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                                 }`
                               }
                             >
@@ -224,15 +199,7 @@ export default function Navbar() {
                 key={l.label}
                 to={l.to}
                 className={({ isActive }) =>
-                  `transition-colors ${
-                    solid
-                      ? isActive
-                        ? 'text-slate-900'
-                        : 'hover:text-slate-900'
-                      : isActive
-                      ? 'text-white'
-                      : 'hover:text-white'
-                  }`
+                  `transition-colors ${isActive ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'}`
                 }
               >
                 {l.label}
@@ -243,7 +210,7 @@ export default function Navbar() {
                 href={l.href}
                 target={l.href?.startsWith('http') ? '_blank' : undefined}
                 rel={l.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className={`transition-colors ${solid ? 'hover:text-slate-900' : 'hover:text-white'}`}
+                className="transition-colors text-slate-700 hover:text-slate-900"
               >
                 {l.label}
               </a>
@@ -284,11 +251,10 @@ export default function Navbar() {
                         key={item.label}
                         type="button"
                         onClick={() => handleAuthAction(item.action || item.to)}
-                        className={`block w-full px-4 py-2.5 text-left text-sm transition-colors ${
-                          item.action === 'logout'
+                        className={`block w-full px-4 py-2.5 text-left text-sm transition-colors ${item.action === 'logout'
                             ? 'text-red-500 hover:bg-red-50'
                             : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                        }`}
+                          }`}
                       >
                         {item.label}
                       </button>
@@ -300,15 +266,13 @@ export default function Navbar() {
           </div>
           <button
             onClick={() => setOpen((o) => !o)}
-            className={`lg:hidden w-9 h-9 grid place-items-center rounded-full border transition-colors duration-300 ${
-              solid ? 'border-slate-200' : 'border-white/40'
-            }`}
+            className="lg:hidden w-9 h-9 grid place-items-center rounded-full border border-slate-200 bg-white text-slate-900 transition-colors duration-300"
             aria-label="Toggle menu"
           >
             <svg width="16" height="12" viewBox="0 0 18 14" fill="none">
-              <path d="M0 1H18" stroke={solid ? '#0f172a' : '#ffffff'} strokeWidth="2" />
-              <path d="M0 7H18" stroke={solid ? '#0f172a' : '#ffffff'} strokeWidth="2" />
-              <path d="M0 13H18" stroke={solid ? '#0f172a' : '#ffffff'} strokeWidth="2" />
+              <path d="M0 1H18" stroke="#0f172a" strokeWidth="2" />
+              <path d="M0 7H18" stroke="#0f172a" strokeWidth="2" />
+              <path d="M0 13H18" stroke="#0f172a" strokeWidth="2" />
             </svg>
           </button>
         </div>
@@ -394,11 +358,10 @@ export default function Navbar() {
                       key={item.label}
                       type="button"
                       onClick={() => handleAuthAction(item.action || item.to)}
-                      className={`rounded-xl px-4 py-3 text-left text-sm font-semibold ${
-                        item.action === 'logout'
+                      className={`rounded-xl px-4 py-3 text-left text-sm font-semibold ${item.action === 'logout'
                           ? 'bg-red-50 text-red-500'
                           : 'bg-orange-500 text-white'
-                      }`}
+                        }`}
                     >
                       {item.label}
                     </button>
