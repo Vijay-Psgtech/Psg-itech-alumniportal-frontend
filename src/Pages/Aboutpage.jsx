@@ -42,7 +42,7 @@ export default function AboutPage() {
           <img src={bannerImage} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-slate-900/80" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-20 lg:pt-24 lg:pb-24">
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-20 lg:pt-28 lg:pb-24">
           <motion.p
             variants={fadeUp}
             initial="hidden"

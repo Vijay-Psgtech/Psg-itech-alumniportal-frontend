@@ -16,7 +16,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-slate-900/20" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-14 pb-20 lg:pt-24 lg:pb-28">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-24 pb-20 lg:pt-28 lg:pb-24">
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           <motion.div
             className="lg:col-span-7"
