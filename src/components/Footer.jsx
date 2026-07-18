@@ -16,12 +16,22 @@ const columns = [
   },
 ]
 
-const social = ['twitter', 'linkedin', 'instagram']
+const social = [
+  {
+    name: 'facebook', link: "https://www.facebook.com/alumnipsgitech/"
+  },
+  { 
+    name: 'linkedin', link: "https://www.linkedin.com/in/psg-itech-alumni-association-714678224/"
+  },
+  {
+    name: 'instagram', link: "https://www.instagram.com/psgitechalumni/"
+  }
+]
 
 function SocialIcon({ name }) {
   const paths = {
-    twitter:
-      'M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.3 1.7-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.4 4.6a4 4 0 0 0 1.3 5.5c-.6 0-1.2-.2-1.7-.5v.1c0 2 1.4 3.6 3.3 4a4.1 4.1 0 0 1-1.8.1c.5 1.6 2 2.8 3.8 2.9A8.3 8.3 0 0 1 2 18.4a11.6 11.6 0 0 0 6.3 1.9c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.2z',
+    facebook:
+      'M18.896 0H5.104C2.286 0 0 2.286 0 5.104v13.792C0 21.714 2.286 24 5.104 24h7.416v-9.294H9.691V11.06h2.829V8.413c0-2.803 1.713-4.327 4.213-4.327 1.197 0 2.225.089 2.525.129v2.927l-1.733.001c-1.358 0-1.621.646-1.621 1.593v2.088h3.242l-.422 3.646h-2.82V24h5.529C21.714 24 24 21.714 24 18.896V5.104C24 2.286 21.714 0 18.896 0z',
     linkedin:
       'M6.9 8.4H3.3V21H6.9V8.4zM5.1 3a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2zM21 21v-6.9c0-3.7-2-5.4-4.6-5.4a4 4 0 0 0-3.6 2h-.1v-1.7H9.3V21H13v-6.4c0-1.7 1-3.4 3.2-3.4s2.2 1.7 2.2 3.5V21H21z',
     instagram:
@@ -60,12 +70,14 @@ export default function Footer() {
             <div className="flex items-center gap-3 mt-6">
               {social.map((s) => (
                 <a
-                  key={s}
-                  href="#"
-                  aria-label={s}
+                  key={s.name}
+                  href={s.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.name}
                   className="w-9 h-9 rounded-full border border-white/15 text-white/60 hover:text-white hover:border-white/40 transition-colors grid place-items-center"
                 >
-                  <SocialIcon name={s} />
+                  <SocialIcon name={s.name} />
                 </a>
               ))}
             </div>
