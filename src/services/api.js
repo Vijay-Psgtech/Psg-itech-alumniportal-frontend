@@ -162,6 +162,9 @@ export const donationAPI = makeApi({
 export const departmentAPI = makeApi({
   getAll: (params = {}) => request(withQuery('/departments', params), { method: 'GET' }),
   getAllAdmin: () => request('/departments/admin/all', { method: 'GET' }),
+  create: (data) => request('/departments', { method: 'POST', body: data }),
+  update: (id, data) => request(`/departments/${id}`, { method: 'PUT', body: data }),
+  delete: (id) => request(`/departments/${id}`, { method: 'DELETE' }),
 })
 
 export const adminUsersAPI = makeApi({

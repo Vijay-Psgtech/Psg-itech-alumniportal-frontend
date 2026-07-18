@@ -32,7 +32,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
   // ─── FILTER STATES ───
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProgrammeTypes, setSelectedProgrammeTypes] = useState([]);
-  const [selectedFundingTypes, setSelectedFundingTypes] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState([]);
   const [showFilterPanel, setShowFilterPanel] = useState(false);
 
@@ -40,7 +39,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
     name: "",
     degree: "",
     programmeType: "",
-    fundingType: "",
     description: "",
   });
 
@@ -89,10 +87,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
         selectedProgrammeTypes.length === 0 ||
         selectedProgrammeTypes.includes(dept.programmeType);
 
-      // Funding Type filter
-      const matchesFundingType =
-        selectedFundingTypes.length === 0 ||
-        selectedFundingTypes.includes(dept.fundingType);
 
       // Status filter
       const matchesStatus =
@@ -106,7 +100,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
       return (
         matchesSearch &&
         matchesProgrammeType &&
-        matchesFundingType &&
         matchesStatus
       );
     });
@@ -114,7 +107,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
     departments,
     searchQuery,
     selectedProgrammeTypes,
-    selectedFundingTypes,
     selectedStatus,
   ]);
 
@@ -136,11 +128,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
     );
   };
 
-  const toggleFundingType = (type) => {
-    setSelectedFundingTypes((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
-    );
-  };
 
   const toggleStatus = (status) => {
     setSelectedStatus((prev) =>  
@@ -156,14 +143,12 @@ const DepartmentTab = ({ onError, onSuccess }) => {
   const clearAllFilters = () => {
     setSearchQuery("");
     setSelectedProgrammeTypes([]);
-    setSelectedFundingTypes([]);
     setSelectedStatus([]);
   };
 
   const hasActiveFilters =
     searchQuery ||
     selectedProgrammeTypes.length > 0 ||
-    selectedFundingTypes.length > 0 ||
     selectedStatus.length > 0;
 
   // ─────────────────────────────────────────────────────────────────
@@ -174,7 +159,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
       name: "",
       degree: "",
       programmeType: "",
-      fundingType: "",
       description: "",
     });
     setFormErrors({});
@@ -197,10 +181,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
 
     if (!formData.programmeType) {
       errors.programmeType = "Programme type (UG/PG) is required";
-    }
-
-    if (!formData.fundingType) {
-      errors.fundingType = "Funding type (Aided/SF) is required";
     }
 
     setFormErrors(errors);
@@ -257,7 +237,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
       name: dept.name || "",
       degree: dept.degree || "",
       programmeType: dept.programmeType || "",
-      fundingType: dept.fundingType || "",
       description: dept.description || "",
     });
     setEditingId(dept._id);
@@ -377,7 +356,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
               <span className="ml-1 px-2 py-0.5 rounded-full bg-orange-600 text-white text-xs font-bold">
                 {[
                   selectedProgrammeTypes.length,
-                  selectedFundingTypes.length,
                   selectedStatus.length,
                 ].reduce((a, b) => a + b, 0) + (searchQuery ? 1 : 0)}
               </span>
@@ -426,31 +404,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                         />
                         <span className="text-sm text-slate-600 group-hover:text-slate-900 transition">
                           {type === "UG" ? "Undergraduate" : "Postgraduate"}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Funding Type Filter */}
-                <div>
-                  <h5 className="text-xs font-bold uppercase tracking-wide text-slate-600 mb-3">
-                    Funding Type
-                  </h5>
-                  <div className="space-y-2.5">
-                    {["Aided", "SF"].map((type) => (
-                      <label
-                        key={type}
-                        className="flex items-center gap-3 cursor-pointer group"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedFundingTypes.includes(type)}
-                          onChange={() => toggleFundingType(type)}
-                          className="w-4 h-4 rounded border-slate-300 text-orange-600 focus:ring-2 focus:ring-orange-500/20 cursor-pointer"
-                        />
-                        <span className="text-sm text-slate-600 group-hover:text-slate-900 transition">
-                          {type === "SF" ? "Self-Financing" : type}
                         </span>
                       </label>
                     ))}
@@ -529,22 +482,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
               </motion.div>
             ))}
 
-            {selectedFundingTypes.map((type) => (
-              <motion.div
-                key={type}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-orange-100 text-orange-700 text-xs font-medium"
-              >
-                <span>Funding: {type}</span>
-                <button
-                  onClick={() => toggleFundingType(type)}
-                  className="hover:text-orange-900"
-                >
-                  <X size={14} />
-                </button>
-              </motion.div>
-            ))}
 
             {selectedStatus.map((status) => (
               <motion.div
@@ -682,38 +619,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                     </p>
                   )}
                 </div>
-
-                {/* Funding Type */}
-                <div>
-                  <label className="text-xs font-bold uppercase tracking-wide text-slate-500 mb-2 block">
-                    Funding Type *
-                  </label>
-                  <select
-                    value={formData.fundingType}
-                    onChange={(e) =>
-                      setFormData((p) => ({
-                        ...p,
-                        fundingType: e.target.value,
-                      }))
-                    }
-                    className={`w-full px-3.5 py-2.5 rounded-lg border text-sm appearance-none
-                    ${
-                      formErrors.fundingType
-                        ? "border-red-400 bg-red-50"
-                        : "border-slate-200"
-                    }
-                    outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition`}
-                  >
-                    <option value="">-- Select --</option>
-                    <option value="Aided">Aided</option>
-                    <option value="SF">SF (Self-Financing)</option>
-                  </select>
-                  {formErrors.fundingType && (
-                    <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
-                      <AlertCircle size={12} /> {formErrors.fundingType}
-                    </p>
-                  )}
-                </div>
               </div>
 
               {/* Description */}
@@ -786,9 +691,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                     Type
                   </th>
                   <th className="px-6 py-4 text-center font-semibold text-slate-600">
-                    Funding
-                  </th>
-                  <th className="px-6 py-4 text-center font-semibold text-slate-600">
                     Status
                   </th>
                   <th className="px-6 py-4 text-right font-semibold text-slate-600">
@@ -814,11 +716,6 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                     <td className="px-6 py-4 text-center">
                       <span className="inline-block px-3 py-1 rounded-lg text-xs font-semibold bg-orange-100 text-orange-700">
                         {dept.programmeType}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      <span className="inline-block px-3 py-1 rounded-lg text-xs font-semibold bg-orange-100 text-orange-700">
-                        {dept.fundingType}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-center">
