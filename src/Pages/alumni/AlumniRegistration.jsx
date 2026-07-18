@@ -335,7 +335,6 @@ const AlumniRegistration = () => {
     customOccupation: "", // ✅ NEW: Custom occupation field
     // Education
     programmeType: "",
-    fundingType: "",
     programmeName: "",
     degree: "",
     batchYear: "",
@@ -394,13 +393,12 @@ const AlumniRegistration = () => {
   // ──────────────────────────────────────────────────────────────────────────
 
   const getFilteredDepartments = useCallback(() => {
-    if (!form.programmeType || !form.fundingType) return [];
+    if (!form.programmeType) return [];
     return departments.filter(
       (dept) =>
-        dept.programmeType === form.programmeType &&
-        dept.fundingType === form.fundingType,
+        dept.programmeType === form.programmeType
     );
-  }, [form.programmeType, form.fundingType, departments]);
+  }, [form.programmeType, departments]);
 
   // ──────────────────────────────────────────────────────────────────────────
   // HANDLE PROGRAMME TYPE CHANGE
@@ -411,14 +409,12 @@ const AlumniRegistration = () => {
     setForm((p) => ({
       ...p,
       [name]: value,
-      fundingType: "",
       programmeName: "",
       degree: "",
     }));
     setErrors((p) => ({
       ...p,
       [name]: undefined,
-      fundingType: undefined,
       programmeName: undefined,
       degree: undefined,
     }));
@@ -427,22 +423,6 @@ const AlumniRegistration = () => {
   // ──────────────────────────────────────────────────────────────────────────
   // HANDLE FUNDING TYPE CHANGE
   // ──────────────────────────────────────────────────────────────────────────
-
-  const handleFundingTypeChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setForm((p) => ({
-      ...p,
-      [name]: value,
-      programmeName: "",
-      degree: "",
-    }));
-    setErrors((p) => ({
-      ...p,
-      [name]: undefined,
-      programmeName: undefined,
-      degree: undefined,
-    }));
-  }, []);
 
   // ──────────────────────────────────────────────────────────────────────────
   // ✅ HANDLE PROGRAMME NAME CHANGE - AUTO MAP TO DEGREE
@@ -582,7 +562,6 @@ const AlumniRegistration = () => {
     }
     if (step === 2) {
       if (!form.programmeType) e.programmeType = "Select programme type";
-      if (!form.fundingType) e.fundingType = "Select funding type";
       if (!form.programmeName.trim())
         e.programmeName = "Programme name required";
       if (!form.degree.trim()) e.degree = "Degree required";
@@ -647,7 +626,6 @@ const AlumniRegistration = () => {
           // Education
           department: form.programmeName.trim(),
           programmeType: form.programmeType,
-          fundingType: form.fundingType,
           degree: form.degree.trim(),
           batchYear: form.batchYear,
           studyStartYear: form.studyStartYear,
@@ -699,7 +677,6 @@ const AlumniRegistration = () => {
         // Education
         formData.append("department", payload.department);
         formData.append("programmeType", payload.programmeType);
-        formData.append("fundingType", payload.fundingType);
         formData.append("degree", payload.degree);
         formData.append("batchYear", payload.batchYear);
         formData.append("studyStartYear", payload.studyStartYear);
@@ -1276,39 +1253,6 @@ const AlumniRegistration = () => {
                           />
                         </div>
                       </Field>
-
-                      {/* FUNDING TYPE DROPDOWN */}
-                      <Field
-                        label="Funding Type"
-                        required
-                        error={errors.fundingType}
-                      >
-                        <div className="relative">
-                          <select
-                            name="fundingType"
-                            value={form.fundingType}
-                            onChange={handleFundingTypeChange}
-                            disabled={!form.programmeType}
-                            className={`${selectCls(errors.fundingType)} ${
-                              !form.programmeType
-                                ? "opacity-50 cursor-not-allowed bg-slate-50"
-                                : ""
-                            }`}
-                          >
-                            <option value="">
-                              {form.programmeType
-                                ? "Select Funding Type"
-                                : "Select Programme Type First"}
-                            </option>
-                            <option>Aided</option>
-                            <option>SF</option>
-                          </select>
-                          <ChevronRight
-                            size={14}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-400 pointer-events-none"
-                          />
-                        </div>
-                      </Field>
                     </div>
 
                     {/* ✅ DYNAMIC PROGRAMME NAME DROPDOWN */}
@@ -1324,12 +1268,10 @@ const AlumniRegistration = () => {
                           onChange={handleProgrammeNameChange}
                           disabled={
                             !form.programmeType ||
-                            !form.fundingType ||
                             departmentsLoading
                           }
                           className={`${selectCls(errors.programmeName)} ${
                             !form.programmeType ||
-                            !form.fundingType ||
                             departmentsLoading
                               ? "opacity-50 cursor-not-allowed bg-slate-50"
                               : ""
@@ -1338,7 +1280,7 @@ const AlumniRegistration = () => {
                           <option value="">
                             {departmentsLoading
                               ? "Loading departments..."
-                              : form.programmeType && form.fundingType
+                              : form.programmeType
                                 ? "Select Department"
                                 : "Select Programme Type & Funding Type First"}
                           </option>
