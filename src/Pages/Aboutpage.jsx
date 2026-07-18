@@ -3,15 +3,25 @@ import { motion } from 'framer-motion'
 import { fadeUp, fadeIn, staggerContainer, viewport } from '../utils/motion'
 import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
 
+{/* Team Images */}
+import presidentImg from "../assets/images/team/president.jpg";
+import vicePresidentImg from "../assets/images/team/vice_president.jpg";
+import secretaryImg from "../assets/images/team/secretary.jpg";
+import treasurerImg from "../assets/images/team/treasurer.jpg";
+import jointSecretary1Img from "../assets/images/team/joint_secretary_1.jpg";
+import jointSecretary2Img from "../assets/images/team/joint_secretary_2.jpg";
+import jointSecretary3Img from "../assets/images/team/joint_secretary_3.jpg";
+import jointSecretary4Img from "../assets/images/team/joint_secretary_4.jpg";
+
 const team = [
-  { initials: 'NK', name: 'Navaneetha Krishnan', role: 'President', batch: 'Class of 2018' },
-  { initials: 'HK', name: 'Hariharan K', role: 'Vice-President', batch: 'Class of 2019' },
-  { initials: 'VJ', name: 'Vijay Jayaram', role: 'Secretary', batch: 'Class of 2018' },
-  { initials: 'SS', name: 'Shivanginadia S', role: 'Treasurer', batch: 'Class of 2018' },
-  { initials: 'KS', name: 'Karthik S', role: 'Joint-Secretary', batch: 'Class of 2018' },
-  { initials: 'BA', name: 'Bharath Arun P', role: 'Joint-Secretary', batch: 'Class of 2018' },
-  { initials: 'SP', name: 'Samyuktha Priyadharshini', role: 'Joint-Secretary', batch: 'Class of 2019' },
-  { initials: 'ST', name: 'Srinidhi Thangam S', role: 'Joint-Secretary', batch: 'Class of 2019' },
+  { initials: 'NK', name: 'Navaneetha Krishnan', role: 'President', batch: 'Class of 2018', dept: "B.E - Civil", image: presidentImg },
+  { initials: 'HK', name: 'Hariharan K', role: 'Vice-President', batch: 'Class of 2019', dept: "B.E - CSE", image: vicePresidentImg },
+  { initials: 'VJ', name: 'Vijay Jayaram', role: 'Secretary', batch: 'Class of 2018', dept: "B.E - Mechanical", image: secretaryImg },
+  { initials: 'SS', name: 'Shivanginadia S', role: 'Treasurer', batch: 'Class of 2018', dept: "B.E - CSE", image: treasurerImg },
+  { initials: 'KS', name: 'Karthik S', role: 'Joint-Secretary', batch: 'Class of 2018', dept: "B.E - Civil", image: jointSecretary1Img },
+  { initials: 'BA', name: 'Bharath Arun P', role: 'Joint-Secretary', batch: 'Class of 2018', dept: "B.E - EEE", image: jointSecretary2Img },
+  { initials: 'SP', name: 'Samyuktha Priyadharshini', role: 'Joint-Secretary', batch: 'Class of 2019', dept: "B.E - ECE", image: jointSecretary3Img },
+  { initials: 'ST', name: 'Srinidhi Thangam S', role: 'Joint-Secretary', batch: 'Class of 2019', dept: "B.E - CSE", image: jointSecretary4Img },
 ]
 
 const aboutParagraphs = [
@@ -161,25 +171,34 @@ export default function AboutPage() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-5"
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-7"
           >
             {team.map((member) => (
               <motion.div
                 key={member.name}
                 variants={fadeUp}
-                whileHover={{ y: -4 }}
-                className="group bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm shadow-black/[0.03]"
+                whileHover={{ y: -6, scale: 1.01 }}
+                className="group flex h-full flex-col overflow-hidden rounded-[12px] border border-slate-200/80 bg-white shadow-[0_12px_35px_-18px_rgba(15,23,42,0.35)] transition-all duration-300 hover:shadow-[0_20px_45px_-20px_rgba(15,23,42,0.4)]"
               >
-                <div className="h-1 bg-orange-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-                <div className="p-6">
-                  <div className="w-16 h-16 rounded-2xl bg-orange-50 grid place-items-center font-display font-semibold text-lg text-orange-500 mb-5">
-                    {member.initials}
+                <div className="relative overflow-hidden bg-slate-100">
+                  <div className="h-1.5 bg-gradient-to-r from-orange-500 to-orange-400 scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-[280px] object-cover top-center transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-slate-900/0 to-transparent" />
+                </div>
+
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <div className="mb-3 inline-flex w-fit items-center rounded-full border border-orange-100 bg-orange-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-orange-600">
+                    {member.role}
                   </div>
-                  <h3 className="font-display text-base font-semibold text-slate-900 leading-snug">
+                  <h3 className="font-display text-lg font-semibold leading-snug text-slate-900">
                     {member.name}
                   </h3>
-                  <p className="text-orange-500 text-sm mt-1">{member.role}</p>
-                  <p className="text-slate-400 text-xs mt-1">{member.batch}</p>
+                  <p className="mt-2 text-sm text-slate-500">{member.batch}</p>
+                  <p className="mt-1 text-sm text-slate-500 tracking-wide">{member.dept}</p>
                 </div>
               </motion.div>
             ))}
