@@ -268,9 +268,9 @@ const AlumniLogin = () => {
         <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* Left Panel — Branding */}
           <div className="hidden md:flex flex-col items-center justify-center w-1/2 bg-linear-to-br from-[#f97316] to-[#ea580c] shadow-2xl p-8 text-center text-white">
-            <img 
-              src="/logo.png" 
-              alt="PSG iTech Logo" 
+            <img
+              src="/logo.png"
+              alt="PSG iTech Logo"
               className="h-20 mb-6 opacity-90"
               loading="lazy"
               decoding="async"
@@ -279,17 +279,25 @@ const AlumniLogin = () => {
             <p className="text-sm font-semibold opacity-90">
               Sign in to connect with your alumni network and stay updated.
             </p>
-            <div className="mt-8 space-y-3 text-sm">
-              <div className="flex items-center gap-2 justify-center">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">✓</div>
+            <div className="mt-8 w-fit mx-auto space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                  ✓
+                </div>
                 <span>Connect with fellow alumni</span>
               </div>
-              <div className="flex items-center gap-2 justify-center">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">✓</div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                  ✓
+                </div>
                 <span>Share your experiences</span>
               </div>
-              <div className="flex items-center gap-2 justify-center">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">✓</div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                  ✓
+                </div>
                 <span>Access exclusive events</span>
               </div>
             </div>
@@ -405,44 +413,6 @@ const AlumniLogin = () => {
                   )}
                 </button>
               </div>
-
-              {/* Divider */}
-              <div className="relative pt-4">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="px-2 bg-white text-gray-500 font-semibold">
-                    Or continue with
-                  </span>
-                </div>
-              </div>
-
-              {/* Google Sign-In Button */}
-              <div id="google-signin-button" className="w-full flex justify-center"></div>
-
-              {/* Facebook Login Button */}
-              <button
-                type="button"
-                onClick={handleFacebookLogin}
-                disabled={isFormDisabled}
-                className="w-full flex items-center justify-center gap-2 bg-[#1877F2] hover:bg-[#0A66C2] disabled:opacity-60 disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-lg shadow-md shadow-[#1877F2]/20 hover:shadow-lg hover:shadow-[#1877F2]/30 font-semibold text-sm transition-all"
-              >
-                {socialLoading.facebook ? (
-                  <>
-                    <Loader size={16} className="animate-spin" />
-                    Signing In...
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                    </svg>
-                    Sign In with Facebook
-                  </>
-                )}
-              </button>
-
               {/* Sign Up Link */}
               <div className="text-center text-xs text-gray-600 mt-6 pt-4 border-t border-gray-200">
                 Don't have an account?{" "}
