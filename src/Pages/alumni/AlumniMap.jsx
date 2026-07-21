@@ -1,7 +1,7 @@
 // src/pages/alumni/AlumniMap.jsx
 // ✅ Redesigned with Tailwind CSS — no custom <style> block
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, use } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { alumniAPI, API_BASE } from "../../services/api";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
@@ -11,7 +11,7 @@ import {
   X,
   MapPin,
   Mail,
-  Share2 as Linkedin,
+  Linkedin,
   Phone,
   Briefcase,
   GraduationCap,
@@ -57,7 +57,7 @@ const FitBounds = ({ alumni }) => {
 const StatPill = ({ icon: Icon, value, label, color }) => (
   <div className="flex items-center gap-3 bg-white rounded-2xl border border-slate-100 shadow-sm px-5 py-3.5">
     <div
-      className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${color}`}
+      className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${color}`}
     >
       <Icon size={16} className="text-white" />
     </div>
@@ -75,12 +75,12 @@ const ModalRow = ({
   icon: Icon,
   label,
   children,
-  iconColor = "text-orange-500",
-  bgColor = "bg-orange-50",
+  iconColor = "text-indigo-500",
+  bgColor = "bg-indigo-50",
 }) => (
   <div className="flex items-start gap-3 py-3 border-b border-slate-100 last:border-0">
     <div
-      className={`mt-0.5 w-7 h-7 rounded-lg ${bgColor} flex items-center justify-center shrink-0`}
+      className={`mt-0.5 w-7 h-7 rounded-lg ${bgColor} flex items-center justify-center flex-shrink-0`}
     >
       <Icon size={13} className={iconColor} />
     </div>
@@ -92,15 +92,6 @@ const ModalRow = ({
     </div>
   </div>
 );
-
-/* ─────────────────────────────────────────
-   Privacy — what a non-admin alumni can see
-───────────────────────────────────────── */
-const canSeeFullDetails = (viewer, subject) => {
-  if (!viewer || !subject) return false;
-  if (viewer.role === "admin" || viewer.role === "superadmin") return true;
-  return String(viewer.batchYear) === String(subject.batchYear);
-};
 
 /* ═══════════════════════════════════════════════
    MAIN COMPONENT
@@ -136,7 +127,7 @@ const AlumniMap = () => {
       }
     };
     loadMapData();
-  }, [isAdmin, user.department]);
+  }, []);
 
   const validAlumni = useMemo(
     () =>
@@ -146,9 +137,6 @@ const AlumniMap = () => {
     [mapData.alumni],
   );
 
-  const canViewSelectedAlumni =
-    selectedAlumni && canSeeFullDetails(user, selectedAlumni);
-
   const selectedInitials = selectedAlumni
     ? `${selectedAlumni.firstName?.charAt(0) ?? ""}${selectedAlumni.lastName?.charAt(0) ?? ""}`.toUpperCase()
     : "";
@@ -156,8 +144,8 @@ const AlumniMap = () => {
   /* ── Loading ── */
   if (loading) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-orange-50/40 flex flex-col items-center justify-center gap-4 pt-20">
-        <div className="w-12 h-12 rounded-full border-4 border-slate-200 border-t-orange-500 animate-spin" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/40 flex flex-col items-center justify-center gap-4 pt-20">
+        <div className="w-12 h-12 rounded-full border-4 border-slate-200 border-t-blue-500 animate-spin" />
         <p className="text-slate-400 text-sm font-medium">
           🌍 Loading interactive world map…
         </p>
@@ -168,7 +156,7 @@ const AlumniMap = () => {
   /* ── Error ── */
   if (error) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-orange-50/40 flex items-center justify-center p-6 pt-20">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/40 flex items-center justify-center p-6 pt-20">
         <div className="bg-white rounded-2xl border border-red-100 shadow-sm px-8 py-10 max-w-sm w-full text-center">
           <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center mx-auto mb-4">
             <AlertCircle size={22} className="text-red-500" />
@@ -184,7 +172,7 @@ const AlumniMap = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-orange-50/40 pt-24 pb-16 px-4 sm:px-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/40 pt-24 pb-16 px-4 sm:px-6">
         <div className="container mx-auto px-6">
           {/* ── Page Header ── */}
           <motion.div
@@ -212,7 +200,7 @@ const AlumniMap = () => {
               icon={Users}
               value={mapData.stats?.totalAlumni || 0}
               label="Alumni Located"
-              color="bg-orange-500"
+              color="bg-blue-500"
             />
             <StatPill
               icon={Globe}
@@ -237,7 +225,7 @@ const AlumniMap = () => {
           >
             {/* Map Container */}
             <div className="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-              <div className="h-1 bg-linear-to-r from-[#f97316] to-[#ea580c]" />
+              <div className="h-1 bg-gradient-to-r from-[#667eea] to-[#764ba2]" />
               <div className="p-1">
                 <MapContainer
                   center={[20, 0]}
@@ -293,10 +281,10 @@ const AlumniMap = () => {
                   className="w-full lg:w-80 xl:w-96 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col"
                 >
                   {/* Panel header accent */}
-                  <div className="h-1 bg-linear-to-r from-[#f97316] to-[#ea580c]" />
+                  <div className="h-1 bg-gradient-to-r from-[#667eea] to-[#764ba2]" />
 
                   {/* Avatar + name block */}
-                  <div className="relative bg-linear-to-br from-orange-50 to-orange-50 px-6 pt-6 pb-5">
+                  <div className="relative bg-gradient-to-br from-blue-50 to-blue-50 px-6 pt-6 pb-5">
                     <button
                       onClick={() => setSelectedAlumni(null)}
                       className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/80 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-800 hover:bg-white transition-all"
@@ -305,7 +293,7 @@ const AlumniMap = () => {
                     </button>
 
                     <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-orange-500 to-orange-500 flex items-center justify-center text-white text-xl font-extrabold shadow-lg shadow-orange-200 shrink-0 select-none">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-500 flex items-center justify-center text-white text-xl font-extrabold shadow-lg shadow-blue-200 flex-shrink-0 select-none">
                         {selectedAlumni.files?.currentPhoto ? (
                           <img
                             src={`${API_BASE}/uploads/${selectedAlumni.files?.currentPhoto}`}
@@ -337,13 +325,13 @@ const AlumniMap = () => {
                     {/* Quick stat chips */}
                     <div className="flex flex-wrap gap-2 mt-4">
                       {selectedAlumni.batchYear && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-orange-100 text-orange-600 shadow-sm">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-blue-100 text-blue-600 shadow-sm">
                           <GraduationCap size={11} /> Class of{" "}
                           {selectedAlumni.batchYear}
                         </span>
                       )}
                       {selectedAlumni.department && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-orange-100 text-orange-600 shadow-sm">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-blue-100 text-blue-600 shadow-sm">
                           {selectedAlumni.department}
                         </span>
                       )}
@@ -352,174 +340,61 @@ const AlumniMap = () => {
 
                   {/* Info rows */}
                   <div className="flex-1 px-5 py-2 overflow-y-auto">
-                    {!canViewSelectedAlumni && (
-                      <div className="mb-4 rounded-2xl bg-amber-50 border border-amber-100 px-4 py-3 text-sm text-amber-700">
-                        Full contact details are restricted. Only admins and
-                        alumni from the same batch can view them.
-                      </div>
-                    )}
+                    <>
+                      {/*Degree & Department  */}
+                      <ModalRow
+                        icon={GraduationCap}
+                        label="Education"
+                        iconColor="text-blue-600"
+                        bgColor="bg-blue-50"
+                      >
+                        <p className="text-sm text-slate-700 font-medium">
+                          {selectedAlumni.degree || "—"}
+                          {selectedAlumni.department
+                            ? `, ${selectedAlumni.department}`
+                            : ""}
+                        </p>
+                            
 
-                    {canViewSelectedAlumni ? (
-                      <>
-                        <ModalRow
-                          icon={Mail}
-                          label="Email"
-                          iconColor="text-orange-500"
-                          bgColor="bg-orange-50"
-                        >
-                          <a
-                            href={`mailto:${selectedAlumni.email}`}
-                            className="text-sm text-orange-600 font-medium hover:underline break-all"
-                          >
-                            {selectedAlumni.email}
-                          </a>
-                        </ModalRow>
+                      </ModalRow>
+                      <ModalRow
+                        icon={MapPin}
+                        label="Location"
+                        iconColor="text-emerald-600"
+                        bgColor="bg-emerald-50"
+                      >
+                        <p className="text-sm text-slate-700 font-medium">
+                          {selectedAlumni.fullAddress ||
+                            `${selectedAlumni.city || ""}${selectedAlumni.country ? `, ${selectedAlumni.country}` : ""}`}
+                        </p>
+                      </ModalRow>
 
+                      {selectedAlumni.currentCompany && (
                         <ModalRow
-                          icon={MapPin}
-                          label="Location"
-                          iconColor="text-emerald-600"
-                          bgColor="bg-emerald-50"
+                          icon={Building2}
+                          label="Company"
+                          iconColor="text-amber-600"
+                          bgColor="bg-amber-50"
                         >
                           <p className="text-sm text-slate-700 font-medium">
-                            {selectedAlumni.fullAddress ||
-                              `${selectedAlumni.city || ""}${selectedAlumni.country ? `, ${selectedAlumni.country}` : ""}`}
+                            {selectedAlumni.currentCompany}
                           </p>
                         </ModalRow>
+                      )}
 
-                        {selectedAlumni.currentCompany && (
-                          <ModalRow
-                            icon={Building2}
-                            label="Company"
-                            iconColor="text-amber-600"
-                            bgColor="bg-amber-50"
-                          >
-                            <p className="text-sm text-slate-700 font-medium">
-                              {selectedAlumni.currentCompany}
-                            </p>
-                          </ModalRow>
-                        )}
-
-                        {selectedAlumni.jobTitle && (
-                          <ModalRow
-                            icon={Briefcase}
-                            label="Position"
-                            iconColor="text-orange-600"
-                            bgColor="bg-orange-50"
-                          >
-                            <p className="text-sm text-slate-700 font-medium">
-                              {selectedAlumni.jobTitle}
-                            </p>
-                          </ModalRow>
-                        )}
-
-                        {selectedAlumni.phone && (
-                          <ModalRow
-                            icon={Phone}
-                            label="Phone"
-                            iconColor="text-sky-600"
-                            bgColor="bg-sky-50"
-                          >
-                            <a
-                              href={`tel:${selectedAlumni.phone}`}
-                              className="text-sm text-sky-600 font-medium hover:underline"
-                            >
-                              {selectedAlumni.phone}
-                            </a>
-                          </ModalRow>
-                        )}
-
-                        {selectedAlumni.linkedin && (
-                          <ModalRow
-                            icon={Linkedin}
-                            label="LinkedIn"
-                            iconColor="text-orange-600"
-                            bgColor="bg-orange-50"
-                          >
-                            <a
-                              href={selectedAlumni.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sm text-orange-600 font-medium hover:underline"
-                            >
-                              View Profile ↗
-                            </a>
-                          </ModalRow>
-                        )}
-                      </>
-                    ) : (
-                      <>
+                      {selectedAlumni.jobTitle && (
                         <ModalRow
-                          icon={MapPin}
-                          label="Location"
-                          iconColor="text-emerald-600"
-                          bgColor="bg-emerald-50"
+                          icon={Briefcase}
+                          label="Position"
+                          iconColor="text-blue-600"
+                          bgColor="bg-blue-50"
                         >
                           <p className="text-sm text-slate-700 font-medium">
-                            {selectedAlumni.fullAddress ||
-                              `${selectedAlumni.city || ""}${selectedAlumni.country ? `, ${selectedAlumni.country}` : ""}`}
+                            {selectedAlumni.jobTitle}
                           </p>
                         </ModalRow>
-
-                        {selectedAlumni.batchYear && (
-                          <ModalRow
-                            icon={GraduationCap}
-                            label="Batch"
-                            iconColor="text-orange-600"
-                            bgColor="bg-orange-50"
-                          >
-                            <p className="text-sm text-slate-700 font-medium">
-                              {selectedAlumni.batchYear}
-                            </p>
-                          </ModalRow>
-                        )}
-
-                        {selectedAlumni.department && (
-                          <ModalRow
-                            icon={Building2}
-                            label="Department"
-                            iconColor="text-orange-600"
-                            bgColor="bg-orange-50"
-                          >
-                            <p className="text-sm text-slate-700 font-medium">
-                              {selectedAlumni.department}
-                            </p>
-                          </ModalRow>
-                        )}
-                      </>
-                    )}
-                  </div>
-
-                  {/* CTA footer */}
-                  <div className="px-5 py-4 border-t border-slate-100 flex gap-2.5">
-                    {canViewSelectedAlumni ? (
-                      <>
-                        {selectedAlumni.linkedin && (
-                          <a
-                            href={selectedAlumni.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-orange-600 text-white text-xs font-bold hover:bg-orange-700 active:scale-95 transition-all"
-                          >
-                            <Linkedin size={13} /> LinkedIn
-                          </a>
-                        )}
-                        <a
-                          href={`mailto:${selectedAlumni.email}`}
-                          className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border text-xs font-bold active:scale-95 transition-all ${
-                            selectedAlumni.linkedin
-                              ? "px-4 border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100"
-                              : "flex-1 border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100"
-                          }`}
-                        >
-                          <Mail size={13} /> Email
-                        </a>
-                      </>
-                    ) : (
-                      <div className="flex-1 rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-500">
-                        Contact details are hidden for privacy.
-                      </div>
-                    )}
+                      )}
+                    </>
                   </div>
                 </motion.aside>
               ) : (
@@ -531,16 +406,15 @@ const AlumniMap = () => {
                   exit={{ opacity: 0 }}
                   className="hidden lg:flex w-80 xl:w-96 bg-white rounded-2xl border border-dashed border-slate-200 flex-col items-center justify-center text-center p-8 gap-4"
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-orange-50 flex items-center justify-center">
-                    <MapPin size={24} className="text-orange-400" />
+                  <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
+                    <MapPin size={24} className="text-blue-400" />
                   </div>
                   <div>
                     <h3 className="text-base font-bold text-slate-600 mb-1.5">
                       Select a Marker
                     </h3>
                     <p className="text-sm text-slate-400 leading-relaxed">
-                      Click any pin on the map to view that alumnus's full
-                      profile details here.
+                      Click any pin on the map to view that alumni's information.
                     </p>
                   </div>
                 </motion.div>
