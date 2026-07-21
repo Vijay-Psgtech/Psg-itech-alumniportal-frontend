@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../context/AuthContext.jsx';
-import logo from '../assets/1723.png'
+import logo from '/logo.png'
 
 const links = [
   { label: 'About', to: '/about' },

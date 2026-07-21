@@ -15,17 +15,13 @@ import {
   ChevronRight,
   ArrowLeft,
   Search,
-  MapPin,
   Briefcase,
   Building2,
-  Phone,
-  Mail,
   Globe,
-  Share2 as Linkedin,
-  MessageCircle as Twitter,
-  Camera as Instagram,
-  Users as Facebook,
-  Lock,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Facebook,
   CheckCircle,
   Filter,
   X,
@@ -33,13 +29,13 @@ import {
   Calendar,
   BookOpen,
   Hash,
-  ExternalLink,
   Eye,
-  EyeOff,
   LayoutGrid,
   List,
   ChevronDown,
   Layers,
+  ArrowRight,
+  Crown,
 } from "lucide-react";
 import { alumniAPI, API_BASE } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -55,13 +51,13 @@ const getInitials = (first = "", last = "") =>
 
 const avatarGradients = [
   "from-rose-400 to-orange-400",
-  "from-sky-400 to-orange-500",
+  "from-sky-400 to-blue-500",
   "from-emerald-400 to-teal-500",
-  "from-orange-400 to-purple-500",
+  "from-violet-400 to-purple-500",
   "from-amber-400 to-orange-500",
   "from-pink-400 to-rose-500",
   "from-cyan-400 to-sky-500",
-  "from-orange-400 to-orange-500",
+  "from-indigo-400 to-blue-500",
 ];
 const pickGradient = (str = "") =>
   avatarGradients[str.charCodeAt(0) % avatarGradients.length];
@@ -74,7 +70,7 @@ const BATCH_PALETTES = [
     text: "text-amber-300",
   },
   {
-    bg: "from-orange-800 to-orange-950",
+    bg: "from-blue-800 to-blue-950",
     accent: "border-sky-400",
     dot: "bg-sky-400",
     text: "text-sky-300",
@@ -86,10 +82,10 @@ const BATCH_PALETTES = [
     text: "text-emerald-300",
   },
   {
-    bg: "from-orange-800 to-orange-950",
-    accent: "border-orange-400",
-    dot: "bg-orange-400",
-    text: "text-orange-300",
+    bg: "from-violet-800 to-violet-950",
+    accent: "border-violet-400",
+    dot: "bg-violet-400",
+    text: "text-violet-300",
   },
   {
     bg: "from-rose-800 to-rose-950",
@@ -105,28 +101,78 @@ const BATCH_PALETTES = [
   },
 ];
 
-/* ─────────────────────────────────────────
-   Privacy — what a non-admin alumni can see
-───────────────────────────────────────── */
-const canSeeFullDetails = (viewer, subject) => {
-  if (!viewer || !subject) return false;
-  if (viewer.role === "admin" || viewer.role === "superadmin") return true;
-  return String(viewer.batchYear) === String(subject.batchYear);
+const ACCENT_MAP = {
+  "from-violet-500 to-purple-600": {
+    ring: "ring-violet-200",
+    dot: "bg-violet-500",
+    badge: "bg-violet-50  text-violet-700 ring-violet-200",
+  },
+  "from-sky-400   to-blue-600": {
+    ring: "ring-sky-200",
+    dot: "bg-sky-500",
+    badge: "bg-sky-50     text-sky-700    ring-sky-200",
+  },
+  "from-emerald-400 to-teal-600": {
+    ring: "ring-emerald-200",
+    dot: "bg-emerald-500",
+    badge: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+  },
+  "from-amber-400 to-orange-500": {
+    ring: "ring-amber-200",
+    dot: "bg-amber-500",
+    badge: "bg-amber-50   text-amber-700  ring-amber-200",
+  },
+  "from-rose-400  to-pink-600": {
+    ring: "ring-rose-200",
+    dot: "bg-rose-500",
+    badge: "bg-rose-50    text-rose-700   ring-rose-200",
+  },
+  "from-cyan-400  to-sky-500": {
+    ring: "ring-cyan-200",
+    dot: "bg-cyan-500",
+    badge: "bg-cyan-50    text-cyan-700   ring-cyan-200",
+  },
 };
 
-/* ─────────────────────────────────────────
-   Sub-components
-───────────────────────────────────────── */
+function resolveAccent(gradient) {
+  return (
+    ACCENT_MAP[gradient] ?? {
+      ring: "ring-slate-200",
+      dot: "bg-slate-400",
+      badge: "bg-slate-50 text-slate-600 ring-slate-200",
+    }
+  );
+}
+
+/* ─── Tiny stat cell ─────────────────────────────────────────────────────────── */
+function StatCell({ icon: Icon, label, value }) {
+  if (!value) return null;
+  return (
+    <div className="flex items-start gap-2.5 min-w-0">
+      <div className="mt-0.5 flex-shrink-0 w-6 h-6 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+        <Icon size={12} className="text-slate-500 dark:text-slate-400" />
+      </div>
+      <div className="min-w-0">
+        <p className="text-[10px] font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500 leading-none mb-0.5">
+          {label}
+        </p>
+        <p className="text-xs font-medium text-slate-700 dark:text-slate-200 truncate leading-snug">
+          {value}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 // Pill badge
 const Pill = ({ children, color = "slate" }) => {
   const map = {
     slate: "bg-slate-100 text-slate-600",
-    blue: "bg-orange-50 text-orange-700",
+    blue: "bg-blue-50 text-blue-700",
     emerald: "bg-emerald-50 text-emerald-700",
     amber: "bg-amber-50 text-amber-700",
     rose: "bg-rose-50 text-rose-700",
-    violet: "bg-orange-50 text-orange-700",
+    violet: "bg-violet-50 text-violet-700",
   };
   return (
     <span
@@ -137,37 +183,9 @@ const Pill = ({ children, color = "slate" }) => {
   );
 };
 
-// Social icon link
-const SocialLink = ({ href, icon: Icon, label }) => {
-  if (!href) return null;
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      title={label}
-      className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors group"
-    >
-      <Icon
-        size={13}
-        className="text-slate-500 group-hover:text-slate-800 transition-colors"
-      />
-    </a>
-  );
-};
-
-// Info chip row inside card
-const InfoChip = ({ icon: Icon, value, muted = false }) => {
-  if (!value) return null;
-  return (
-    <div
-      className={`flex items-center gap-1.5 ${muted ? "text-slate-400" : "text-slate-600"}`}
-    >
-      <Icon size={11} className="flex-shrink-0" />
-      <span className="text-xs font-medium truncate">{value}</span>
-    </div>
-  );
-};
+/* ─────────────────────────────────────────
+   Sub-components
+───────────────────────────────────────── */
 
 /* ─── Batch Year Card ─── */
 const BatchCard = ({ year, count, palette, isMine, onClick, index }) => (
@@ -224,192 +242,199 @@ const BatchCard = ({ year, count, palette, isMine, onClick, index }) => (
   </motion.button>
 );
 
-/* ─── Alumni Card — Full Details ─── */
-const AlumniCardFull = ({ alumni, apiBase, index }) => {
+/* ─────────────────────────────────────────
+   Alumni Card
+───────────────────────────────────────── */
+const AlumniCard = ({ alumni, apiBase, index, onSelect }) => {
   const gradient = pickGradient(alumni.firstName);
+  const accent = resolveAccent(gradient);
+
   const photo = alumni.files?.currentPhoto || alumni.profileImage;
   const photoUrl = photo ? `${apiBase}/uploads/${photo}` : null;
-  const social = alumni.social || {};
-  const hasSocial = Object.values(social).some(Boolean);
+
+  const roleLabel = alumni.jobTitle
+    ? alumni.jobTitle
+    : alumni.occupation || null;
+
+  const companyLabel = alumni.currentCompany || alumni.industry || null;
+
+  const paidMembership = alumni.membershipStatus === "ACTIVE";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
+    <motion.button
+      type="button"
+      onClick={onSelect}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.35 }}
-      className="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col"
+      transition={{ delay: index * 0.045, duration: 0.32, ease: "easeOut" }}
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.985 }}
+      className={`
+        group text-left w-full
+        bg-white dark:bg-slate-900
+        rounded-2xl
+        border border-slate-200/80 dark:border-slate-700/60
+        shadow-[0_1px_3px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)]
+        hover:shadow-[0_8px_24px_rgba(0,0,0,0.09),0_2px_6px_rgba(0,0,0,0.06)]
+        hover:border-slate-300 dark:hover:border-slate-600
+        transition-all duration-300 ease-out
+        overflow-hidden
+        relative
+      `}
     >
-      {/* Header band */}
-      <div className={`h-1.5 w-full bg-gradient-to-r ${gradient}`} />
+      {/* ── Left accent stripe ── */}
+      <span
+        className={`absolute inset-y-0 left-0 w-[3px] bg-gradient-to-b ${gradient} rounded-l-2xl`}
+        aria-hidden
+      />
 
-      <div className="p-5 flex flex-col flex-1 gap-3">
-        {/* Top: avatar + name */}
-        <div className="flex items-start gap-3">
+      <div className="pl-5 pr-5 pt-5 pb-4 flex flex-col gap-4">
+        {/* ══ HEADER: avatar + identity ════════════════════════════════════════ */}
+        <div className="flex items-start gap-4">
+          {/* Avatar */}
           <div
-            className={`relative flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white text-lg font-black shadow-md overflow-hidden`}
+            className={`
+              relative flex-shrink-0
+              w-14 h-14 rounded-xl
+              ring-2 ${accent.ring}
+              bg-gradient-to-br ${gradient}
+              flex items-center justify-center
+              text-white text-base font-bold tracking-tight
+              overflow-hidden
+            `}
           >
             {photoUrl ? (
               <img
                 src={photoUrl}
-                alt={alumni.firstName}
+                alt={`${alumni.firstName} ${alumni.lastName}`}
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.style.display = "none";
                 }}
               />
             ) : (
-              getInitials(alumni.firstName, alumni.lastName)
+              <span className="select-none">
+                {getInitials(alumni.firstName, alumni.lastName)}
+              </span>
             )}
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <h4 className="text-sm font-extrabold text-slate-900 truncate">
-                {alumni.firstName} {alumni.lastName}
-              </h4>
-              {alumni.isApproved && (
+
+            {/* Verified dot */}
+            {alumni.isApproved && (
+              <span
+                className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center"
+                title="Verified alumni"
+              >
                 <CheckCircle
-                  size={13}
-                  className="text-emerald-500 flex-shrink-0"
+                  size={12}
+                  className="text-emerald-500 fill-emerald-100 dark:fill-emerald-900/60"
+                  strokeWidth={2.5}
                 />
-              )}
+              </span>
+            )}
+          </div>
+
+          {/* Identity */}
+          <div className="min-w-0 flex-1 pt-0.5">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-[15px] font-semibold text-slate-900 dark:text-slate-100 leading-tight truncate">
+                {alumni.firstName} {alumni.lastName}
+              </h3>
+              <span>
+                {paidMembership && (
+                  <Pill color="emerald">
+                    <Crown size={10} className="text-emerald-500" />
+                    Membership Active
+                  </Pill>
+                )}
+              </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-medium truncate mt-0.5">
-              {alumni.email}
-            </p>
-            <div className="flex flex-wrap gap-1 mt-1.5">
-              <Pill color="blue">
-                <GraduationCap size={9} /> {alumni.department}
-              </Pill>
+
+            {/* Role + Company */}
+            {(roleLabel || companyLabel) && (
+              <p className="mt-0.5 text-[12px] text-slate-500 dark:text-slate-400 leading-snug truncate">
+                {roleLabel}
+                {roleLabel && companyLabel && (
+                  <span className="mx-1 text-slate-300 dark:text-slate-600">
+                    ·
+                  </span>
+                )}
+                {companyLabel && (
+                  <span className="font-medium text-slate-600 dark:text-slate-300">
+                    {companyLabel}
+                  </span>
+                )}
+              </p>
+            )}
+
+            {/* Tags row */}
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {alumni.department && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 ring-1 ring-blue-200 dark:ring-blue-800">
+                  <GraduationCap size={9} />
+                  {alumni.department}
+                </span>
+              )}
+              {alumni.batchYear && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 ring-1 ring-amber-200 dark:ring-amber-800">
+                  <Calendar size={9} />
+                  {alumni.batchYear}
+                </span>
+              )}
               {alumni.programmeType && (
-                <Pill color="violet">
-                  <Layers size={9} /> {alumni.programmeType}
-                </Pill>
+                <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 ring-1 ring-slate-200 dark:ring-slate-700">
+                  <Layers size={9} />
+                  {alumni.programmeType}
+                </span>
               )}
             </div>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-slate-50" />
+        {/* ══ DIVIDER ══════════════════════════════════════════════════════════ */}
+        <div className="border-t border-dashed border-slate-200 dark:border-slate-700/60" />
 
-        {/* Info chips */}
-        <div className="grid grid-cols-1 gap-1.5">
-          <InfoChip
-            icon={Calendar}
-            value={alumni.batchYear ? `Batch of ${alumni.batchYear}` : null}
+        {/* ══ META GRID ════════════════════════════════════════════════════════ */}
+        <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+          <StatCell icon={Hash} label="Roll Number" value={alumni.rollNumber} />
+          <StatCell icon={BookOpen} label="Degree" value={alumni.degree} />
+          <StatCell
+            icon={Briefcase}
+            label="Industry"
+            value={alumni.currentCompany || alumni.industry}
           />
-          <InfoChip icon={BookOpen} value={alumni.degree} />
-          <InfoChip icon={Hash} value={alumni.rollNumber} />
-          {alumni.jobTitle && alumni.currentCompany && (
-            <InfoChip
-              icon={Briefcase}
-              value={`${alumni.jobTitle} @ ${alumni.currentCompany}`}
+          <StatCell
+            icon={Building2}
+            label="Programme"
+            value={alumni.programmeType}
+          />
+          {alumni.batchYear && (
+            <StatCell
+              icon={GraduationCap}
+              label="Class of"
+              value={String(alumni.batchYear)}
             />
           )}
-          {!alumni.jobTitle && alumni.occupation && (
-            <InfoChip icon={Briefcase} value={alumni.occupation} />
-          )}
-          <InfoChip icon={Building2} value={alumni.industry} />
-          {(alumni.city || alumni.country) && (
-            <InfoChip
-              icon={MapPin}
-              value={[alumni.city, alumni.country].filter(Boolean).join(", ")}
-            />
-          )}
-          <InfoChip icon={Phone} value={alumni.phone} />
         </div>
 
-        {/* Social links */}
-        {hasSocial && (
-          <>
-            <div className="border-t border-slate-50" />
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <SocialLink
-                href={social.linkedin}
-                icon={Linkedin}
-                label="LinkedIn"
-              />
-              <SocialLink
-                href={social.twitter}
-                icon={Twitter}
-                label="Twitter"
-              />
-              <SocialLink
-                href={social.instagram}
-                icon={Instagram}
-                label="Instagram"
-              />
-              <SocialLink
-                href={social.facebook}
-                icon={Facebook}
-                label="Facebook"
-              />
-              <SocialLink href={social.website} icon={Globe} label="Website" />
-            </div>
-          </>
-        )}
+        {/* ══ FOOTER ═══════════════════════════════════════════════════════════ */}
+        <div className="flex items-center justify-between pt-1">
+          {/* <p className="text-[11px] text-slate-400 dark:text-slate-500">
+            ID:{" "}
+            <span className="font-semibold text-slate-600 dark:text-slate-300 tabular-nums">
+              {alumni.alumniId || "—"}
+            </span>
+          </p> */}
 
-        {/* Alumni ID footer */}
-        <div className="mt-auto pt-2 border-t border-slate-50 flex items-center justify-between">
-          <span className="text-[10px] font-mono text-slate-300">
-            {alumni.alumniId}
+          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors duration-200">
+            View profile
+            <ArrowRight
+              size={11}
+              className="translate-x-0 group-hover:translate-x-0.5 transition-transform duration-200"
+            />
           </span>
-          {alumni.isApproved ? (
-            <Pill color="emerald">
-              <CheckCircle size={9} /> Verified
-            </Pill>
-          ) : (
-            <Pill color="amber">Pending</Pill>
-          )}
         </div>
       </div>
-    </motion.div>
-  );
-};
-
-/* ─── Alumni Card — Limited Details (other batch) ─── */
-const AlumniCardLimited = ({ alumni, index }) => {
-  const gradient = pickGradient(alumni.firstName);
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.04, duration: 0.3 }}
-      className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col"
-    >
-      <div className={`h-1 w-full bg-gradient-to-r ${gradient} opacity-40`} />
-      <div className="p-4 flex items-center gap-3">
-        {/* Blurred avatar placeholder */}
-        <div
-          className={`flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} opacity-30 flex items-center justify-center`}
-        >
-          <EyeOff size={15} className="text-white" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <h4 className="text-sm font-bold text-slate-800 truncate">
-            {alumni.firstName} {alumni.lastName}
-          </h4>
-          <div className="flex flex-wrap gap-1 mt-1">
-            {alumni.department && (
-              <Pill>
-                <GraduationCap size={9} /> {alumni.department}
-              </Pill>
-            )}
-            {alumni.batchYear && (
-              <Pill color="amber">
-                <Calendar size={9} /> {alumni.batchYear}
-              </Pill>
-            )}
-          </div>
-        </div>
-        <div
-          className="flex-shrink-0 w-7 h-7 rounded-lg bg-slate-50 flex items-center justify-center"
-          title="Limited view"
-        >
-          <Lock size={12} className="text-slate-300" />
-        </div>
-      </div>
-    </motion.div>
+    </motion.button>
   );
 };
 
@@ -431,6 +456,7 @@ const AlumniDirectory = () => {
   const [batchLoading, setBatchLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
+  const [filters, setFilters] = useState({ occupations: [], departments: [] });
   const [filterOccupation, setFilterOccupation] = useState("");
   const [filterDept, setFilterDept] = useState("");
   const [gridMode, setGridMode] = useState("grid"); // "grid" | "list"
@@ -482,7 +508,7 @@ const AlumniDirectory = () => {
         } else if (countsArray && typeof countsArray === "object") {
           setBatchCounts(countsArray);
         }
-      } catch {
+      } catch (e) {
         setError("Could not load batches. Please try again.");
       } finally {
         setBatchLoading(false);
@@ -501,7 +527,7 @@ const AlumniDirectory = () => {
           batchStats: data.batchStats || 0,
           departmentStats: data.departmentStats || 0,
         });
-      } catch {
+      } catch (e) {
         // Ignore stats loading errors — not critical
       }
     })();
@@ -525,7 +551,7 @@ const AlumniDirectory = () => {
           page: pageNum,
           limit: itemsPerPage,
           search: searchStr || undefined,
-          occupation: occFilter || undefined,
+          jobTitle: occFilter || undefined,
           department: deptFilter || undefined,
           ...params,
         }); // GET /api/alumni/batch-wise?batchYear=year&page=1&limit=20&search=...
@@ -537,7 +563,8 @@ const AlumniDirectory = () => {
         setCurrentPage(data.page || 1);
         setSelectedBatch(year);
         setView("alumni");
-      } catch {
+        setFilters({ occupations: data.filters.jobTitles || [], departments: data.filters.departments || [] });
+      } catch (e) {
         setError("Failed to load alumni for this batch.");
       } finally {
         setLoading(false);
@@ -562,28 +589,18 @@ const AlumniDirectory = () => {
     return alumniList; // Backend already filters, pagination handles the rest
   }, [alumniList]);
 
-  // ── Unique filter options ──
-  const occupations = useMemo(
-    () => [...new Set(alumniList.map((a) => a.occupation).filter(Boolean))],
-    [alumniList],
-  );
-  const departments = useMemo(
-    () => [...new Set(alumniList.map((a) => a.department).filter(Boolean))],
-    [alumniList],
-  );
 
-  // ── Split: full vs limited ──
-  const { fullCards, limitedCards } = useMemo(() => {
-    const fullCards = filtered.filter((a) => canSeeFullDetails(user, a));
-    const limitedCards = filtered.filter((a) => !canSeeFullDetails(user, a));
-    return { fullCards, limitedCards };
-  }, [filtered, user]);
+  // ── Alumni list ──
+  const displayedAlumni = useMemo(() => filtered, [filtered]);
 
   /* Display info - use total from pagination for accuracy */
   return (
     <>
-      <div ref={alumniRef} className="min-h-screen bg-[#f4f5f9] pt-24 pb-16 px-4 sm:px-6">
-        <div  className="container mx-auto px-6">
+      <div
+        ref={alumniRef}
+        className="min-h-screen bg-[#f4f5f9] pt-24 pb-16 px-4 sm:px-6"
+      >
+        <div className="container mx-auto px-6">
           {/* ── Page Header ── */}
           <motion.div
             className="mb-8"
@@ -610,7 +627,7 @@ const AlumniDirectory = () => {
 
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="text-[11px] font-extrabold text-orange-400 uppercase tracking-widest mb-1">
+                <p className="text-[11px] font-extrabold text-indigo-400 uppercase tracking-widest mb-1">
                   Alumni Portal
                 </p>
                 <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none">
@@ -646,12 +663,6 @@ const AlumniDirectory = () => {
                 {view === "alumni" && !loading && (
                   <p className="text-sm text-slate-400 font-medium mt-1">
                     {formatNumber(total)} alumni found
-                    {/* {!isAdmin && (
-                      <span className="ml-2 text-orange-400">
-                        · {fullCards.length} full profile
-                        {fullCards.length !== 1 ? "s" : ""} visible
-                      </span>
-                    )} */}
                   </p>
                 )}
               </div>
@@ -662,13 +673,13 @@ const AlumniDirectory = () => {
                   <div className="flex items-center bg-white border border-slate-200 rounded-xl p-1 shadow-sm">
                     <button
                       onClick={() => setGridMode("grid")}
-                      className={`p-1.5 rounded-lg transition-all ${gridMode === "grid" ? "bg-orange-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+                      className={`p-1.5 rounded-lg transition-all ${gridMode === "grid" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
                     >
                       <LayoutGrid size={14} />
                     </button>
                     <button
                       onClick={() => setGridMode("list")}
-                      className={`p-1.5 rounded-lg transition-all ${gridMode === "list" ? "bg-orange-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+                      className={`p-1.5 rounded-lg transition-all ${gridMode === "list" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
                     >
                       <List size={14} />
                     </button>
@@ -676,7 +687,7 @@ const AlumniDirectory = () => {
                   {/* Filter toggle */}
                   <button
                     onClick={() => setShowFilters((p) => !p)}
-                    className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl border text-sm font-bold transition-all shadow-sm ${showFilters ? "bg-orange-600 border-orange-600 text-white" : "bg-white border-slate-200 text-slate-600 hover:border-orange-300"}`}
+                    className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl border text-sm font-bold transition-all shadow-sm ${showFilters ? "bg-indigo-600 border-indigo-600 text-white" : "bg-white border-slate-200 text-slate-600 hover:border-indigo-300"}`}
                   >
                     <SlidersHorizontal size={14} />
                     Filters
@@ -719,7 +730,7 @@ const AlumniDirectory = () => {
               >
                 {batchLoading ? (
                   <div className="flex flex-col items-center justify-center py-24 gap-4">
-                    <div className="w-10 h-10 rounded-full border-4 border-slate-200 border-t-orange-500 animate-spin" />
+                    <div className="w-10 h-10 rounded-full border-4 border-slate-200 border-t-indigo-500 animate-spin" />
                     <p className="text-slate-400 text-sm font-medium">
                       Loading batches…
                     </p>
@@ -736,32 +747,6 @@ const AlumniDirectory = () => {
                   </div>
                 ) : (
                   <>
-                    {/* Info banner for alumni */}
-                    {!isAdmin && (
-                      <motion.div
-                        className="flex items-start gap-3 px-5 py-3.5 rounded-2xl bg-orange-50 border border-orange-100 mb-6"
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        <Eye
-                          size={16}
-                          className="text-orange-400 flex-shrink-0 mt-0.5"
-                        />
-                        <div>
-                          <p className="text-sm font-bold text-orange-800">
-                            Visibility Notice
-                          </p>
-                          <p className="text-xs text-orange-500 mt-0.5">
-                            Full details are visible for{" "}
-                            <strong>Batch {user?.batchYear}</strong> members.
-                            Other batches show name, department, and batch year
-                            only.
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                       {batches.map((year, i) => (
                         <BatchCard
@@ -780,7 +765,8 @@ const AlumniDirectory = () => {
                             alumniRef.current.scrollIntoView({
                               behavior: "smooth",
                             });
-                            loadBatch(year)}}
+                            loadBatch(year);
+                          }}
                           index={i}
                         />
                       ))}
@@ -808,10 +794,10 @@ const AlumniDirectory = () => {
                     />
                     <input
                       type="text"
-                      placeholder="Search by name, email or roll number…"
+                      placeholder="Search by name, roll number…"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full pl-10 pr-10 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-300 focus:border-orange-300 shadow-sm transition-all"
+                      className="w-full pl-10 pr-10 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300 shadow-sm transition-all"
                     />
                     {search && (
                       <button
@@ -839,10 +825,10 @@ const AlumniDirectory = () => {
                             onChange={(e) =>
                               setFilterOccupation(e.target.value)
                             }
-                            className="appearance-none pl-3.5 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-300 shadow-sm cursor-pointer"
+                            className="appearance-none pl-3.5 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm cursor-pointer"
                           >
                             <option value="">All Occupations</option>
-                            {occupations.map((o) => (
+                            {filters.occupations.map((o) => (
                               <option key={o}>{o}</option>
                             ))}
                           </select>
@@ -856,10 +842,10 @@ const AlumniDirectory = () => {
                           <select
                             value={filterDept}
                             onChange={(e) => setFilterDept(e.target.value)}
-                            className="appearance-none pl-3.5 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-300 shadow-sm cursor-pointer"
+                            className="appearance-none pl-3.5 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm cursor-pointer"
                           >
                             <option value="">All Departments</option>
-                            {departments.map((d) => (
+                            {filters.departments.map((d) => (
                               <option key={d}>{d}</option>
                             ))}
                           </select>
@@ -888,7 +874,7 @@ const AlumniDirectory = () => {
                 {/* Loading */}
                 {loading ? (
                   <div className="flex flex-col items-center justify-center py-28 gap-4">
-                    <div className="w-10 h-10 rounded-full border-4 border-slate-200 border-t-orange-500 animate-spin" />
+                    <div className="w-10 h-10 rounded-full border-4 border-slate-200 border-t-indigo-500 animate-spin" />
                     <p className="text-slate-400 text-sm font-medium">
                       Loading alumni…
                     </p>
@@ -906,7 +892,7 @@ const AlumniDirectory = () => {
                           setFilterOccupation("");
                           setFilterDept("");
                         }}
-                        className="mt-3 text-orange-500 text-sm font-bold hover:underline"
+                        className="mt-3 text-indigo-500 text-sm font-bold hover:underline"
                       >
                         Clear filters
                       </button>
@@ -915,34 +901,26 @@ const AlumniDirectory = () => {
                 ) : (
                   <>
                     {/* ── Full-detail section ── */}
-                    {fullCards.length > 0 && (
+                    {displayedAlumni.length > 0 && (
                       <section className="mb-8">
-                        {!isAdmin && (
-                          <div className="flex items-center gap-2 mb-4">
-                            <Eye size={13} className="text-emerald-500" />
-                            <span className="text-xs font-extrabold text-slate-500 uppercase tracking-widest">
-                              Your Batch — Full Details
-                            </span>
-                            <span className="text-[10px] font-bold text-slate-300">
-                              ({fullCards.length})
-                            </span>
-                          </div>
-                        )}
+                        <div className="flex items-center gap-2 mb-4">
+                          <Eye size={13} className="text-emerald-500" />
+                          <span className="text-xs font-extrabold text-slate-500 uppercase tracking-widest">
+                            Alumni Profiles
+                          </span>
+                          <span className="text-[10px] font-bold text-slate-300">
+                            ({displayedAlumni.length})
+                          </span>
+                        </div>
                         {gridMode === "grid" ? (
-                          <div
-                            className={`grid gap-4 ${
-                              gridMode === "grid"
-                                ? "grid-cols-1 sm:grid-cols-3 lg:grid-cols-5"
-                                : "grid-cols-1"
-                            }`}
-                          >
-                            {fullCards.map((alumni, i) => (
+                          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
+                            {displayedAlumni.map((alumni, i) => (
                               <div
                                 key={alumni._id}
                                 onClick={() => setSelectedAlumni(alumni)}
                                 className="cursor-pointer"
                               >
-                                <AlumniCardFull
+                                <AlumniCard
                                   alumni={alumni}
                                   apiBase={API_BASE}
                                   index={i}
@@ -962,16 +940,10 @@ const AlumniDirectory = () => {
                                     Department
                                   </th>
                                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
-                                    Programme
+                                    Degree
                                   </th>
                                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
                                     Batch
-                                  </th>
-                                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
-                                    Email
-                                  </th>
-                                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
-                                    Phone
                                   </th>
                                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
                                     Job
@@ -982,7 +954,7 @@ const AlumniDirectory = () => {
                                 </tr>
                               </thead>
                               <tbody className="bg-white divide-y divide-slate-100">
-                                {fullCards.map((alumni) => (
+                                {displayedAlumni.map((alumni, i) => (
                                   <tr
                                     key={alumni._id}
                                     onClick={() => setSelectedAlumni(alumni)}
@@ -1003,7 +975,9 @@ const AlumniDirectory = () => {
                                             {alumni.firstName} {alumni.lastName}
                                           </div>
                                           <div className="text-xs text-slate-400 truncate">
-                                            {alumni.email}
+                                            {alumni.currentCompany ||
+                                              alumni.industry ||
+                                              "—"}
                                           </div>
                                         </div>
                                       </div>
@@ -1012,21 +986,15 @@ const AlumniDirectory = () => {
                                       {alumni.department || "—"}
                                     </td>
                                     <td className="px-4 py-3 text-sm text-slate-700 align-middle">
-                                      {alumni.programmeType || "—"}
+                                      {alumni.degree || "—"}
                                     </td>
                                     <td className="px-4 py-3 text-sm text-slate-700 align-middle">
                                       {alumni.batchYear || "—"}
                                     </td>
                                     <td className="px-4 py-3 text-sm text-slate-700 align-middle truncate">
-                                      {alumni.email}
-                                    </td>
-                                    <td className="px-4 py-3 text-sm text-slate-700 align-middle">
-                                      {alumni.phone || "—"}
-                                    </td>
-                                    <td className="px-4 py-3 text-sm text-slate-700 align-middle truncate">
                                       {alumni.jobTitle
                                         ? `${alumni.jobTitle}${alumni.currentCompany ? " @ " + alumni.currentCompany : ""}`
-                                        : alumni.occupation || "—"}
+                                        : alumni.jobTitle || "—"}
                                     </td>
                                     <td className="px-4 py-3 align-middle">
                                       {alumni.isApproved ? (
@@ -1047,7 +1015,7 @@ const AlumniDirectory = () => {
                     )}
 
                     {/* ── Pagination Controls (between full & limited) ── */}
-                    {totalPages > 1 && fullCards.length > 0 && (
+                    {totalPages > 1 && (
                       <div className="flex items-center justify-center gap-2 my-8 px-4 flex-wrap">
                         <button
                           onClick={() => {
@@ -1063,7 +1031,7 @@ const AlumniDirectory = () => {
                             );
                           }}
                           disabled={currentPage === 1}
-                          className="px-3 py-2 rounded-lg border border-orange-300 text-orange-600 hover:bg-orange-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          className="px-3 py-2 rounded-lg border border-indigo-300 text-indigo-600 hover:bg-indigo-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                           ← Prev
                         </button>
@@ -1121,8 +1089,8 @@ const AlumniDirectory = () => {
                                   }}
                                   className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
                                     currentPage === page
-                                      ? "bg-orange-600 text-white shadow-md"
-                                      : "border border-orange-200 text-orange-600 hover:bg-orange-50"
+                                      ? "bg-indigo-600 text-white shadow-md"
+                                      : "border border-indigo-200 text-indigo-600 hover:bg-indigo-50"
                                   }`}
                                 >
                                   {page}
@@ -1146,7 +1114,7 @@ const AlumniDirectory = () => {
                             );
                           }}
                           disabled={currentPage === totalPages}
-                          className="px-3 py-2 rounded-lg border border-orange-300 text-orange-600 hover:bg-orange-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          className="px-3 py-2 rounded-lg border border-indigo-300 text-indigo-600 hover:bg-indigo-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                           Next →
                         </button>
@@ -1157,221 +1125,6 @@ const AlumniDirectory = () => {
                         </span>
                       </div>
                     )}
-
-                    {/* ── Limited-detail section ── */}
-                    {limitedCards.length > 0 && (
-                      <section>
-                        <div className="flex items-center gap-2 mb-4">
-                          <Lock size={13} className="text-slate-400" />
-                          <span className="text-xs font-extrabold text-slate-400 uppercase tracking-widest">
-                            Other Batches — Limited View
-                          </span>
-                          <span className="text-[10px] font-bold text-slate-300">
-                            ({limitedCards.length})
-                          </span>
-                        </div>
-                        {gridMode === "grid" ? (
-                          <div
-                            className={`grid gap-3 ${
-                              gridMode === "grid"
-                                ? "grid-cols-1 sm:grid-cols-3 lg:grid-cols-5"
-                                : "grid-cols-1"
-                            }`}
-                          >
-                            {limitedCards.map((alumni, i) => (
-                              <div key={alumni._id} className="cursor-pointer">
-                                <AlumniCardLimited alumni={alumni} index={i} />
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="overflow-auto bg-white rounded-2xl border border-slate-100 shadow-sm">
-                            <table className="min-w-full table-fixed">
-                              <thead className="bg-slate-50">
-                                <tr>
-                                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
-                                    Name
-                                  </th>
-                                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
-                                    Department
-                                  </th>
-                                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
-                                    Batch
-                                  </th>
-                                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
-                                    Location
-                                  </th>
-                                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500">
-                                    View
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody className="bg-white divide-y divide-slate-100">
-                                {limitedCards.map((alumni) => (
-                                  <tr
-                                    key={alumni._id}
-                                    className="hover:bg-slate-50 cursor-pointer"
-                                  >
-                                    <td className="px-4 py-3 align-middle">
-                                      <div className="flex items-center gap-3">
-                                        <div
-                                          className={`w-9 h-9 rounded-md bg-gradient-to-br ${pickGradient(alumni.firstName)} flex items-center justify-center text-white font-bold opacity-60`}
-                                        >
-                                          {getInitials(
-                                            alumni.firstName,
-                                            alumni.lastName,
-                                          )}
-                                        </div>
-                                        <div className="min-w-0">
-                                          <div className="text-sm font-bold text-slate-800 truncate">
-                                            {alumni.firstName} {alumni.lastName}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </td>
-                                    <td className="px-4 py-3 text-sm text-slate-700 align-middle">
-                                      {alumni.department || "—"}
-                                    </td>
-                                    <td className="px-4 py-3 text-sm text-slate-700 align-middle">
-                                      {alumni.batchYear || "—"}
-                                    </td>
-                                    <td className="px-4 py-3 text-sm text-slate-700 align-middle">
-                                      {[alumni.city, alumni.country]
-                                        .filter(Boolean)
-                                        .join(", ") || "—"}
-                                    </td>
-                                    <td className="px-4 py-3 align-middle">
-                                      <div
-                                        className="w-7 h-7 rounded-lg bg-slate-50 flex items-center justify-center"
-                                        title="Limited view"
-                                      >
-                                        <Lock
-                                          size={14}
-                                          className="text-slate-400"
-                                        />
-                                      </div>
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        )}
-                      </section>
-                    )}
-
-                    {/* ── Pagination Controls (between full & limited) ── */}
-                    {totalPages > 1 && limitedCards.length > 0 && (
-                      <div className="flex items-center justify-center gap-2 my-8 px-4 flex-wrap">
-                        <button
-                          onClick={() => {
-                            alumniRef.current.scrollIntoView({
-                              behavior: "smooth",
-                            });
-                            loadBatch(
-                              selectedBatch,
-                              Math.max(1, currentPage - 1),
-                              search,
-                              filterOccupation,
-                              filterDept,
-                            );
-                          }}
-                          disabled={currentPage === 1}
-                          className="px-3 py-2 rounded-lg border border-orange-300 text-orange-600 hover:bg-orange-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                        >
-                          ← Prev
-                        </button>
-
-                        <div className="flex items-center gap-1 flex-wrap justify-center">
-                          {(() => {
-                            const pages = [];
-
-                            const range = 2; // pages before/after current
-
-                            // Always add first page
-                            pages.push(1);
-
-                            // Add pages around current
-                            const start = Math.max(2, currentPage - range);
-                            const end = Math.min(
-                              totalPages - 1,
-                              currentPage + range,
-                            );
-
-                            // Add ellipsis if needed
-                            if (start > 2) pages.push("...");
-
-                            // Add range
-                            for (let i = start; i <= end; i++) pages.push(i);
-
-                            // Add ellipsis if needed
-                            if (end < totalPages - 1) pages.push("...");
-
-                            // Always add last page (if more than 1 page)
-                            if (totalPages > 1) pages.push(totalPages);
-
-                            return pages.map((page, idx) =>
-                              page === "..." ? (
-                                <span
-                                  key={`ellipsis-${idx}`}
-                                  className="text-slate-400 px-1"
-                                >
-                                  …
-                                </span>
-                              ) : (
-                                <button
-                                  key={page}
-                                  onClick={() => {
-                                    alumniRef.current.scrollIntoView({
-                                      behavior: "smooth",
-                                    });
-                                    loadBatch(
-                                      selectedBatch,
-                                      page,
-                                      search,
-                                      filterOccupation,
-                                      filterDept,
-                                    );
-                                  }}
-                                  className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
-                                    currentPage === page
-                                      ? "bg-orange-600 text-white shadow-md"
-                                      : "border border-orange-200 text-orange-600 hover:bg-orange-50"
-                                  }`}
-                                >
-                                  {page}
-                                </button>
-                              ),
-                            );
-                          })()}
-                        </div>
-
-                        <button
-                          onClick={() => {
-                            alumniRef.current.scrollIntoView({
-                              behavior: "smooth",
-                            });
-                            loadBatch(
-                              selectedBatch,
-                              Math.min(totalPages, currentPage + 1),
-                              search,
-                              filterOccupation,
-                              filterDept,
-                            );
-                          }}
-                          disabled={currentPage === totalPages}
-                          className="px-3 py-2 rounded-lg border border-orange-300 text-orange-600 hover:bg-orange-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                        >
-                          Next →
-                        </button>
-
-                        <span className="text-xs text-slate-500 font-medium ml-4">
-                          Page {currentPage} of {totalPages} • Total: {total}{" "}
-                          alumni
-                        </span>
-                      </div>
-                    )}
-       
                   </>
                 )}
               </motion.div>

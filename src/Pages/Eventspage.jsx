@@ -1,9 +1,19 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
+import { eventsAPI } from "../services/api";
 
-import { events } from '../content/data/events'
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return {
+    day: date.getDate(),
+    month: date.toLocaleString('default', { month: 'short' }),
+    year: date.getFullYear(),
+    dayName: date.toLocaleString('default', { weekday: 'short' }),
+  }
+};
 
 const categoryIcon = {
   chapter: (
@@ -22,6 +32,11 @@ const categoryIcon = {
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
       <path d="M4 21V10l8-6 8 6v11M4 21h16M9 21v-5h6v5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M12 4v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  ),
+  Awards: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2v6M12 2l3 3M12 2l-3 3M4.5 9.5h15M4.5 9.5l1.5 11h12l1.5-11M4.5 9.5h15l-1.5-7h-12l-1.5 7Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   ),
 }
@@ -67,6 +82,22 @@ function SearchIcon(props) {
 const eventStatuses = ['Upcoming events', 'Past events']
 const eventModes = ['Offline', 'Online']
 
+const normalizeEventsPayload = (payload) => {
+  if (Array.isArray(payload)) return payload
+  if (Array.isArray(payload?.data)) return payload.data
+  if (Array.isArray(payload?.events)) return payload.events
+  if (Array.isArray(payload?.results)) return payload.results
+
+  const nestedData = payload?.data
+  if (Array.isArray(nestedData)) return nestedData
+  if (nestedData && typeof nestedData === 'object') {
+    if (Array.isArray(nestedData.events)) return nestedData.events
+    if (Array.isArray(nestedData.data)) return nestedData.data
+  }
+
+  return []
+}
+
 export default function EventsPage() {
   const [query, setQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState([])
@@ -74,24 +105,57 @@ export default function EventsPage() {
   const [dateFrom, setDateFrom] = useState('')
   const [dateTo, setDateTo] = useState('')
   const [sortDesc, setSortDesc] = useState(true)
+  const [eventsData, setEventsData] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const toggle = (list, setList, value) => {
     setList((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]))
   }
 
+   // Fetch events from API
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true)
+      try {
+        const response = await eventsAPI.getAll()
+        const normalized = normalizeEventsPayload(response?.data)
+        setEventsData(normalized)
+      }
+      catch (error) {
+        console.error('Error fetching events:', error)
+        setEventsData([])
+      }
+      finally {
+        setLoading(false)
+      }
+    }
+    fetchEvents()
+  }, [])
+
   const filtered = useMemo(() => {
-    let list = events.filter((e) => {
-      const matchesQuery = e.title.toLowerCase().includes(query.toLowerCase())
+    let list = eventsData.filter((e) => {
+      const title = e?.title || ''
+      const status = e?.status || ''
+      const mode = e?.mode || ''
+      const normalizedStatus = status.toLowerCase()
+      const normalizedMode = mode.toLowerCase()
+      const matchesQuery = title.toLowerCase().includes(query.toLowerCase())
       const matchesStatus =
         statusFilter.length === 0 ||
-        (statusFilter.includes('Past events') && e.status === 'Past Event') ||
-        (statusFilter.includes('Upcoming events') && e.status === 'Upcoming Event')
-      const matchesMode = modeFilter.length === 0 || modeFilter.includes(e.mode)
+        (statusFilter.includes('Past events') && normalizedStatus.includes('past')) ||
+        (statusFilter.includes('Upcoming events') && normalizedStatus.includes('upcoming'))
+      const matchesMode = modeFilter.length === 0 || modeFilter.some((filter) => filter.toLowerCase() === normalizedMode)
       return matchesQuery && matchesStatus && matchesMode
     })
-    list = [...list].sort((a, b) => (sortDesc ? b.id - a.id : a.id - b.id))
+    const getEventSortKey = (event) => Number(event?.id ?? event?._id ?? 0) || 0
+    list = [...list].sort((a, b) => {
+      const diff = getEventSortKey(a) - getEventSortKey(b)
+      return sortDesc ? -diff : diff
+    })
     return list
-  }, [query, statusFilter, modeFilter, sortDesc])
+  }, [eventsData, query, statusFilter, modeFilter, sortDesc])
+
+ console.log('Filtered events:', filtered);
 
   return (
     <div className="bg-slate-50 min-h-screen">
@@ -218,9 +282,13 @@ export default function EventsPage() {
             </button>
           </div>
 
-          {filtered.length === 0 ? (
+          {loading ? (
             <div className="bg-white border border-slate-100 rounded-2xl py-16 text-center text-slate-400 text-sm">
-              No events match your filters.
+              Loading events...
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="bg-white border border-slate-100 rounded-2xl py-16 text-center text-slate-400 text-sm">
+              {eventsData.length === 0 ? 'No events available right now.' : 'No events match your filters.'}
             </div>
           ) : (
             <motion.div
@@ -231,9 +299,9 @@ export default function EventsPage() {
               className="flex flex-col gap-5"
             >
               {filtered.map((event) => (
-                <motion.div key={event.id} variants={fadeUp}>
+                <motion.div key={event._id} variants={fadeUp}>
                   <Link
-                    to={`/events/${event.slug}`}
+                    to={`/events/${event.slug || event.title.replace(/\s+/g, '-').toLowerCase()}`}
                     className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
                   >
                     <div className="w-full sm:w-56 h-40 sm:h-36 shrink-0 rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-700 grid place-items-center text-orange-400/80 relative">
@@ -257,7 +325,7 @@ export default function EventsPage() {
                         <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500">
                           <span className="flex items-center gap-1.5">
                             <CalendarIcon className="text-orange-500" />
-                            {event.date}, {event.time}
+                            {formatDate(event.date).dayName}, {formatDate(event.date).day} {formatDate(event.date).month} {formatDate(event.date).year}
                           </span>
                           <span className="flex items-center gap-1.5">
                             <PinIcon className="text-orange-500" />
