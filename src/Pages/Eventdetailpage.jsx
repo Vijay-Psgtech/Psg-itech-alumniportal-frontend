@@ -4,8 +4,6 @@ import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 import { eventsAPI } from '../services/api'
 
-// import { events } from '../content/data/events'
-
 function CalendarIcon(props) {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" {...props}>
@@ -58,9 +56,8 @@ const categoryIcon = {
 
 export default function EventDetailPage() {
   const { id } = useParams()
-  // const event = events.find((e) => e.slug === slug)
   const [event, setEvent] = useState(null)
-  const [events, setEvents] = useState([]);
+  const [eventsData, setEventsData] = useState([]);
 
   useEffect(() => {
     eventsAPI.getById(id)
@@ -71,6 +68,16 @@ export default function EventDetailPage() {
         console.error('Error fetching event:', error);
       });
   }, [id]);
+
+  useEffect(() => {
+    eventsAPI.getAll()
+      .then((response) => {
+        setEventsData(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching events:', error);
+      } );
+  } , []);
 
   if (!event) {
     return (
@@ -87,7 +94,7 @@ export default function EventDetailPage() {
     )
   }
 
-  const otherEvents = events.filter((e) => e.slug !== event.slug).slice(0, 3)
+  const otherEvents = eventsData.filter((e) => e._id !== event._id).slice(0, 3)
 
   return (
     <div className="bg-slate-50 min-h-screen">
