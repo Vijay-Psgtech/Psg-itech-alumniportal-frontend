@@ -3,17 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 import { eventsAPI } from "../services/api";
-
-
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return {
-    day: date.getDate(),
-    month: date.toLocaleString('default', { month: 'short' }),
-    year: date.getFullYear(),
-    dayName: date.toLocaleString('default', { weekday: 'short' }),
-  }
-};
+import { formatDate } from '../utils/dateFormat'
 
 const categoryIcon = {
   chapter: (
@@ -326,7 +316,7 @@ export default function EventsPage() {
                         <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500">
                           <span className="flex items-center gap-1.5">
                             <CalendarIcon className="text-orange-500" />
-                            {formatDate(event.date).dayName}, {formatDate(event.date).day} {formatDate(event.date).month} {formatDate(event.date).year}
+                            {formatDate(event.date)}
                           </span>
                           <span className="flex items-center gap-1.5">
                             <PinIcon className="text-orange-500" />
