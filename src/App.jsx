@@ -65,7 +65,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/events" element={<EventsPage />} />
-        <Route path="/events/:slug" element={<EventDetailPage />} />
+        <Route path="/events/:id" element={<EventDetailPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:slug" element={<FeedDetailPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
@@ -83,7 +83,7 @@ function AnimatedRoutes() {
         <Route path="/alumni/donations" element={<ProtectedRoute><AlumniDonations /></ProtectedRoute>} />
         <Route path="/alumni/notifications/new" element={<SendNotification />} />
         <Route path="/alumni/notifications" element={<ProtectedRoute><NotificationInbox /></ProtectedRoute>} />
-        <Route path="/alumni/forgot-password" element={<ForgotPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />

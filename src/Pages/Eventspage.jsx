@@ -301,7 +301,8 @@ export default function EventsPage() {
               {filtered.map((event) => (
                 <motion.div key={event._id} variants={fadeUp}>
                   <Link
-                    to={`/events/${event.slug || event.title.replace(/\s+/g, '-').toLowerCase()}`}
+                    // to={`/events/${event.slug || event.title.replace(/\s+/g, '-').toLowerCase()}`}
+                    to={`/events/${event._id}`}
                     className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
                   >
                     <div className="w-full sm:w-56 h-40 sm:h-36 shrink-0 rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-700 grid place-items-center text-orange-400/80 relative">

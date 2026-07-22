@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
-
-import { events } from '../content/data/events'
+import { eventsAPI } from '../services/api'
 
 function CalendarIcon(props) {
   return (
@@ -55,8 +55,29 @@ const categoryIcon = {
 }
 
 export default function EventDetailPage() {
-  const { slug } = useParams()
-  const event = events.find((e) => e.slug === slug)
+  const { id } = useParams()
+  const [event, setEvent] = useState(null)
+  const [eventsData, setEventsData] = useState([]);
+
+  useEffect(() => {
+    eventsAPI.getById(id)
+      .then((response) => {
+        setEvent(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching event:', error);
+      });
+  }, [id]);
+
+  useEffect(() => {
+    eventsAPI.getAll()
+      .then((response) => {
+        setEventsData(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching events:', error);
+      } );
+  } , []);
 
   if (!event) {
     return (
@@ -73,7 +94,7 @@ export default function EventDetailPage() {
     )
   }
 
-  const otherEvents = events.filter((e) => e.slug !== event.slug).slice(0, 3)
+  const otherEvents = eventsData.filter((e) => e._id !== event._id).slice(0, 3)
 
   return (
     <div className="bg-slate-50 min-h-screen">
@@ -123,7 +144,7 @@ export default function EventDetailPage() {
               >
                 <span className="flex items-center gap-1.5">
                   <CalendarIcon className="text-orange-400" />
-                  {event.date}, {event.time} 
+                  {event.date}, {event.time}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <PinIcon className="text-orange-400" />
@@ -149,11 +170,13 @@ export default function EventDetailPage() {
             className="lg:col-span-8 flex flex-col gap-5"
           >
             <p className="text-slate-900 font-medium text-lg leading-relaxed">{event.summary}</p>
-            {event.description.map((p, i) => (
-              <p key={i} className="text-slate-500 leading-relaxed">
-                {p}
-              </p>
-            ))}
+            {(event.longDescription || event.description || "")
+              .split("\n\n")
+              .map((para, i) => (
+                <p key={i} className="text-slate-500 leading-relaxed">
+                  {para}
+                </p>
+              ))}
 
             <div className="mt-4">
               <button className="inline-flex items-center gap-2 border border-slate-200 hover:border-orange-400 text-slate-600 hover:text-orange-600 transition-colors text-sm font-medium px-5 py-2.5 rounded-full">
