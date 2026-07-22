@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 import { eventsAPI } from '../services/api'
+import { formatDate } from '../utils/dateFormat'
 
 function CalendarIcon(props) {
   return (
@@ -144,7 +145,7 @@ export default function EventDetailPage() {
               >
                 <span className="flex items-center gap-1.5">
                   <CalendarIcon className="text-orange-400" />
-                  {event.date}, {event.time}
+                  {formatDate(event.date)}, {event.time}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <PinIcon className="text-orange-400" />
@@ -201,7 +202,7 @@ export default function EventDetailPage() {
               <dl className="flex flex-col gap-4 text-sm">
                 <div>
                   <dt className="text-slate-400">Date &amp; time</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{event.date}, {event.time}</dd>
+                  <dd className="text-slate-900 font-medium mt-0.5">{formatDate(event.date)}, {(event.time)}</dd>
                 </div>
                 <div>
                   <dt className="text-slate-400">Venue</dt>
@@ -232,9 +233,9 @@ export default function EventDetailPage() {
               className="grid sm:grid-cols-3 gap-5"
             >
               {otherEvents.map((e) => (
-                <motion.div key={e.slug} variants={fadeUp}>
+                <motion.div key={e._id} variants={fadeUp}>
                   <Link
-                    to={`/events/${e.slug}`}
+                    to={`/events/${e._id}`}
                     className="group block bg-white border border-slate-100 rounded-2xl overflow-hidden hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
                   >
                     <div className="h-28 bg-gradient-to-br from-slate-900 to-slate-700 grid place-items-center text-orange-400/80">
@@ -244,7 +245,7 @@ export default function EventDetailPage() {
                       <h3 className="font-medium text-sm text-slate-900 group-hover:text-orange-600 transition-colors leading-snug">
                         {e.title}
                       </h3>
-                      <p className="text-xs text-slate-400 mt-2">{e.date}</p>
+                      <p className="text-xs text-slate-400 mt-2">{formatDate(e.date)}</p>
                     </div>
                   </Link>
                 </motion.div>
