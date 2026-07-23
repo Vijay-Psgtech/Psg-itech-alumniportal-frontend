@@ -599,7 +599,7 @@ const AdminEvents = () => {
                           Location
                         </p>
                         <p className="text-sm font-semibold text-slate-900 truncate">
-                          {event.venue?.split(",")[1] || "N/A"}
+                          {event.venue || "N/A"}
                         </p>
                       </div>
                     </div>
@@ -797,7 +797,7 @@ const AdminEvents = () => {
                                 className="text-gray-400 shrink-0"
                               />
                               <p className="text-sm text-gray-600 truncate max-w-[120px]">
-                                {event.venue?.split(",")[1] || "N/A"}
+                                {event.venue || "N/A"}
                               </p>
                             </div>
                           </td>
