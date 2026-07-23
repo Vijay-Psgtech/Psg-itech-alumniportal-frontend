@@ -174,7 +174,7 @@ export default function FeedPage() {
             <motion.div
               variants={staggerContainer(0.05)}
               initial="hidden"
-              whileInView="show"
+              animate="show"
               viewport={viewport}
               className="flex flex-col gap-5"
             >
