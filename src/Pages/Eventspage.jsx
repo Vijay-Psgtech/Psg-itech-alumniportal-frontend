@@ -2,34 +2,9 @@ import { useMemo, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
-import { eventsAPI } from "../services/api";
+import { eventsAPI, API_BASE } from "../services/api";
 import { formatDate } from '../utils/dateFormat'
 
-const categoryIcon = {
-  chapter: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ),
-  meet: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <circle cx="9" cy="8" r="3" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="17" cy="9" r="2.4" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M14.5 15.2c2.6.3 4.5 2 4.5 4.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  ),
-  congress: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <path d="M4 21V10l8-6 8 6v11M4 21h16M9 21v-5h6v5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M12 4v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  ),
-  Awards: (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2v6M12 2l3 3M12 2l-3 3M4.5 9.5h15M4.5 9.5l1.5 11h12l1.5-11M4.5 9.5h15l-1.5-7h-12l-1.5 7Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ),
-}
 
 function CalendarIcon(props) {
   return (
@@ -291,12 +266,15 @@ export default function EventsPage() {
               {filtered.map((event) => (
                 <motion.div key={event._id} variants={fadeUp}>
                   <Link
-                    // to={`/events/${event.slug || event.title.replace(/\s+/g, '-').toLowerCase()}`}
                     to={`/events/${event._id}`}
                     className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
                   >
                     <div className="w-full sm:w-56 h-40 sm:h-36 shrink-0 rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-700 grid place-items-center text-orange-400/80 relative">
-                      {categoryIcon[event.category]}
+                      <img
+                        src={`${API_BASE}/${event.imageUrl}`}
+                        alt={event.title}
+                        className="w-full h-full object-cover"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                     </div>
 
