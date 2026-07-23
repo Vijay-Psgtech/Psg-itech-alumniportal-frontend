@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
   CheckCircle,
-  Share2 as Linkedin,
-  MessageCircle as Twitter,
-  Camera as Instagram,
+  Linkedin,
+  Twitter,
+  Instagram,
   Mail,
   Phone,
   MapPin,
@@ -14,6 +14,7 @@ import {
   GraduationCap,
   Hash,
   ExternalLink,
+  Crown,
 } from "lucide-react";
 
 const getInitials = (first = "", last = "") =>
@@ -126,12 +127,11 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
   const photoUrl = photo ? `${apiBase}/uploads/${photo}` : null;
 
   const jobLine = alumni.jobTitle
-    ? `${alumni.jobTitle}${
-        alumni.currentCompany ? " · " + alumni.currentCompany : ""
-      }`
+    ? `${alumni.jobTitle}${alumni.currentCompany ? " · " + alumni.currentCompany : ""
+    }`
     : alumni.occupation;
 
-  const location = [alumni.city, alumni.country].filter(Boolean).join(", ");
+  const paidMembership = alumni.membershipStatus === "ACTIVE";
 
   return (
     <AnimatePresence>
@@ -146,7 +146,7 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
         <div
           onClick={onClose}
           style={{
-            position: "absolute",
+            position: "absolute inset-0 z-[2000]",
             inset: 0,
             background: "rgba(0,0,0,0.45)",
             backdropFilter: "blur(4px)",
@@ -213,7 +213,27 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
                 }}
               >
                 {alumni.firstName} {alumni.lastName}
+                {paidMembership && (
+                  <span
+                    style={{
+                      marginLeft: 8,
+                      background: "#d1fae5",
+                      color: "#10b981",
+                      fontSize: 10,
+                      fontWeight: 600,
+                      padding: "2px 6px",
+                      borderRadius: 6,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 4,
+                    }}
+                  >
+                    <Crown size={12} className="text-emerald-500" />
+                    Membership Active
+                  </span>
+                )}
               </h2>
+
 
               <div
                 style={{
@@ -263,8 +283,6 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
                 label="Roll Number"
                 value={alumni.rollNumber}
               />
-
-              <InfoRow icon={MapPin} label="Location" value={location} />
             </Section>
 
             <Section title="Professional Information">
@@ -275,29 +293,6 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
                 label="Company"
                 value={alumni.currentCompany}
               />
-            </Section>
-
-            {full && (
-              <Section title="Contact Information">
-                <InfoRow icon={Mail} label="Email" value={alumni.email} />
-
-                <InfoRow icon={Phone} label="Phone" value={alumni.phone} />
-              </Section>
-            )}
-
-            <Section title="Social Profiles">
-              <div
-                style={{
-                  display: "flex",
-                  gap: 10,
-                }}
-              >
-                <SocialBtn href={alumni.social?.linkedin} icon={Linkedin} />
-
-                <SocialBtn href={alumni.social?.twitter} icon={Twitter} />
-
-                <SocialBtn href={alumni.social?.instagram} icon={Instagram} />
-              </div>
             </Section>
           </div>
 
@@ -311,8 +306,6 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
               gap: 8,
             }}
           >
-            
-
             <button
               onClick={onClose}
               style={{
