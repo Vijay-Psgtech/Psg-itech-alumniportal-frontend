@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
-import { eventsAPI } from '../services/api'
+import { eventsAPI, API_BASE } from '../services/api'
 import { formatDate } from '../utils/dateFormat'
 
 function CalendarIcon(props) {
@@ -100,39 +100,40 @@ export default function EventDetailPage() {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Header */}
-      <section className="relative overflow-hidden bg-slate-900 pt-28 pb-16">
-        <div className="absolute -top-20 -right-20 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="relative max-w-5xl mx-auto px-6 lg:px-10">
+      <section className="relative overflow-hidden bg-slate-900 pt-24 pb-16 sm:pt-28 sm:pb-20">
+        <div className="absolute -top-20 -right-20 w-96 h-96 bg-orange-500/12 rounded-full blur-3xl" />
+        <div className="relative max-w-6xl mx-auto px-6 lg:px-10">
           <motion.p
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="flex flex-wrap items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-orange-400 mb-5"
+            className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-orange-400 mb-5"
           >
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <span className="text-white/30">/</span>
             <Link to="/events" className="hover:text-white transition-colors">Events</Link>
             <span className="text-white/30">/</span>
-            <span className="text-white/50 normal-case tracking-normal">{event.title}</span>
+            <span className="text-white/70 normal-case tracking-normal">{event.title}</span>
           </motion.p>
 
-          <div className="flex items-start gap-5">
+          <div className="grid gap-8 lg:grid-cols-[auto_1fr] items-start">
             <motion.div
               variants={fadeUp}
               initial="hidden"
               animate="show"
               transition={{ delay: 0.05 }}
-              className="hidden sm:grid w-16 h-16 shrink-0 rounded-2xl bg-white/5 border border-white/10 place-items-center text-orange-400"
+              className="hidden sm:grid w-20 h-20 shrink-0 rounded-[28px] bg-white/6 border border-white/10 place-items-center text-orange-400"
             >
               {categoryIcon[event.category]}
             </motion.div>
-            <div>
+
+            <div className="space-y-6">
               <motion.h1
                 variants={fadeUp}
                 initial="hidden"
                 animate="show"
                 transition={{ delay: 0.08 }}
-                className="font-display text-3xl sm:text-4xl font-semibold text-white leading-tight"
+                className="font-display text-3xl sm:text-5xl font-semibold text-white leading-tight"
               >
                 {event.title}
               </motion.h1>
@@ -141,80 +142,100 @@ export default function EventDetailPage() {
                 initial="hidden"
                 animate="show"
                 transition={{ delay: 0.14 }}
-                className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/60"
+                className="grid gap-3 sm:grid-cols-3 text-sm text-white/70"
               >
-                <span className="flex items-center gap-1.5">
-                  <CalendarIcon className="text-orange-400" />
-                  {formatDate(event.date)}, {event.time}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <PinIcon className="text-orange-400" />
-                  {event.venue}, {event.city}
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-white/70 text-xs">
-                  {event.status}
-                </span>
+                <div className="flex items-center gap-2 rounded-3xl bg-white/5 px-4 py-3">
+                  <CalendarIcon className="text-orange-300" />
+                  <span>{formatDate(event.date)}, {event.time}</span>
+                </div>
+                <div className="flex items-center gap-2 rounded-3xl bg-white/5 px-4 py-3">
+                  <PinIcon className="text-orange-300" />
+                  <span>{event.venue}, {event.city}</span>
+                </div>
+                <div className="inline-flex items-center justify-center rounded-3xl bg-orange-500/15 px-4 py-3 text-orange-100 font-medium text-sm">
+                  {event.status === "upcoming" ? "Upcoming Event" : "Past Event"}
+                </div>
               </motion.div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Image */}
+      {event.imageUrl && (
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          transition={{ delay: 0.18 }}
+          className="max-w-6xl mx-auto px-6 lg:px-10 mt-10"
+        >
+          <div className="overflow-hidden rounded-[32px] border border-slate-200 bg-slate-100 shadow-sm">
+            <img
+              src={`${API_BASE}/${event.imageUrl}`}
+              alt={event.title}
+              className="w-full h-full object-cover aspect-[16/9]"
+            />
+          </div>
+        </motion.div>
+      )}
+
       {/* Content */}
-      <section className="max-w-5xl mx-auto px-6 lg:px-10 py-14 lg:py-16">
-        <div className="grid lg:grid-cols-12 gap-10">
+      <section className="max-w-6xl mx-auto px-6 lg:px-10 py-12 sm:py-14">
+        <div className="grid gap-10 lg:grid-cols-[1.7fr_0.95fr]">
           <motion.div
             variants={fadeUp}
             initial="hidden"
-            whileInView="show"
+            animate="show"
             viewport={viewport}
-            className="lg:col-span-8 flex flex-col gap-5"
+            className="space-y-8"
           >
-            <p className="text-slate-900 font-medium text-lg leading-relaxed">{event.summary}</p>
-            {(event.longDescription || event.description || "")
-              .split("\n\n")
-              .map((para, i) => (
-                <p key={i} className="text-slate-500 leading-relaxed">
-                  {para}
-                </p>
-              ))}
-
-            <div className="mt-4">
-              <button className="inline-flex items-center gap-2 border border-slate-200 hover:border-orange-400 text-slate-600 hover:text-orange-600 transition-colors text-sm font-medium px-5 py-2.5 rounded-full">
-                <ShareIcon />
-                Share this event
-              </button>
+            <div className="rounded-[32px] bg-white p-8 shadow-sm">
+              <p className="text-slate-900 font-semibold text-lg sm:text-xl leading-relaxed">
+                {event.summary}
+              </p>
+              <div className="mt-6 space-y-5 text-slate-600 text-base leading-8">
+                {(event.longDescription || event.description || "")
+                  .split("\n")
+                  .filter(Boolean)
+                  .map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+              </div>
+              <div className="mt-8">
+                <button className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-orange-400 hover:text-orange-600">
+                  <ShareIcon />
+                  Share this event
+                </button>
+              </div>
             </div>
           </motion.div>
 
           <motion.aside
             variants={fadeUp}
             initial="hidden"
-            whileInView="show"
+            animate="show"
             viewport={viewport}
             transition={{ delay: 0.08 }}
-            className="lg:col-span-4"
+            className=""
           >
-            <div className="bg-white border border-slate-100 rounded-2xl p-6 lg:sticky lg:top-28">
-              <p className="text-xs font-medium tracking-[0.18em] uppercase text-orange-500 mb-4">
+            <div className="rounded-[32px] bg-white p-6 shadow-sm lg:sticky lg:top-28">
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-orange-500 mb-5">
                 Event details
               </p>
-              <dl className="flex flex-col gap-4 text-sm">
-                <div>
-                  <dt className="text-slate-400">Date &amp; time</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{formatDate(event.date)}, {(event.time)}</dd>
+              <dl className="space-y-4 text-sm text-slate-600">
+                <div className="rounded-3xl bg-slate-50 p-4">
+                  <dt className="text-xs uppercase tracking-[0.18em] text-slate-400">Date & time</dt>
+                  <dd className="mt-2 text-slate-900 font-medium">{formatDate(event.date)}, {event.time}</dd>
                 </div>
-                <div>
-                  <dt className="text-slate-400">Venue</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{event.venue}, {event.city}</dd>
+                <div className="rounded-3xl bg-slate-50 p-4">
+                  <dt className="text-xs uppercase tracking-[0.18em] text-slate-400">Venue</dt>
+                  <dd className="mt-2 text-slate-900 font-medium">{event.venue}, {event.city}</dd>
                 </div>
-                <div>
-                  <dt className="text-slate-400">Mode</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{event.mode}</dd>
-                </div>
-                <div>
-                  <dt className="text-slate-400">Status</dt>
-                  <dd className="text-slate-900 font-medium mt-0.5">{event.status}</dd>
+                
+                <div className="rounded-3xl bg-slate-50 p-4">
+                  <dt className="text-xs uppercase tracking-[0.18em] text-slate-400">Status</dt>
+                  <dd className="mt-2 text-slate-900 font-medium">{event.status === "upcoming" ? "Upcoming Event" : "Past Event"}</dd>
                 </div>
               </dl>
             </div>
@@ -223,29 +244,33 @@ export default function EventDetailPage() {
 
         {/* More events */}
         {otherEvents.length > 0 && (
-          <div className="mt-16 pt-12 border-t border-slate-200">
-            <h2 className="font-display text-xl font-semibold text-slate-900 mb-6">More events</h2>
+          <div className="mt-16 pt-14 border-t border-slate-200">
+            <h2 className="font-display text-2xl font-semibold text-slate-900 mb-6">More events</h2>
             <motion.div
               variants={staggerContainer(0.06)}
               initial="hidden"
-              whileInView="show"
+              animate="show"
               viewport={viewport}
-              className="grid sm:grid-cols-3 gap-5"
+              className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
             >
               {otherEvents.map((e) => (
                 <motion.div key={e._id} variants={fadeUp}>
                   <Link
                     to={`/events/${e._id}`}
-                    className="group block bg-white border border-slate-100 rounded-2xl overflow-hidden hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
+                    className="group block overflow-hidden rounded-[28px] border border-slate-100 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md"
                   >
-                    <div className="h-28 bg-gradient-to-br from-slate-900 to-slate-700 grid place-items-center text-orange-400/80">
-                      {categoryIcon[e.category]}
+                    <div className="overflow-hidden bg-slate-100">
+                      <img
+                        src={`${API_BASE}/${e.imageUrl}`}
+                        alt={e.title}
+                        className="w-full h-52 object-cover transition duration-300 group-hover:scale-105"
+                      />
                     </div>
-                    <div className="p-4">
-                      <h3 className="font-medium text-sm text-slate-900 group-hover:text-orange-600 transition-colors leading-snug">
+                    <div className="p-5">
+                      <h3 className="font-semibold text-base text-slate-900 transition-colors group-hover:text-orange-600">
                         {e.title}
                       </h3>
-                      <p className="text-xs text-slate-400 mt-2">{formatDate(e.date)}</p>
+                      <p className="mt-3 text-sm text-slate-500">{formatDate(e.date)}</p>
                     </div>
                   </Link>
                 </motion.div>

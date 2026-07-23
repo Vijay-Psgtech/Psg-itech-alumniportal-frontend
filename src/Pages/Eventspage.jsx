@@ -259,7 +259,7 @@ export default function EventsPage() {
             <motion.div
               variants={staggerContainer(0.05)}
               initial="hidden"
-              whileInView="show"
+              animate="show"
               viewport={viewport}
               className="flex flex-col gap-5"
             >
@@ -302,7 +302,7 @@ export default function EventsPage() {
                           </span>
                         </div>
                       </div>
-                      <span className="mt-4 sm:mt-0 text-xs font-medium text-slate-400">{event.status}</span>
+                      <span className="mt-4 sm:mt-0 text-xs font-medium text-slate-400">{event.status === "upcoming" ? "Upcoming Event" : "Past Event"}</span>
                     </div>
                   </Link>
                 </motion.div>
