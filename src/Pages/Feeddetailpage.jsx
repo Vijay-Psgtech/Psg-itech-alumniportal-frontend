@@ -140,7 +140,7 @@ export default function FeedDetailPage() {
         <motion.div
           variants={fadeUp}
           initial="hidden"
-          whileInView="show"
+          animate="show"
           viewport={viewport}
           className="relative rounded-2xl overflow-hidden bg-slate-900 py-10 px-6 text-center"
         >
