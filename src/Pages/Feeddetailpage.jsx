@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 
-import { feedPosts } from '../content/data/feed'
 import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import { newsLetterAPI, API_BASE } from '../services/api'
 
 function EyeIcon(props) {
   return (
@@ -22,6 +23,43 @@ function CalendarIcon(props) {
     </svg>
   )
 }
+
+const createSlug = (value) =>
+  String(value || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '') || 'post'
+
+const formatDate = (value) => {
+  if (!value) return 'Recently published'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return value
+  return date.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })
+}
+
+const getAssetUrl = (value) => {
+  if (!value) return null
+  if (value.startsWith('http') || value.startsWith('/') || value.startsWith('data:')) {
+    return value
+  }
+  return `${API_BASE}/${value}`
+}
+
+const normalizePost = (item, index) => ({
+  id: item._id || item.id || `${item.title || 'post'}-${index}`,
+  slug: item.slug || createSlug(item.title || `post-${index}`),
+  title: item.title || 'Untitled post',
+  description: item.description || item.excerpt || 'No summary available yet.',
+  category: item.category || 'Newsletters',
+  date: formatDate(item.date || item.createdAt || item.updatedAt),
+  author: item.author || 'PSG iTech Alumni',
+  imageUrl: getAssetUrl(item.imageUrl || item.coverImage || item.image),
+  content: Array.isArray(item.content) && item.content.length > 0 ? item.content : [item.description || item.description || 'No content available yet.'],
+  views: item.views || 0,
+  postedBy: item.postedBy || item.author || 'PSG iTech Alumni',
+  tags: Array.isArray(item.tags) ? item.tags : String(item.tags || '').split(',').filter(Boolean),
+})
 
 const shareChannels = [
   {
@@ -55,9 +93,55 @@ const shareChannels = [
 
 export default function FeedDetailPage() {
   const { slug } = useParams()
-  const post = feedPosts.find((p) => p.slug === slug)
+  const [post, setPost] = useState(null)
+  const [newsData, setNewsData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  if (!post) {
+  useEffect(() => {
+    let isMounted = true
+
+    const fetchPost = async () => {
+      try {
+        setLoading(true)
+        setError('')
+        const response = await newsLetterAPI.getAll()
+        const payload = response?.data?.data ?? response?.data?.newsletters ?? response?.data ?? []
+        const normalized = Array.isArray(payload) ? payload.map(normalizePost) : []
+
+        if (isMounted) {
+          setNewsData(normalized)
+          setPost(normalized.find((item) => item.slug === slug) || null)
+        }
+      } catch (err) {
+        console.error('Error fetching feed post:', err)
+        if (isMounted) {
+          setError('We could not load this story right now. Please try again shortly.')
+          setPost(null)
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false)
+        }
+      }
+    }
+
+    fetchPost()
+
+    return () => {
+      isMounted = false
+    }
+  }, [slug])
+
+  if (loading) {
+    return (
+      <div className="bg-slate-50 min-h-screen pt-32 pb-24 text-center">
+        <p className="font-display text-2xl font-semibold text-slate-900">Loading story...</p>
+      </div>
+    )
+  }
+
+  if (error || !post) {
     return (
       <div className="bg-slate-50 min-h-screen pt-32 pb-24 text-center">
         <p className="font-display text-2xl font-semibold text-slate-900">Post not found</p>
@@ -72,11 +156,11 @@ export default function FeedDetailPage() {
     )
   }
 
-  const morePosts = feedPosts.filter((p) => p.slug !== post.slug).slice(0, 3)
+  const morePosts = newsData.filter((item) => item.slug !== post.slug).slice(0, 3)
 
   return (
     <div className="bg-slate-50 min-h-screen pt-24">
-      <div className="max-w-3xl mx-auto px-6 lg:px-10 py-10">
+      <div className="max-w-5xl mx-auto px-6 lg:px-10 py-10">
         <motion.div variants={fadeUp} initial="hidden" animate="show">
           <Link
             to="/feed"
@@ -103,7 +187,7 @@ export default function FeedDetailPage() {
           transition={{ delay: 0.08 }}
           className="mt-8 rounded-2xl overflow-hidden bg-slate-100"
         >
-          <img src={bannerImage} alt={post.title} className="w-full max-h-[560px] object-cover" />
+          <img src={post.imageUrl || bannerImage} alt={post.title} className="w-full max-h-[560px] object-cover" />
         </motion.div>
 
         <motion.div
@@ -116,7 +200,7 @@ export default function FeedDetailPage() {
           <div className="w-10 h-10 rounded-full bg-orange-50 grid place-items-center font-display font-semibold text-orange-500 text-sm shrink-0">
             {post.author
               .split(' ')
-              .map((w) => w[0])
+              .map((word) => word[0])
               .slice(0, 2)
               .join('')}
           </div>
@@ -129,14 +213,14 @@ export default function FeedDetailPage() {
           animate="show"
           className="flex flex-col gap-5 py-8"
         >
-          {post.content.map((p, i) => (
-            <motion.p key={i} variants={fadeUp} className="text-slate-600 leading-relaxed">
-              {p}
-            </motion.p>
-          ))}
+          {post.description.split("\n")
+            .filter(Boolean).map((paragraph, index) => (
+              <motion.p key={index} variants={fadeUp} className="text-slate-600 leading-relaxed">
+                {paragraph}
+              </motion.p>
+            ))}
         </motion.div>
 
-        {/* Gated CTA */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -156,7 +240,6 @@ export default function FeedDetailPage() {
           </Link>
         </motion.div>
 
-        {/* Meta row */}
         <div className="flex flex-wrap items-center justify-between gap-4 mt-8 pt-6 border-t border-slate-200 text-sm text-slate-400">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5">
@@ -184,36 +267,35 @@ export default function FeedDetailPage() {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            {shareChannels.map((s) => (
+            {shareChannels.map((share) => (
               <span
-                key={s.label}
-                className={`w-8 h-8 rounded-full grid place-items-center ${s.color} cursor-pointer`}
-                title={`Share on ${s.label}`}
+                key={share.label}
+                className={`w-8 h-8 rounded-full grid place-items-center ${share.color} cursor-pointer`}
+                title={`Share on ${share.label}`}
               >
-                {s.icon}
+                {share.icon}
               </span>
             ))}
           </div>
         </div>
 
-        {/* More posts */}
         {morePosts.length > 0 && (
           <div className="mt-14 pt-10 border-t border-slate-200">
             <h2 className="font-display text-lg font-semibold text-slate-900 mb-5">More from NewsCorner</h2>
             <div className="flex flex-col gap-4">
-              {morePosts.map((p) => (
+              {morePosts.map((item) => (
                 <Link
-                  key={p.slug}
-                  to={`/feed/${p.slug}`}
+                  key={item.slug}
+                  to={`/feed/${item.slug}`}
                   className="group flex items-center gap-4 bg-white border border-slate-100 rounded-xl p-3 hover:border-orange-300 transition-colors"
                 >
                   <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-slate-100">
-                    <img src={bannerImage} alt={p.title} className="w-full h-full object-cover" />
+                    <img src={item.imageUrl || bannerImage} alt={item.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs text-orange-500 font-medium">{p.category}</p>
+                    <p className="text-xs text-orange-500 font-medium">{item.category}</p>
                     <p className="text-sm font-medium text-slate-900 group-hover:text-orange-600 transition-colors leading-snug truncate">
-                      {p.title}
+                      {item.title}
                     </p>
                   </div>
                 </Link>

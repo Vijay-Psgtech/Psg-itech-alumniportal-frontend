@@ -1,10 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
-
-import { feedPosts } from '../content/data/feed'
-import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import { newsLetterAPI, API_BASE } from '../services/api'
 
 function SearchIcon(props) {
   return (
@@ -34,7 +32,43 @@ function MoreIcon(props) {
   )
 }
 
-const categories = ['Alumni Spotlight', 'Chapter News']
+const createSlug = (value) =>
+  String(value || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '') || 'post'
+
+const formatDate = (value) => {
+  if (!value) return 'Recently published'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return value
+  return date.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })
+}
+
+const getAssetUrl = (value) => {
+  if (!value) return null
+  if (value.startsWith('http') || value.startsWith('/') || value.startsWith('data:')) {
+    return value
+  }
+  return `${API_BASE}/${value}`
+}
+
+const normalizePost = (item, index) => ({
+  id: item._id || item.id || `${item.title || 'post'}-${index}`,
+  slug: item.slug || createSlug(item.title || `post-${index}`),
+  title: item.title || 'Untitled post',
+  excerpt: item.description || item.excerpt || 'No summary available yet.',
+  category: item.category || 'Newsletters',
+  date: formatDate(item.date || item.createdAt || item.updatedAt),
+  sortDate: item.date || item.createdAt || item.updatedAt || '',
+  author: item.author || 'PSG iTech Alumni',
+  imageUrl: getAssetUrl(item.imageUrl || item.coverImage || item.image),
+  content: Array.isArray(item.content) && item.content.length > 0 ? item.content : [item.description || item.excerpt || 'No content available yet.'],
+  views: item.views || 0,
+  postedBy: item.postedBy || item.author || 'PSG iTech Alumni',
+  tags: Array.isArray(item.tags) ? item.tags : String(item.tags || '').split(',').filter(Boolean),
+})
 
 export default function FeedPage() {
   const [query, setQuery] = useState('')
@@ -42,26 +76,81 @@ export default function FeedPage() {
   const [dateFrom, setDateFrom] = useState('')
   const [dateTo, setDateTo] = useState('')
   const [sortDesc, setSortDesc] = useState(true)
+  const [newsData, setNewsData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    let isMounted = true
+
+    const fetchNews = async () => {
+      try {
+        setLoading(true)
+        setError('')
+        const response = await newsLetterAPI.getAll()
+        const payload = response?.data?.data ?? response?.data?.newsletters ?? response?.data ?? []
+        const normalized = Array.isArray(payload) ? payload.map(normalizePost) : []
+
+        if (isMounted) {
+          setNewsData(normalized)
+        }
+      } catch (err) {
+        console.error('Error fetching news data:', err)
+        if (isMounted) {
+          setError('We could not load the latest updates right now. Please try again shortly.')
+          setNewsData([])
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false)
+        }
+      }
+    }
+
+    fetchNews()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   const toggleCategory = (cat) => {
     setActiveCategories((prev) => (prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]))
   }
 
+  const categoryOptions = useMemo(() => Array.from(new Set(newsData.map((post) => post.category).filter(Boolean))).sort(), [newsData])
+
   const filtered = useMemo(() => {
-    let list = feedPosts.filter((p) => {
-      const matchesQuery =
-        p.title.toLowerCase().includes(query.toLowerCase()) ||
-        p.excerpt.toLowerCase().includes(query.toLowerCase())
+    let list = newsData.filter((p) => {
+      const queryText = `${p.title} ${p.excerpt}`.toLowerCase()
+      const matchesQuery = queryText.includes(query.toLowerCase())
       const matchesCategory = activeCategories.length === 0 || activeCategories.includes(p.category)
-      return matchesQuery && matchesCategory
+
+      const postDate = new Date(p.sortDate)
+      const fromDate = dateFrom ? new Date(dateFrom) : null
+      const toDate = dateTo ? new Date(dateTo) : null
+
+      const matchesDate =
+        (!fromDate || postDate >= fromDate) &&
+        (!toDate || postDate <= toDate)
+
+      return matchesQuery && matchesCategory && matchesDate
     })
-    list = [...list].sort((a, b) => (sortDesc ? b.id - a.id : a.id - b.id))
+
+    list = [...list].sort((a, b) => {
+      const aTime = new Date(a.sortDate).getTime()
+      const bTime = new Date(b.sortDate).getTime()
+      if (Number.isNaN(aTime) || Number.isNaN(bTime)) {
+        return 0
+      }
+      return sortDesc ? bTime - aTime : aTime - bTime
+    })
+
     return list
-  }, [query, activeCategories, sortDesc])
+  }, [newsData, query, activeCategories, dateFrom, dateTo, sortDesc])
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      {/* Page header */}
       <section className="bg-slate-900 pt-28 pb-14">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <motion.p
@@ -95,7 +184,6 @@ export default function FeedPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-12 lg:py-14 grid lg:grid-cols-12 gap-8">
-        {/* Filters sidebar */}
         <aside className="lg:col-span-3">
           <div className="lg:sticky lg:top-28 flex flex-col gap-6">
             <div className="relative">
@@ -135,7 +223,7 @@ export default function FeedPage() {
             <div className="bg-white border border-slate-100 rounded-2xl p-5">
               <p className="text-sm font-semibold text-slate-900 mb-4">Categories</p>
               <div className="flex flex-col gap-3">
-                {categories.map((cat) => (
+                {categoryOptions.map((cat) => (
                   <label key={cat} className="flex items-center gap-2.5 text-sm text-slate-500 cursor-pointer">
                     <input
                       type="checkbox"
@@ -151,7 +239,6 @@ export default function FeedPage() {
           </div>
         </aside>
 
-        {/* Feed list */}
         <div className="lg:col-span-9">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-display text-xl font-semibold text-slate-900">NewsCorner</h2>
@@ -162,11 +249,19 @@ export default function FeedPage() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
-              Sort {sortDesc ? '\u00b7 Newest' : '\u00b7 Oldest'}
+              Sort {sortDesc ? '� Newest' : '� Oldest'}
             </button>
           </div>
 
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="bg-white border border-slate-100 rounded-2xl py-16 text-center text-slate-500 text-sm">
+              Loading the latest stories...
+            </div>
+          ) : error ? (
+            <div className="bg-white border border-slate-100 rounded-2xl py-16 text-center text-slate-500 text-sm">
+              {error}
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="bg-white border border-slate-100 rounded-2xl py-16 text-center text-slate-400 text-sm">
               No posts match your filters.
             </div>
@@ -186,7 +281,7 @@ export default function FeedPage() {
                   >
                     <div className="w-full sm:w-44 h-40 sm:h-32 shrink-0 rounded-xl overflow-hidden bg-slate-100">
                       <img
-                        src={bannerImage}
+                        src={post.imageUrl}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
