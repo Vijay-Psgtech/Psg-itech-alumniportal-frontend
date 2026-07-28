@@ -77,7 +77,7 @@ export default function EventsPage() {
     setList((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]))
   }
 
-   // Fetch events from API
+  // Fetch events from API
   useEffect(() => {
     const fetchEvents = async () => {
       setLoading(true)
@@ -120,7 +120,6 @@ export default function EventsPage() {
     return list
   }, [eventsData, query, statusFilter, modeFilter, sortDesc])
 
- console.log('Filtered events:', filtered);
 
   return (
     <div className="bg-slate-50 min-h-screen">
@@ -135,8 +134,8 @@ export default function EventsPage() {
           >
             Home <span className="text-white/30">/</span> Events
           </motion.p>
-          <motion.h1  
-            variants={fadeUp} 
+          <motion.h1
+            variants={fadeUp}
             initial="hidden"
             animate="show"
             transition={{ delay: 0.05 }}
