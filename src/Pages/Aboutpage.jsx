@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { fadeUp, fadeIn, staggerContainer, viewport } from '../utils/motion'
 import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
 
-{/* Team Images */}
+{/* Team Images */ }
 import presidentImg from "../assets/images/team/president.jpg";
 import vicePresidentImg from "../assets/images/team/vice_president.jpg";
 import secretaryImg from "../assets/images/team/secretary.jpg";
