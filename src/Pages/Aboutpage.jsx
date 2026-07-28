@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, fadeIn, staggerContainer, viewport } from '../utils/motion'
-import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import bannerImage from '../assets/building1.jpg'
 
 {/* Team Images */ }
 import presidentImg from "../assets/images/team/president.jpg";
