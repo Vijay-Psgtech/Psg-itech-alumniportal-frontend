@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 
-import { galleries, galleryCategories } from '../content/data/Galleries'
+// import { galleries, galleryCategories } from '../content/data/Galleries'
 import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import { albumsAPI, API_BASE } from "../services/api";
 
 function SearchIcon(props) {
   return (
@@ -81,33 +82,77 @@ export default function GalleryPage() {
   const [activeCategories, setActiveCategories] = useState([])
   const [sortKey, setSortKey] = useState('newest')
   const [sortOpen, setSortOpen] = useState(false)
+  const [search, setSearch] = useState("");
+  const [filterYear, setFilterYear] = useState("");
 
   const [activeGallery, setActiveGallery] = useState(null)
   const [activeIndex, setActiveIndex] = useState(0)
+
+  /* Fetch galleries */
+  const [galleries, setGalleries] = useState([])
+
+  useEffect(() => {
+    const fetchGalleries = async () => {
+      try {
+        const res = await albumsAPI.getAll();
+        const data = Array.isArray(res.data)
+          ? res.data
+          : (res.data?.data ?? res.data?.albums ?? []);
+        setGalleries(data)
+      } catch (error) {
+        console.error('Error fetching galleries:', error)
+      }
+    }
+
+    fetchGalleries()
+  }, [])
+
+  console.log('Galleries data', galleries);
 
   const toggleCategory = (cat) => {
     setActiveCategories((prev) => (prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]))
   }
 
-  const filtered = useMemo(() => {
-    let list = galleries.filter((g) => {
-      const matchesQuery = g.title.toLowerCase().includes(query.toLowerCase())
-      const matchesCategory = activeCategories.length === 0 || activeCategories.includes(g.category)
-      return matchesQuery && matchesCategory
-    })
-    if (sortKey === 'views') list = [...list].sort((a, b) => b.views - a.views)
-    else if (sortKey === 'likes') list = [...list].sort((a, b) => b.likes - a.likes)
-    else list = [...list].sort((a, b) => b.id - a.id)
-    return list
-  }, [query, activeCategories, sortKey])
+  // const filtered = useMemo(() => {
+  //   let list = galleries.filter((g) => {
+  //     const matchesQuery = g.title.toLowerCase().includes(query.toLowerCase())
+  //     const matchesCategory = activeCategories.length === 0 || activeCategories.includes(g.category)
+  //     return matchesQuery && matchesCategory
+  //   })
+  //   if (sortKey === 'views') list = [...list].sort((a, b) => b.views - a.views)
+  //   else if (sortKey === 'likes') list = [...list].sort((a, b) => b.likes - a.likes)
+  //   else list = [...list].sort((a, b) => b.id - a.id)
+  //   return list
+  // }, [query, activeCategories, sortKey])
+
+  const filtered = useMemo(
+    () =>
+      galleries.filter((a) => {
+        const q = search.toLowerCase();
+        const matchQ =
+          !q ||
+          a.title?.toLowerCase().includes(q) ||
+          a.event?.toLowerCase().includes(q);
+        const matchY = !filterYear || String(a.year) === filterYear;
+        const matchC =
+          activeCategories.length === 0 || activeCategories.includes(a.title);
+        return matchQ && matchY && matchC;
+      }),
+    [galleries, search, filterYear, activeCategories],
+  );
+
+  const filteredCategories = useMemo(() => {
+    const categories = new Set(galleries.map((g) => g.title)) // Assuming 'title' is used as category; adjust if needed
+    return Array.from(categories).sort()
+  }, [galleries])
 
   const openLightbox = (gallery) => {
     setActiveGallery(gallery)
     setActiveIndex(0)
   }
   const closeLightbox = () => setActiveGallery(null)
-  const showNext = () => setActiveIndex((i) => (i + 1) % activeGallery.items)
-  const showPrev = () => setActiveIndex((i) => (i - 1 + activeGallery.items) % activeGallery.items)
+  const showNext = () => setActiveIndex((i) => (i + 1) % activeGallery.length)
+  const showPrev = () => setActiveIndex((i) => (i - 1 + activeGallery.length) % activeGallery.length)
 
   // Keyboard navigation + body scroll lock while lightbox is open
   useEffect(() => {
@@ -168,8 +213,8 @@ export default function GalleryPage() {
             <div className="relative">
               <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search gallery"
                 className="w-full bg-white border border-slate-200 rounded-full pl-11 pr-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-orange-500 transition-colors"
               />
@@ -178,7 +223,7 @@ export default function GalleryPage() {
             <div className="bg-white border border-slate-100 rounded-2xl p-5">
               <p className="text-sm font-semibold text-slate-900 mb-4">Categories</p>
               <div className="flex flex-col gap-3">
-                {galleryCategories.map((cat) => (
+                {filteredCategories.map((cat) => (
                   <label key={cat} className="flex items-center gap-2.5 text-sm text-slate-500 cursor-pointer">
                     <input
                       type="checkbox"
@@ -245,14 +290,14 @@ export default function GalleryPage() {
                 <motion.button
                   key={g.id}
                   type="button"
-                  onClick={() => openLightbox(g)}
+                  onClick={() => openLightbox(g.images)}
                   variants={fadeUp}
                   whileHover={{ y: -4 }}
                   className="group block text-left bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm shadow-black/[0.03] hover:shadow-md hover:shadow-black/[0.06] transition-shadow"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                     <img
-                      src={bannerImage}
+                      src={`${API_BASE}/${g.coverImage}`}
                       alt={g.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
@@ -264,7 +309,7 @@ export default function GalleryPage() {
                       <ShareIcon />
                     </span>
                     <span className="absolute bottom-3 left-3 bg-orange-500 text-white text-[11px] font-medium px-2.5 py-1 rounded-full">
-                      {g.items} Items
+                      {g.images.length} Items
                     </span>
                   </div>
                   <div className="p-5">
@@ -305,9 +350,9 @@ export default function GalleryPage() {
               onClick={(e) => e.stopPropagation()}
             >
               <div>
-                <h3 className="font-display text-lg font-semibold">{activeGallery.title}</h3>
+                <h3 className="font-display text-lg font-semibold">{}</h3>
                 <p className="text-white/50 text-sm mt-0.5">
-                  {activeIndex + 1} / {activeGallery.items}
+                  {activeIndex + 1} / {activeGallery.length}
                 </p>
               </div>
               <button
@@ -339,7 +384,7 @@ export default function GalleryPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.25 }}
-                  src={bannerImage}
+                  src={`${API_BASE}/${activeGallery[activeIndex]}`}
                   alt={`${activeGallery.title} \u2013 photo ${activeIndex + 1}`}
                   className="max-w-full max-h-full w-auto h-auto rounded-lg object-contain shadow-2xl shadow-black/40"
                 />
