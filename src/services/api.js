@@ -17,8 +17,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-
-
 const CACHE_PREFIX = "psgiTech_alumni_";
 const DEFAULT_CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
@@ -241,13 +239,15 @@ export const notificationService = {
   async getActiveNotifications() {
     try {
       const response = await api.get("/notification-scrolls/active");
-      
+
       // Guard against HTML error pages
       if (typeof response.data === "string") {
-        console.error("Server returned HTML instead of JSON — check backend route registration for /notification-scrolls");
+        console.error(
+          "Server returned HTML instead of JSON — check backend route registration for /notification-scrolls",
+        );
         return { success: false, data: [] };
       }
-      
+
       return { success: true, data: response.data?.data || [] };
     } catch (error) {
       console.warn("Notifications API Error:", error.message);
@@ -258,7 +258,9 @@ export const notificationService = {
   async getAllNotifications() {
     const response = await api.get("/notification-scrolls");
     if (typeof response.data === "string") {
-      throw new Error("Route /notification-scrolls not found on backend — got HTML response");
+      throw new Error(
+        "Route /notification-scrolls not found on backend — got HTML response",
+      );
     }
     return response.data;
   },
@@ -284,7 +286,9 @@ export const notificationService = {
   },
 
   async toggleNotification(id) {
-    const response = await api.patch(`/notification-scrolls/${id}/toggle-active`);
+    const response = await api.patch(
+      `/notification-scrolls/${id}/toggle-active`,
+    );
     return response.data;
   },
 
@@ -651,7 +655,8 @@ export const adminAPI = {
   makeAlumniAdmin: (id) => api.put(`/admin/make-admin/${id}`),
 
   // Membership management
-  fetchAllMemberships: (params) => api.get("/admin/dashboard/memberships/all", { params }),
+  fetchAllMemberships: (params) =>
+    api.get("/admin/dashboard/memberships/all", { params }),
 };
 
 // ── Events API ────────────────────────────────────────────────────────
@@ -765,12 +770,11 @@ export const contactAPI = {
   submitMessage: (data) => api.post("/contact", data),
 };
 
-
 // ── Donation API ────────────────────────────────────────────────────────
 export const donationAPI = {
   initiateDonationPayment: (data) => api.post("/donation/initiate", data),
   fetchDonationStats: () => api.get("/donation/stats"),
-  fetchRecentDonations: (limit) => api.get(`/donation/recent?limit=${limit}`), 
+  fetchRecentDonations: (limit) => api.get(`/donation/recent?limit=${limit}`),
   getHistory: (params) => api.get("/donation/history", { params }),
 };
 
