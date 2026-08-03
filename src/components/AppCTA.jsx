@@ -26,7 +26,7 @@ export default function AppCTA() {
         </div>
         <div className="relative flex items-center gap-4 shrink-0">
           <motion.a
-            href="tel:+918000060096"
+            href="tel:0422 3933 494"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-6 py-3.5 rounded-full"
@@ -39,7 +39,7 @@ export default function AppCTA() {
                 strokeLinejoin="round"
               />
             </svg>
-            +91 8000 060 096
+            0422 3933 494
           </motion.a>
         </div>
       </motion.div>

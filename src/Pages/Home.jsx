@@ -40,7 +40,7 @@ const sectionReveal = {
   }),
 }
 
-const sections = [Events, About, Spotlight, Engagement, WhyJoin, Process, Testimonials, AppCTA, News]
+const sections = [Events, About, Engagement, WhyJoin, Process, AppCTA, News]
 
 export default function Home() {
   return (
