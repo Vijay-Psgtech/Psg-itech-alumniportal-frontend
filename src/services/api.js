@@ -676,6 +676,7 @@ export const eventsAPI = {
       },
     }),
   delete: (id) => api.delete(`/events/${id}`),
+  getRecentEvents: () => api.get(`/events/recent`),
 };
 
 // ── Albums API ────────────────────────────────────────────────────────
