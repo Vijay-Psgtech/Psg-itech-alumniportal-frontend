@@ -187,7 +187,7 @@ export default function FeedDetailPage() {
           transition={{ delay: 0.08 }}
           className="mt-8 rounded-2xl overflow-hidden bg-slate-100"
         >
-          <img src={post.imageUrl || bannerImage} alt={post.title} className="w-full max-h-[560px] object-cover" />
+          <img src={post.imageUrl || bannerImage} alt={post.title} className="w-full max-h-[560px] object-contain" />
         </motion.div>
 
         <motion.div
