@@ -45,14 +45,26 @@ export default function Hero() {
               >
                 Find alumni
               </motion.button>
-              <button className="flex items-center gap-2 text-sm font-medium text-white">
-                <span className="w-9 h-9 rounded-full border border-white/30 grid place-items-center">
-                  <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
-                    <path d="M1 1L11 7L1 13V1Z" fill="#ffffff" />
+              <a href="/alumni/register">
+                <button className="flex items-center gap-2 text-sm font-medium text-white cursor-pointer">
+                  <span className="w-9 h-9 rounded-full border border-white/30 grid place-items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4.5v15m7.5-7.5h-15"
+                    />
                   </svg>
                 </span>
-                Watch story
-              </button>
+                Join the community
+              </button></a>
             </div>
 
             <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
@@ -71,7 +83,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <div className="lg:col-span-5 relative hidden lg:block h-[420px]">
+          {/* <div className="lg:col-span-5 relative hidden lg:block h-[420px]">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -90,7 +102,7 @@ export default function Hero() {
             <div className="absolute top-0 right-0 bg-orange-500 text-white text-xs font-medium px-3 py-1.5 rounded-full">
               New listing
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
