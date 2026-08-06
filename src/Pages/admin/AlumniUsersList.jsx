@@ -19,6 +19,7 @@ import {
   UserCheck,
   UserX,
   X,
+  Download,
 } from "lucide-react";
 import { adminAPI, API_BASE } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -168,6 +169,90 @@ const AlumniUsersList = () => {
   };
 
   // Scroll to top smoothly
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const escapeCsvValue = (value) => {
+    if (value === null || value === undefined) return "";
+    const stringValue = String(value);
+    if (/[",\n]/.test(stringValue)) {
+      return `"${stringValue.replace(/"/g, '""')}"`;
+    }
+    return stringValue;
+  };
+
+  const handleExportCSV = async () => {
+    try {
+      const queryParams = {
+        page: 1,
+        limit: 1000,
+        search: search || undefined,
+        status: statusFilter === 'all' ? undefined : statusFilter,
+        department: deptFilter || undefined,
+        batchYear: batchFilter || undefined,
+      };
+
+      if (user.role === "admin") {
+        queryParams.department = department;
+      }
+
+      const res = await adminAPI.getAllAlumni(queryParams);
+      const exportItems = res.data.alumni || [];
+
+      if (!exportItems.length) return;
+
+      const headers = [
+        "First Name",
+        "Last Name",
+        "Email",
+        "Phone",
+        "Department",
+        "Batch Year",
+        "Status",
+        "Company",
+        "Job Title",
+        "City",
+        "Country",
+        "LinkedIn",
+      ];
+
+      const rows = exportItems.map((alumni) =>
+        [
+          alumni.firstName || "",
+          alumni.lastName || "",
+          alumni.email || "",
+          alumni.phone || "",
+          alumni.department || "",
+          alumni.batchYear || "",
+          alumni.isApproved ? "Approved" : "Pending",
+          alumni.currentCompany || "",
+          alumni.jobTitle || "",
+          alumni.city || "",
+          alumni.country || "",
+          alumni.linkedin || "",
+        ].map(escapeCsvValue),
+      );
+
+      const csvContent = [
+        headers.map(escapeCsvValue).join(","),
+        ...rows.map((row) => row.join(",")),
+      ].join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `alumni-users-${new Date().toISOString().split("T")[0]}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+      console.error("Failed to export alumni CSV:", error);
+    }
+  }
 
   if (loading) {
     return (
@@ -316,11 +401,10 @@ const AlumniUsersList = () => {
                       batchYear: batchFilter || undefined,
                     });
                   }}
-                  className={`flex-1 sm:flex-none px-4 py-2.5 border-none text-xs sm:text-sm font-bold transition-all capitalize ${
-                    statusFilter === filter.value
+                  className={`flex-1 sm:flex-none px-4 py-2.5 border-none text-xs sm:text-sm font-bold transition-all capitalize ${statusFilter === filter.value
                       ? "bg-orange-500 text-white"
                       : "bg-white text-gray-600 hover:bg-slate-50"
-                  }`}
+                    }`}
                 >
                   {filter.label}
                 </button>
@@ -411,11 +495,10 @@ const AlumniUsersList = () => {
               <div className="flex bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm">
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`p-2.5 transition-all ${
-                    viewMode === "grid"
+                  className={`p-2.5 transition-all ${viewMode === "grid"
                       ? "bg-orange-500 text-white"
                       : "bg-white text-gray-500 hover:bg-slate-50"
-                  }`}
+                    }`}
                   title="Grid View"
                 >
                   <Grid3x3 size={16} />
@@ -423,17 +506,26 @@ const AlumniUsersList = () => {
                 <div className="w-px bg-slate-200"></div>
                 <button
                   onClick={() => setViewMode("table")}
-                  className={`p-2.5 transition-all ${
-                    viewMode === "table"
+                  className={`p-2.5 transition-all ${viewMode === "table"
                       ? "bg-orange-500 text-white"
                       : "bg-white text-gray-500 hover:bg-slate-50"
-                  }`}
+                    }`}
                   title="Table View"
                 >
                   <List size={16} />
                 </button>
               </div>
             </div>
+          </div>
+          <div>
+            <button
+              onClick={handleExportCSV}
+              disabled={alumniUsers.length === 0}
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Download size={16} />
+              Export CSV
+            </button>
           </div>
         </div>
       </div>
@@ -492,11 +584,10 @@ const AlumniUsersList = () => {
                       </p>
                       <div className="flex items-center gap-2 mt-1">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                            alumni.isApproved
+                          className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${alumni.isApproved
                               ? "bg-green-100 text-green-700"
                               : "bg-yellow-100 text-yellow-700"
-                          }`}
+                            }`}
                         >
                           {alumni.isApproved ? (
                             <CheckCircle size={12} />
@@ -621,11 +712,10 @@ const AlumniUsersList = () => {
                           onClick={() => {
                             handlePageChange(page);
                           }}
-                          className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
-                            pageData.currentPage === page
+                          className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${pageData.currentPage === page
                               ? "bg-orange-500 text-white"
                               : "border border-slate-200 text-slate-600 hover:bg-slate-50"
-                          }`}
+                            }`}
                         >
                           {page}
                         </button>
@@ -752,11 +842,10 @@ const AlumniUsersList = () => {
                         </td>
                         <td className="px-6 py-4 text-center">
                           <span
-                            className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                              alumni.isApproved
+                            className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${alumni.isApproved
                                 ? "bg-green-100 text-green-700"
                                 : "bg-yellow-100 text-yellow-700"
-                            }`}
+                              }`}
                           >
                             {alumni.isApproved ? (
                               <CheckCircle size={12} />
@@ -845,11 +934,10 @@ const AlumniUsersList = () => {
                           onClick={() => {
                             handlePageChange(page);
                           }}
-                          className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
-                            pageData.currentPage === page
+                          className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${pageData.currentPage === page
                               ? "bg-orange-500 text-white"
                               : "border border-slate-200 text-slate-600 hover:bg-slate-50"
-                          }`}
+                            }`}
                         >
                           {page}
                         </button>
@@ -915,8 +1003,7 @@ const AlumniUsersList = () => {
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          `${selectedItem.firstName?.[0] || ""}${
-                            selectedItem.lastName?.[0] || ""
+                          `${selectedItem.firstName?.[0] || ""}${selectedItem.lastName?.[0] || ""
                           }`
                         )}
                       </div>
@@ -1003,9 +1090,8 @@ const AlumniUsersList = () => {
                       {[
                         {
                           l: "Amount",
-                          v: `${
-                            selectedItem.currency === "INR" ? "₹" : "$"
-                          }${selectedItem.amount}`,
+                          v: `${selectedItem.currency === "INR" ? "₹" : "$"
+                            }${selectedItem.amount}`,
                         },
                         { l: "Status", v: selectedItem.status },
                         {
