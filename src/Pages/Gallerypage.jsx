@@ -113,18 +113,6 @@ export default function GalleryPage() {
     setActiveCategories((prev) => (prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]))
   }
 
-  // const filtered = useMemo(() => {
-  //   let list = galleries.filter((g) => {
-  //     const matchesQuery = g.title.toLowerCase().includes(query.toLowerCase())
-  //     const matchesCategory = activeCategories.length === 0 || activeCategories.includes(g.category)
-  //     return matchesQuery && matchesCategory
-  //   })
-  //   if (sortKey === 'views') list = [...list].sort((a, b) => b.views - a.views)
-  //   else if (sortKey === 'likes') list = [...list].sort((a, b) => b.likes - a.likes)
-  //   else list = [...list].sort((a, b) => b.id - a.id)
-  //   return list
-  // }, [query, activeCategories, sortKey])
-
   const filtered = useMemo(
     () =>
       galleries.filter((a) => {
@@ -282,7 +270,7 @@ export default function GalleryPage() {
             <motion.div
               variants={staggerContainer(0.06)}
               initial="hidden"
-              whileInView="show"
+              animate="show"
               viewport={viewport}
               className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6"
             >
