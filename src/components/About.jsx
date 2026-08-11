@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
-import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import bannerImage from '../assets/campus.jpg'
 
 const stats = [
   { value: '12+', label: 'Years of legacy' },
@@ -25,11 +25,11 @@ export default function About() {
             moments that make an alma mater matter.
           </p>
           <motion.a
-            href="#directory"
+            href="/about"
             whileHover={{ x: 2 }}
             className="inline-flex items-center gap-2 mt-8 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
           >
-            Explore the directory <span>→</span>
+            Explore About Us <span>→</span>
           </motion.a>
 
           {/* Image wrapper */}
