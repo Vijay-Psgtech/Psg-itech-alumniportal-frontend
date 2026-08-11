@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 import { eventsAPI, API_BASE } from "../services/api";
@@ -88,11 +88,10 @@ export default function Events() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedCategory === category
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-900'
-              }`}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${selectedCategory === category
+                ? 'bg-white text-slate-900 shadow-sm'
+                : 'text-slate-500 hover:text-slate-900'
+                }`}
             >
               {category === 'All' ? 'All' : getCategoryLabel(category)}
             </button>
@@ -110,31 +109,32 @@ export default function Events() {
         {filteredEvents.map((e) => (
           <motion.article
             key={e.title}
-            initial ={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            className="rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm shadow-black/[0.03]"
           >
-            <div className="h-44 relative bg-slate-100">
-              <img
-                src={`${API_BASE}/${e.imageUrl}`}
-                alt={e.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6">
-              <p className="text-xs font-medium text-orange-500 uppercase tracking-wide mb-2">{formatDate(e.date)}</p>
-              <h3 className="font-display font-semibold text-lg text-slate-900">{e.title}</h3>
-              <p className="text-sm text-slate-400 mt-1">{e.place}</p>
-              <div className="flex items-center gap-4 mt-4 text-xs text-slate-500 border-t border-slate-100 pt-4">
-                <span className="flex items-center gap-1.5">
-                  <ClockIcon /> {e.time}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <UsersIcon /> {e.attendees} RSVPs
-                </span>
+            <Link to={`/events/${e._id}`} className="block rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-44 relative bg-slate-100">
+                <img
+                  src={`${API_BASE}/${e.imageUrl}`}
+                  alt={e.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
-            </div>
+              <div className="p-6">
+                <p className="text-xs font-medium text-orange-500 uppercase tracking-wide mb-2">{formatDate(e.date)}</p>
+                <h3 className="font-display font-semibold text-lg text-slate-900">{e.title}</h3>
+                <p className="text-sm text-slate-400 mt-1">{e.place}</p>
+                <div className="flex items-center gap-4 mt-4 text-xs text-slate-500 border-t border-slate-100 pt-4">
+                  <span className="flex items-center gap-1.5">
+                    <ClockIcon /> {e.time}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <UsersIcon /> {e.attendees} RSVPs
+                  </span>
+                </div>
+              </div>
+            </Link>
           </motion.article>
         ))}
       </motion.div>
