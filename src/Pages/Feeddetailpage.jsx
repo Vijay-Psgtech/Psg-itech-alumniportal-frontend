@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 
-import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import bannerImage from '../assets/campus.jpg'
 import { newsLetterAPI, API_BASE } from '../services/api'
 
 function EyeIcon(props) {

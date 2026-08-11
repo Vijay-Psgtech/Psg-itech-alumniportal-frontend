@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 
 // import { galleries, galleryCategories } from '../content/data/Galleries'
-import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import bannerImage from '../assets/campus.jpg'
 import { albumsAPI, API_BASE } from "../services/api";
 
 function SearchIcon(props) {

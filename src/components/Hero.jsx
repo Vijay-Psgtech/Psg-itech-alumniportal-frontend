@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { fadeUp } from '../utils/motion'
-import bannerImage from '../assets/t1725016098_OVsmN6OAPi.jpg'
+import bannerImage from '../assets/campus.jpg'
 
 export default function Hero() {
   return (
