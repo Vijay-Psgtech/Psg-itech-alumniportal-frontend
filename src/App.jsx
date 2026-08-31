@@ -82,7 +82,7 @@ function AnimatedRoutes() {
         <Route path="/campaigns" element={<CampaignsPage />} />
         <Route path="/campaigns/:campaignId" element={<CampaignFormPage />} />
         <Route path="/alumni/donations" element={<ProtectedRoute><AlumniDonations /></ProtectedRoute>} />
-        <Route path="/alumni/notifications/new" element={<SendNotification />} />
+        <Route path="/alumni/notifications/new" element={<ProtectedRoute><SendNotification /></ProtectedRoute>} />
         <Route path="/alumni/notifications" element={<ProtectedRoute><NotificationInbox /></ProtectedRoute>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
