@@ -89,7 +89,7 @@ function AnimatedRoutes() {
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/events" element={<ProtectedAdminRoute><AdminEvents /></ProtectedAdminRoute>} />
-        <Route path="/admin/newsletter" element={<AdminNewsLetter />} />
+        <Route path="/admin/newsletter" element={<ProtectedAdminRoute><AdminNewsLetter /></ProtectedAdminRoute>} />
         <Route path="/admin/dashboard" element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>} />
         <Route path="/admin/alumni" element={<ProtectedAdminRoute><AlumniUsersList /></ProtectedAdminRoute>} />
         <Route path="/admin/notifications" element={<ProtectedAdminRoute><AdminNotifications /></ProtectedAdminRoute>} />
