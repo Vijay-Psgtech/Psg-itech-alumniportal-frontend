@@ -149,13 +149,12 @@ const YearPicker = ({ value, onChange, min = 1950, max = 2030 }) => {
                   onChange(year.toString());
                   setShowPicker(false);
                 }}
-                className={`py-2 px-2 rounded-lg text-xs font-semibold transition-all duration-150 ${
-                  value === year.toString()
+                className={`py-2 px-2 rounded-lg text-xs font-semibold transition-all duration-150 ${value === year.toString()
                     ? "bg-orange-500 text-white shadow-md shadow-orange-200"
                     : year === currentYear
                       ? "bg-orange-50 text-orange-600 border border-orange-200"
                       : "hover:bg-slate-100 text-slate-700"
-                }`}
+                  }`}
               >
                 {year}
               </button>
@@ -229,10 +228,9 @@ const FileUpload = ({
         onDragOver={(e) => e.preventDefault()}
         className={`relative border-2 border-dashed rounded-xl p-4 cursor-pointer
           transition-all duration-200 flex flex-col items-center justify-center gap-2 min-h-[90px]
-          ${
-            value
-              ? "border-orange-400 bg-orange-50/40"
-              : "border-slate-200 hover:border-orange-300 hover:bg-orange-50/20"
+          ${value
+            ? "border-orange-400 bg-orange-50/40"
+            : "border-slate-200 hover:border-orange-300 hover:bg-orange-50/20"
           }`}
       >
         <input
@@ -494,7 +492,7 @@ const AlumniRegistration = () => {
             setResSuggestions(data.slice(0, 6));
           else setOffSuggestions(data.slice(0, 6));
         })
-        .catch(() => {});
+        .catch(() => { });
     }, 350);
     return () => clearTimeout(t);
   }, [form.resCity, form.officeCity, activeLocField]);
@@ -787,13 +785,12 @@ const AlumniRegistration = () => {
               <div key={i} className="flex items-center gap-3">
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0
-                  ${
-                    done
+                  ${done
                       ? "bg-green-100 text-green-600"
                       : color === "yellow"
                         ? "bg-amber-100 text-amber-600"
                         : "bg-orange-100 text-orange-600"
-                  }`}
+                    }`}
                 >
                   {done ? (
                     <Check size={13} />
@@ -851,13 +848,12 @@ const AlumniRegistration = () => {
                   <div className="flex items-center gap-3">
                     <div
                       className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 font-bold text-sm
-                      ${
-                        done
+                      ${done
                           ? "bg-green-500 text-white shadow-sm shadow-green-200"
                           : active
                             ? "bg-[#f97316] text-white shadow-md shadow-orange-200"
                             : "bg-slate-100 text-slate-400"
-                      }`}
+                        }`}
                     >
                       {done ? <Check size={15} /> : <Icon size={15} />}
                     </div>
@@ -1243,9 +1239,9 @@ const AlumniRegistration = () => {
                             <option value="">Select Programme Type</option>
                             <option>UG</option>
                             <option>PG</option>
-                            <option>MPhil</option>
+                            {/* <option>MPhil</option>
                             <option>PHD</option>
-                            <option>PUC</option>
+                            <option>PUC</option> */}
                           </select>
                           <ChevronRight
                             size={14}
@@ -1253,68 +1249,66 @@ const AlumniRegistration = () => {
                           />
                         </div>
                       </Field>
-                    </div>
-
-                    {/* ✅ DYNAMIC PROGRAMME NAME DROPDOWN */}
-                    <Field
-                      label="Department Name"
-                      required
-                      error={errors.programmeName}
-                    >
-                      <div className="relative">
-                        <select
-                          name="programmeName"
-                          value={form.programmeName}
-                          onChange={handleProgrammeNameChange}
-                          disabled={
-                            !form.programmeType ||
-                            departmentsLoading
-                          }
-                          className={`${selectCls(errors.programmeName)} ${
-                            !form.programmeType ||
-                            departmentsLoading
-                              ? "opacity-50 cursor-not-allowed bg-slate-50"
-                              : ""
-                          }`}
-                        >
-                          <option value="">
-                            {departmentsLoading
-                              ? "Loading departments..."
-                              : form.programmeType
-                                ? "Select Department"
-                                : "Select Programme Type & Funding Type First"}
-                          </option>
-                          {getFilteredDepartments().map((dept) => (
-                            <option key={dept.name} value={dept.name}>
-                              {dept.name}
+                      {/* ✅ DYNAMIC PROGRAMME NAME DROPDOWN */}
+                      <Field
+                        label="Department Name"
+                        required
+                        error={errors.programmeName}
+                      >
+                        <div className="relative">
+                          <select
+                            name="programmeName"
+                            value={form.programmeName}
+                            onChange={handleProgrammeNameChange}
+                            disabled={
+                              !form.programmeType ||
+                              departmentsLoading
+                            }
+                            className={`${selectCls(errors.programmeName)} ${!form.programmeType ||
+                                departmentsLoading
+                                ? "opacity-50 cursor-not-allowed bg-slate-50"
+                                : ""
+                              }`}
+                          >
+                            <option value="">
+                              {departmentsLoading
+                                ? "Loading departments..."
+                                : form.programmeType
+                                  ? "Select Department"
+                                  : "Select Programme Type & Funding Type First"}
                             </option>
-                          ))}
-                        </select>
-                        <ChevronRight
-                          size={14}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-400 pointer-events-none"
-                        />
-                      </div>
-                    </Field>
+                            {getFilteredDepartments().map((dept) => (
+                              <option key={dept.name} value={dept.name}>
+                                {dept.name}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronRight
+                            size={14}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 rotate-90 text-slate-400 pointer-events-none"
+                          />
+                        </div>
+                      </Field>
 
-                    <Field
-                      label="Degree Completed"
-                      required
-                      error={errors.degree}
-                    >
-                      <input
-                        type="text"
-                        name="degree"
-                        value={form.degree}
-                        onChange={set}
-                        placeholder="Auto-filled from department selection"
-                        disabled
-                        className={`${inputCls(errors.degree)} cursor-not-allowed bg-slate-50 text-slate-600`}
-                      />
-                      <p className="text-[10px] text-slate-400 mt-1">
-                        ℹ️ Auto-filled based on your department selection
-                      </p>
-                    </Field>
+                      <Field
+                        label="Degree Completed"
+                        required
+                        error={errors.degree}
+                      >
+                        <input
+                          type="text"
+                          name="degree"
+                          value={form.degree}
+                          onChange={set}
+                          placeholder="Auto-filled from department selection"
+                          disabled
+                          className={`${inputCls(errors.degree)} cursor-not-allowed bg-slate-50 text-slate-600`}
+                        />
+                        <p className="text-[10px] text-slate-400 mt-1">
+                          ℹ️ Auto-filled based on your department selection
+                        </p>
+                      </Field>
+                    </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                       <Field
