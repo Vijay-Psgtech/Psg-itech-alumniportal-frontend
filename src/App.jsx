@@ -88,6 +88,7 @@ function AnimatedRoutes() {
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/events" element={<ProtectedAdminRoute><AdminEvents /></ProtectedAdminRoute>} />
         <Route path="/admin/newsletter" element={<ProtectedAdminRoute><AdminNewsLetter /></ProtectedAdminRoute>} />
         <Route path="/admin/dashboard" element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>} />
