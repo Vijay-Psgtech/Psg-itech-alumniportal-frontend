@@ -340,7 +340,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                       {template.duration} days
                     </span>
                     <span className="px-2 py-1 bg-slate-100 rounded">
-                      {template.formFields.length} fields
+                      {template?.formFields?.length || 0} fields
                     </span>
                   </div>
                 </motion.button>
