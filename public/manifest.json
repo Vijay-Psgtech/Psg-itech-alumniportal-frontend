@@ -1,0 +1,17 @@
+{
+  "name": "PSG iTech Alumni Portal",
+  "short_name": "PSG iTech Alumni",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f172a",
+  "description": "Official PSG Institute of Technology and Applied Research Alumni Association Portal.",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
