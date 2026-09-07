@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { AlertCircle, BarChart3, CalendarDays, Download, Filter, Mail, Plus, Search, Share2, Users } from "lucide-react";
+import { AlertCircle, BarChart3, Download, Filter, Mail, Plus, Search, Share2, Users } from "lucide-react";
 import { mentorshipAPI } from "../../services/api";
 
 const emptyStats = { totalMentors: 0, totalMentees: 0, awaitingFeedback: 0, awaitingResponse: 0, upcomingSessions: 0, completedSessions: 0, newProfiles: 0, totalSessions: 0 };
 const labelMap = { awaiting_response: "Waiting for mentee to confirm", awaiting_feedback: "Waiting for feedback", upcoming: "Upcoming session", completed: "Session completed", cancelled: "Session cancelled" };
 
-const MentorshipTab = ({ onError, onSuccess, onOpenMail }) => {
+const MentorshipTab = ({ onError, onOpenMail }) => {
   const [view, setView] = useState("analytics");
   const [stats, setStats] = useState(emptyStats);
   const [profiles, setProfiles] = useState([]);

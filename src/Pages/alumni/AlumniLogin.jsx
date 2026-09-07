@@ -18,11 +18,9 @@ const AlumniLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [socialLoading, setSocialLoading] = useState({ google: false, facebook: false });
+  const [socialLoading, setSocialLoading] = useState({ google: false });
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-  const facebookAppId = import.meta.env.VITE_FACEBOOK_APP_ID;
   const googleInitialized = useRef(false);
-  const facebookScriptLoaded = useRef(false);
   // ══════════════════════════════════════════════════════════════
   // ✅ FIXED: DEFINE HANDLERS FIRST (before useEffect that uses them)
   // ══════════════════════════════════════════════════════════════
@@ -88,65 +86,6 @@ const AlumniLogin = () => {
         err.response?.data?.message || "Google login failed. Please try again.";
       setErrors({ general: errorMessage });
       setSocialLoading((prev) => ({ ...prev, google: false }));
-    }
-  }, [navigate, login]);
-
-  // ══════════════════════════════════════════════════════════════
-  // FACEBOOK LOGIN HANDLER - ✅ MOVED BEFORE useEffect
-  // ══════════════════════════════════════════════════════════════
-  const handleFacebookLogin = useCallback(async () => {
-    setSocialLoading((prev) => ({ ...prev, facebook: true }));
-    setErrors({});
-
-    try {
-      FB.login(
-        async (response) => {
-          if (response.authResponse) {
-            try {
-              const backendResponse = await authAPI.socialLogin({
-                provider: "facebook",
-                accessToken: response.authResponse.accessToken,
-              });
-
-              console.log("✅ Facebook login response:", backendResponse.data);
-
-              const user = backendResponse.data.user || backendResponse.data.alumni;
-
-              if (!user) {
-                console.error("❌ No user data in response:", backendResponse.data);
-                setErrors({ general: "Login failed: no user data received" });
-                setSocialLoading((prev) => ({ ...prev, facebook: false }));
-                return;
-              }
-
-              await login(user);
-
-              // Role-based redirect
-              if (user.role === "admin" || user.role === "superadmin") {
-                navigate("/admin/dashboard");
-              } else if (user.isApproved) {
-                navigate("/alumni/dashboard");
-              } else {
-                navigate("/alumni/register");
-              }
-            } catch (err) {
-              console.error("❌ Facebook backend error:", err);
-              const errorMessage =
-                err.response?.data?.message || "Facebook login failed. Please try again.";
-              setErrors({ general: errorMessage });
-              setSocialLoading((prev) => ({ ...prev, facebook: false }));
-            }
-          } else {
-            setErrors({ general: "Facebook login cancelled. Please try again." });
-            setSocialLoading((prev) => ({ ...prev, facebook: false }));
-          }
-        },
-        { scope: "public_profile,email" }
-      );
-    } catch (err) {
-      console.error("❌ Facebook login error:", err);
-      setErrors({ general: "Facebook login error. Please try again." });
-      setSocialLoading((prev) => ({ ...prev, facebook: false }));
     }
   }, [navigate, login]);
 
@@ -230,37 +169,7 @@ const AlumniLogin = () => {
     };
   }, [googleClientId, handleGoogleSignIn]);
 
-  // ══════════════════════════════════════════════════════════════
-  // FACEBOOK SDK INITIALIZATION
-  // ══════════════════════════════════════════════════════════════
-  useEffect(() => {
-    if (!facebookAppId || facebookScriptLoaded.current) return undefined;
-
-    window.fbAsyncInit = function () {
-      FB.init({
-        appId: facebookAppId,
-        xfbml: true,
-        version: "v18.0",
-      });
-    };
-
-    const script = document.createElement("script");
-    script.src = "https://connect.facebook.net/en_US/sdk.js";
-    script.async = true;
-    script.defer = true;
-    script.onload = () => {
-      facebookScriptLoaded.current = true;
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      if (script.parentElement) {
-        script.parentElement.removeChild(script);
-      }
-    };
-  }, [facebookAppId]);
-
-  const isFormDisabled = loading || socialLoading.google || socialLoading.facebook;
+  const isFormDisabled = loading || socialLoading.google;
 
   return (
     <>
@@ -415,7 +324,7 @@ const AlumniLogin = () => {
               </div>
               {/* Sign Up Link */}
               <div className="text-center text-xs text-gray-600 mt-6 pt-4 border-t border-gray-200">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link
                   to="/alumni/register"
                   className="text-[#f97316] font-semibold hover:text-[#ea580c] hover:underline transition"

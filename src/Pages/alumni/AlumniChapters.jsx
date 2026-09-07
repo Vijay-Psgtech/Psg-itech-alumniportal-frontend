@@ -4,32 +4,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Plus,
-  Search,
-  X,
-  Edit2,
-  Trash2,
-  MapPin,
-  Users,
-  Calendar,
-  ChevronRight,
-  AlertCircle,
-  CheckCircle,
-  Image as ImageIcon,
-  LogOut,
-  ArrowLeft,
-  ExternalLink,
-  Tag,
-  Eye,
-  UserPlus,
-  UserMinus,
-  MoreHorizontal,
-  Share2,
-  MessageCircle,
-  Clock,
-  Globe,
-} from "lucide-react";
+import { Plus, Search, X, Edit2, Trash2, MapPin, Users, AlertCircle, CheckCircle, Image as ImageIcon, LogOut, ArrowLeft, Tag, Eye, UserPlus, UserMinus, MessageCircle, Clock, Globe } from "lucide-react";
 import { alumniAPI, API_BASE } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";

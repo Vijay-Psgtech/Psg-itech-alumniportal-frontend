@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Bell, Check, ChevronDown, MessageSquare, MoreVertical, Paperclip, Search, Send, Settings, X } from "lucide-react";
+import { Check, MessageSquare, MoreVertical, Paperclip, Search, Send, Settings, X } from "lucide-react";
 import { messagingAPI } from "../../services/api";
 import usePageTitle from "../../hooks/usePageTitle";
 import { useAuth } from "../../context/AuthContext";
@@ -73,8 +73,33 @@ const MessagesPage = () => {
     setSelected(conversation);
     try { const response = await messagingAPI.getMessages(conversation._id); setMessages(response.data.messages || []); await messagingAPI.markRead(conversation._id); } catch (requestError) { setError(requestError.response?.data?.message || "Unable to load conversation"); }
   };
-  useEffect(() => { loadContacts(); loadConversations(); loadSettings(); messagingAPI.heartbeat().catch(() => {}); const timer = window.setInterval(() => { loadContacts(); loadConversations(); messagingAPI.heartbeat().catch(() => {}); }, 15000); return () => window.clearInterval(timer); }, []);
-  useEffect(() => { const recipient = searchParams.get("recipientId"); if (recipient) { setRecipientId(recipient); setRecipientName(searchParams.get("recipientName") || ""); setShowComposer(true); } }, [searchParams]);
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      loadContacts();
+      loadConversations();
+      loadSettings();
+      messagingAPI.heartbeat().catch(() => {});
+    }, 0);
+    const refreshTimer = window.setInterval(() => {
+      loadContacts();
+      loadConversations();
+      messagingAPI.heartbeat().catch(() => {});
+    }, 15000);
+    return () => {
+      window.clearTimeout(timer);
+      window.clearInterval(refreshTimer);
+    };
+  }, []);
+  useEffect(() => {
+    const recipient = searchParams.get("recipientId");
+    if (!recipient) return undefined;
+    const timer = window.setTimeout(() => {
+      setRecipientId(recipient);
+      setRecipientName(searchParams.get("recipientName") || "");
+      setShowComposer(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [searchParams]);
   useEffect(() => { if (!selected) return undefined; const timer = window.setInterval(() => loadMessages(selected), 10000); return () => window.clearInterval(timer); }, [selected]);
 
   const send = async () => { if (!selected || !draft.trim()) return; try { await messagingAPI.sendMessage(selected._id, draft); setDraft(""); await loadMessages(selected); await loadConversations(); } catch (requestError) { setError(requestError.response?.data?.message || "Unable to send message"); } };

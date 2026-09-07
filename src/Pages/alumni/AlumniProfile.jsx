@@ -4,45 +4,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Edit,
-  Save,
-  X,
-  LogOut,
-  AlertCircle,
-  CheckCircle,
-  RefreshCw,
-  MapPin,
-  Briefcase,
-  GraduationCap,
-  User,
-  Phone,
-  Link2,
-  Building2,
-  Hash,
-  Mail,
-  Globe,
-  MessageCircle as Twitter,
-  Camera as Instagram,
-  Users as Facebook,
-  Share2 as Linkedin,
-  FileText,
-  Camera,
-  CreditCard,
-  IdCard,
-  Image,
-  Layers,
-  Calendar,
-  BookOpen,
-  BadgeCheck,
-  ChevronRight,
-  ExternalLink,
-  MoreHorizontal,
-  Eye,
-  Building,
-  Tag,
-  Landmark,
-} from "lucide-react";
+import { Edit, Save, X, LogOut, AlertCircle, CheckCircle, RefreshCw, MapPin, Briefcase, GraduationCap, User, Phone, Link2, Building2, Hash, Mail, Globe, MessageCircle as Twitter, Camera as Instagram, Users as Facebook, Share2 as Linkedin, FileText, Camera, CreditCard, IdCard, Image, Layers, Calendar, BookOpen, BadgeCheck, ChevronRight, ExternalLink, Eye, Building, Tag } from "lucide-react";
 import { alumniAPI, authAPI, API_BASE, departmentAPI } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import ImageModal from "../../components/ImageModal";

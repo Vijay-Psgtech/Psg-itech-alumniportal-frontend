@@ -1,26 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Search,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Building,
-  Briefcase,
-  Share2 as Linkedin,
-  CheckCircle,
-  XCircle,
-  Users,
-  Filter,
-  Grid3x3,
-  List,
-  Eye,
-  UserCheck,
-  UserX,
-  X,
-  Download,
-} from "lucide-react";
+import { Search, Mail, Phone, MapPin, Calendar, Building, Briefcase, Share2 as Linkedin, CheckCircle, XCircle, Users, Grid3x3, List, Eye, X, Download } from "lucide-react";
 import { adminAPI, API_BASE } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import usePageTitle from "../../hooks/usePageTitle";
@@ -166,11 +146,6 @@ const AlumniUsersList = () => {
     } catch (error) {
       console.error("Approve error:", error);
     }
-  };
-
-  // Scroll to top smoothly
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const escapeCsvValue = (value) => {

@@ -1,43 +1,10 @@
 // src/pages/alumni/AlumniDirectory.jsx
 // ✅ Batch-first directory — Admin sees all, Alumni sees own batch full / others limited
 
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Users,
-  GraduationCap,
-  ChevronRight,
-  ArrowLeft,
-  Search,
-  Briefcase,
-  Building2,
-  Globe,
-  Linkedin,
-  Twitter,
-  Instagram,
-  Facebook,
-  CheckCircle,
-  Filter,
-  X,
-  SlidersHorizontal,
-  Calendar,
-  BookOpen,
-  Hash,
-  Eye,
-  LayoutGrid,
-  List,
-  ChevronDown,
-  Layers,
-  ArrowRight,
-  Crown,
-} from "lucide-react";
+import { Users, GraduationCap, ChevronRight, ArrowLeft, Search, Briefcase, Building2, CheckCircle, X, SlidersHorizontal, Calendar, BookOpen, Hash, Eye, LayoutGrid, List, ChevronDown, Layers, ArrowRight, Crown } from "lucide-react";
 import { alumniAPI, API_BASE } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import AlumniDetailModal from "./AlumniDetailModal";
@@ -510,7 +477,7 @@ const AlumniDirectory = () => {
         } else if (countsArray && typeof countsArray === "object") {
           setBatchCounts(countsArray);
         }
-      } catch (e) {
+      } catch {
         setError("Could not load batches. Please try again.");
       } finally {
         setBatchLoading(false);
@@ -529,7 +496,7 @@ const AlumniDirectory = () => {
           batchStats: data.batchStats || 0,
           departmentStats: data.departmentStats || 0,
         });
-      } catch (e) {
+      } catch {
         // Ignore stats loading errors — not critical
       }
     })();
@@ -566,7 +533,7 @@ const AlumniDirectory = () => {
         setSelectedBatch(year);
         setView("alumni");
         setFilters({ occupations: data.filters.jobTitles || [], departments: data.filters.departments || [] });
-      } catch (e) {
+      } catch {
         setError("Failed to load alumni for this batch.");
       } finally {
         setLoading(false);
@@ -956,7 +923,7 @@ const AlumniDirectory = () => {
                                 </tr>
                               </thead>
                               <tbody className="bg-white divide-y divide-slate-100">
-                                {displayedAlumni.map((alumni, i) => (
+                                {displayedAlumni.map((alumni) => (
                                   <tr
                                     key={alumni._id}
                                     onClick={() => setSelectedAlumni(alumni)}

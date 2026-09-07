@@ -2,22 +2,7 @@
 // ✅ Alumni sees approved notifications + their own submission history
 
 import React, { useState, useEffect } from "react";
-import {
-  Bell,
-  FileText,
-  Image,
-  ExternalLink,
-  Clock,
-  Users,
-  BookOpen,
-  RefreshCw,
-  Send,
-  CheckCircle,
-  XCircle,
-  AlertCircle,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+import { Bell, FileText, ExternalLink, Clock, Users, BookOpen, RefreshCw, Send, CheckCircle, XCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { notificationAPI, API_BASE } from "../../services/api";
 
 const STATUS_BADGE = {

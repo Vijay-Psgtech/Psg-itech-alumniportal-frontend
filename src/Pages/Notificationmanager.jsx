@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Plus,
-  Edit2,
-  Trash2,
-  X,
-  CheckCircle,
-  AlertCircle,
-  Save,
-  Eye,
-} from "lucide-react";
+import { Plus, Edit2, Trash2, X, AlertCircle, Save, Eye } from "lucide-react";
 import { notificationService } from "../services/api";
 
 const NotificationManager = ({ onError, onSuccess }) => {

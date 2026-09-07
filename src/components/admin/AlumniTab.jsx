@@ -1,25 +1,5 @@
 import React, { useState, useRef } from "react";
-import {
-  Search,
-  Clock,
-  CheckCircle,
-  GraduationCap,
-  Building2,
-  Mail,
-  ExternalLink,
-  ChevronRight,
-  Users,
-  Crown,
-  Briefcase,
-  Zap,
-  Building2Icon,
-  MapPin,
-  Building,
-  Calendar,
-  XCircle,
-  Share2 as Linkedin,
-  UserCheck,
-} from "lucide-react";
+import { Search, Clock, CheckCircle, Users, Briefcase, MapPin, Building, Calendar, XCircle, Share2 as Linkedin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { API_BASE } from "../../services/api";
 

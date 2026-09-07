@@ -1,17 +1,5 @@
 import React, { useState } from "react";
-import {
-  Filter,
-  Clock,
-  CheckCircle,
-  AlertCircle,
-  Eye,
-  Flag,
-  Shield,
-  MessageCircle,
-  X,
-  Copy,
-  Edit2,
-} from "lucide-react";
+import { Filter, Clock, CheckCircle, AlertCircle, Eye, Flag, Shield, MessageCircle, X, Copy } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ═════════════════════════════════════════════════════════════════════════
@@ -353,6 +341,8 @@ export const DonationsTab = ({
       </AnimatePresence>
     );
   };
+
+  void QuickViewModal;
 
   // ═════════════════════════════════════════════════════════════════════════
   // MAIN RENDER

@@ -1,9 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { fadeUp, staggerContainer, viewport } from '../utils/motion'
-
-// import { galleries, galleryCategories } from '../content/data/Galleries'
-import bannerImage from '../assets/campus.jpg'
+import { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { fadeUp, staggerContainer, viewport } from "../utils/motion";
 import { albumsAPI, API_BASE } from "../services/api";
 
 function SearchIcon(props) {
@@ -78,12 +75,11 @@ const sortOptions = [
 ]
 
 export default function GalleryPage() {
-  const [query, setQuery] = useState('')
   const [activeCategories, setActiveCategories] = useState([])
   const [sortKey, setSortKey] = useState('newest')
   const [sortOpen, setSortOpen] = useState(false)
   const [search, setSearch] = useState("");
-  const [filterYear, setFilterYear] = useState("");
+  const [filterYear] = useState("");
 
   const [activeGallery, setActiveGallery] = useState(null)
   const [activeIndex, setActiveIndex] = useState(0)
@@ -156,7 +152,6 @@ export default function GalleryPage() {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', onKey)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeGallery, activeIndex])
 
   return (
@@ -281,15 +276,15 @@ export default function GalleryPage() {
                   onClick={() => openLightbox(g.images)}
                   variants={fadeUp}
                   whileHover={{ y: -4 }}
-                  className="group block text-left bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm shadow-black/3 hover:shadow-md hover:shadow-black/[0.06] transition-shadow"
+                  className="group block text-left bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm shadow-black/3 hover:shadow-md hover:shadow-black/6 transition-shadow"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                  <div className="relative aspect-4/3 overflow-hidden bg-slate-100">
                     <img
                       src={`${API_BASE}/${g.coverImage}`}
                       alt={g.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
                     <span
                       onClick={(e) => e.stopPropagation()}
                       className="absolute top-3 right-3 w-9 h-9 grid place-items-center rounded-full bg-white/90 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity"

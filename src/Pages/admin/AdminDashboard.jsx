@@ -1,34 +1,9 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  LogOut,
-  Users,
-  FileText,
-  X,
-  CheckCircle,
-  AlertCircle,
-  Calendar,
-  Camera,
-  Bell,
-  BookOpen,
-  History,
-  Mail,
-  MessageSquare,
-  Megaphone,
-  ClipboardList,
-  Plus,
-  Clock3,
-  IndianRupee,
-  BadgeCheck,
-  Building,
-  ChevronRight,
-} from "lucide-react";
+import { LogOut, Users, X, CheckCircle, AlertCircle, Calendar, Camera, Bell, BookOpen, History, Mail, MessageSquare, Megaphone, Plus, Clock3, IndianRupee, BadgeCheck, Building, ChevronRight } from "lucide-react";
 import { adminAPI, API_BASE, campaignsAPI, messagingAPI } from "../../services/api";
-import {
-  formatNumber,
-  formatCurrency,
-} from "../../utils/formatters";
+import { formatNumber, formatCurrency } from "../../utils/formatters";
 import { useAuth } from "../../context/AuthContext";
 import usePageTitle from "../../hooks/usePageTitle";
 
@@ -36,7 +11,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 import { EventsTab } from "../../components/admin/EventsTab";
 import { AlbumsTab } from "../../components/admin/AlbumsTab";
 import { AlumniTab } from "../../components/admin/AlumniTab";
-import { DonationsTab } from "../../components/admin/DonationsTab";
+
 import DepartmentTab from "../../components/admin/DepartmentTab";
 import AdminUsersTab from "../../components/admin/AdminUsersTab";
 import NotificationManager from "../../pages/Notificationmanager";
@@ -48,12 +23,6 @@ import MailingTab from "../../components/admin/MailingTab";
 import MentorshipTab from "../../components/admin/MentorshipTab";
 
 // ✅ Safe import with fallback
-const donationsAPI = {
-  getAll:
-    adminAPI.getAllDonations ||
-    (() => Promise.resolve({ data: { donations: [] } })),
-};
-
 // ✅ Helper function to validate MongoDB ObjectId or UUID format
 const isValidCampaignId = (id) => {
   if (!id || typeof id !== "string") return false;
@@ -79,7 +48,6 @@ const AdminDashboard = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [alumniList, setAlumniList] = useState([]);
-  const [donationList, setDonationList] = useState([]);
   const [campaignList, setCampaignList] = useState([]);
   const [recentMessages, setRecentMessages] = useState([]);
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
@@ -137,7 +105,7 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
 
-        const [statsRes, alumniRes, donationsRes, campaignsRes, messagesRes] =
+        const [statsRes, alumniRes, campaignsRes, messagesRes] =
           await Promise.all([
             adminAPI.getStats(),
             adminAPI.getAllAlumni({
@@ -145,7 +113,6 @@ const AdminDashboard = () => {
               page: 1,
               limit: 20,
             }),
-            donationsAPI.getAll(),
             campaignsAPI.getAll(),
             messagingAPI.getConversations().catch(() => ({ data: { conversations: [] } })),
           ]);
@@ -163,7 +130,6 @@ const AdminDashboard = () => {
           currentPage: alumniRes.data.currentPage || 1,
         });
 
-        setDonationList(donationsRes.data.donations || []);
         setCampaignList(campaignsData.campaigns || []);
         setRecentMessages((messagesRes.data?.conversations || []).slice(0, 3));
 

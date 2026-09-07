@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Plus, Edit3, Trash2, CheckCircle, X, Search } from "lucide-react";
+import { Plus, Edit3, Trash2, X, Search } from "lucide-react";
 import { adminUsersAPI, departmentAPI } from "../../services/api";
 
 const INITIAL_FORM = {

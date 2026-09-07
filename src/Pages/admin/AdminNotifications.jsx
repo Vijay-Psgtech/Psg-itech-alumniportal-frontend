@@ -2,25 +2,7 @@
 // ✅ Admin can view, approve, reject, and delete alumni-submitted notifications
 
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  Bell,
-  CheckCircle,
-  XCircle,
-  Trash2,
-  Eye,
-  FileText,
-  Image,
-  Users,
-  BookOpen,
-  Clock,
-  RefreshCw,
-  X,
-  ExternalLink,
-  ChevronDown,
-  ChevronUp,
-  AlertCircle,
-  Search,
-} from "lucide-react";
+import { Bell, CheckCircle, XCircle, Trash2, FileText, Users, BookOpen, Clock, RefreshCw, X, ExternalLink, ChevronDown, ChevronUp, Search } from "lucide-react";
 import { notificationAPI, API_BASE } from "../../services/api";
 
 /* ── Status config ─────────────────────────────────────────────── */

@@ -361,7 +361,7 @@ const AlumniDashboard = () => {
                 Welcome back, {user?.firstName}! 👋
               </h2>
               <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-                You're connected to the PSG Alumni Network. Explore the
+                You&apos;re connected to the PSG Alumni Network. Explore the
                 directory, find fellow alumni, donate to the institution, and
                 stay connected with your batch.
               </p>
@@ -439,14 +439,14 @@ const AlumniDashboard = () => {
             {recentMessages.length > 0 ? (
               <div className="space-y-3">
                 {recentMessages.map((conversation) => {
-                  const unreadCount = getUnreadForConversation(conversation);
+                  const unreadCount = (conversation);
                   return (
                     <button
                       key={conversation._id}
                       onClick={() => navigate(`/alumni/messages?recipientId=${conversation.otherPerson?._id || ""}`)}
                       className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3 text-left transition hover:border-orange-200 hover:bg-orange-50"
                     >
-                      <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-rose-500 text-sm font-bold text-white">
+                      <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-orange-500 to-rose-500 text-sm font-bold text-white">
                         {`${conversation.otherPerson?.firstName?.[0] || ""}${conversation.otherPerson?.lastName?.[0] || ""}`.toUpperCase() || "A"}
                         {unreadCount > 0 && (
                           <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">
@@ -746,7 +746,7 @@ const AlumniDashboard = () => {
                   path: "/alumni/profile",
                   color: "text-purple-500",
                   bg: "bg-purple-50",
-                },
+                },  
               ].map(({ label, icon: Icon, path, color, bg }) => (
                 <button
                   key={label}
@@ -760,7 +760,7 @@ const AlumniDashboard = () => {
                   </div>
                   <span className="flex-1 text-xs font-semibold text-slate-700 group-hover:text-slate-900 transition-colors">
                     {label}
-                  </span>
+                  </span>  
                   <ChevronRight
                     size={13}
                     className="text-slate-300 group-hover:text-slate-500 group-hover:translate-x-0.5 transition-all"

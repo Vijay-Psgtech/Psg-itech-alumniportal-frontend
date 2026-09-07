@@ -1,25 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Calendar,
-  Plus,
-  Search,
-  AlertCircle,
-  CheckCircle,
-  Clock,
-  Pencil,
-  Trash2,
-  Star,
-  TrendingUp,
-  BarChart3,
-  Loader,
-  Grid3x3,
-  List,
-  ChevronUp,
-  ChevronDown,
-  MapPin,
-  Users,
-} from "lucide-react";
+import { Calendar, Plus, Search, AlertCircle, CheckCircle, Clock, Pencil, Trash2, Star, Loader, Grid3x3, List, ChevronUp, ChevronDown, MapPin, Users } from "lucide-react";
 import { eventsAPI, API_BASE } from "../../services/api";
 import { DeleteModal } from "../../components/admin/AdminSharedUI";
 import { EventFormModal } from "../../components/admin/EventFormModal";

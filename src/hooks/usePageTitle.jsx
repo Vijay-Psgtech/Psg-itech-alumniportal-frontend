@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-
-const usePageTitle = (title) => {
+import { useEffect } from 'react';const usePageTitle = (title) => {
   useEffect(() => {
     document.title = `${title} | PSG iTech Alumni Association`;
   }, [title]);

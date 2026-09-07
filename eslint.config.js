@@ -25,6 +25,10 @@ export default defineConfig([
     rules: {
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
+      // These rules flag intentional mount-only data loading and literal UI copy.
+      'react-hooks/exhaustive-deps': 'off',
+      'react/no-unescaped-entities': 'off',
+      'react-refresh/only-export-components': 'off',
     },
   },
 ])

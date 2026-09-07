@@ -1,18 +1,4 @@
-import { motion } from 'framer-motion'
-import Hero from '../components/Hero'
-import QuickAccess from '../components/QuickAccess'
-import TrustBar from '../components/Trustbar'
-import Events from '../components/Events'
-import About from '../components/About'
-import Spotlight from '../components/Spotlight'
-import Engagement from '../components/Engagement'
-import WhyJoin from '../components/WhyJoin'
-import Process from '../components/Process'
-import Testimonials from '../components/Testimonials'
-import AppCTA from '../components/AppCTA'
-import News from '../components/News'
-
-// Page-level transition — used by AnimatePresence in App.jsx when routing
+import { motion } from 'framer-motion';import Hero from '../components/Hero';import QuickAccess from '../components/QuickAccess';import TrustBar from '../components/Trustbar';import Events from '../components/Events';import About from '../components/About';import Engagement from '../components/Engagement';import WhyJoin from '../components/WhyJoin';import Process from '../components/Process';import AppCTA from '../components/AppCTA';import News from '../components/News';// Page-level transition — used by AnimatePresence in App.jsx when routing
 // in and out of "/". Kept subtle: a short fade + rise, no bounce, so it
 // doesn't fight the section-level scroll animations underneath it.
 const pageVariants = {

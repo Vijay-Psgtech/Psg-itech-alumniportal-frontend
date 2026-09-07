@@ -4,9 +4,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
 // ✅ FIXED: Define API endpoints
 const BANNER_API = `${API_BASE_URL}/banners`;
-// ✅ IMPORTANT: Use /notification-scrolls for banner scrolling notifications
-// NOT /notifications - that's for alumni notifications submission
-const NOTIFICATION_SCROLL_API = `${API_BASE_URL}/notification-scrolls`;
+const mockBannerData = null;
 
 const api = axios.create({
   baseURL: API_BASE_URL,

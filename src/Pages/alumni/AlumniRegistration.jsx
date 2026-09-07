@@ -9,26 +9,7 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  UserPlus,
-  AlertCircle,
-  Check,
-  Clock,
-  ChevronRight,
-  ChevronLeft,
-  GraduationCap,
-  Briefcase,
-  Share2,
-  FileImage,
-  MapPin,
-  User,
-  Upload,
-  X,
-  Eye,
-  EyeOff,
-  Calendar,
-  Info,
-} from "lucide-react";
+import { AlertCircle, Check, Clock, ChevronRight, ChevronLeft, GraduationCap, Briefcase, Share2, MapPin, User, X, Eye, EyeOff, Calendar, Info } from "lucide-react";
 import { authAPI, departmentAPI } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import usePageTitle from "../../hooks/usePageTitle";

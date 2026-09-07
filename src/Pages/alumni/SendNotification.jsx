@@ -2,19 +2,7 @@
 // ✅ Alumni can compose & submit a notification (pending admin approval)
 
 import React, { useState, useEffect, useRef } from "react";
-import {
-  X,
-  Send,
-  Paperclip,
-  Users,
-  BookOpen,
-  AlertCircle,
-  CheckCircle,
-  FileText,
-  Image,
-  ChevronDown,
-  Bell,
-} from "lucide-react";
+import { X, Send, Paperclip, Users, BookOpen, AlertCircle, CheckCircle, FileText, Image, Bell } from "lucide-react";
 import { notificationAPI, alumniAPI } from "../../services/api";
 
 const SendNotification = ({ onClose, onSuccess }) => {

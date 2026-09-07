@@ -1,26 +1,13 @@
 // src/pages/alumni/AlumniMap.jsx
 // ✅ Redesigned with Tailwind CSS — no custom <style> block
 
-import React, { useState, useEffect, useCallback, useMemo, use } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { alumniAPI, API_BASE } from "../../services/api";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import {
-  X,
-  MapPin,
-  Mail,
-  Linkedin,
-  Phone,
-  Briefcase,
-  GraduationCap,
-  Globe,
-  Building2,
-  CheckCircle,
-  AlertCircle,
-  Users,
-} from "lucide-react";
+import { X, MapPin, Briefcase, GraduationCap, Globe, Building2, CheckCircle, AlertCircle, Users } from "lucide-react";
 import ImageModal from "../../components/ImageModal";
 import { useAuth } from "../../context/AuthContext";
 import usePageTitle from "../../hooks/usePageTitle";
