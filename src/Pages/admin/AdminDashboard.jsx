@@ -41,6 +41,7 @@ import NotificationManager from "../../pages/Notificationmanager";
 import DonationHistory from "../../components/admin/DonationHistory";
 import CampaignCreator from "../../components/admin/CampaignCreator";
 import CampaignResponsesManager from "../../components/admin/CampaignResponsesManager";
+import MentorshipTab from "../../components/admin/MentorshipTab";
 
 // ✅ Safe import with fallback
 const donationsAPI = {
@@ -276,6 +277,7 @@ const AdminDashboard = () => {
       label: "Campaign Manager",
       badge: stats.totalCampaigns,
     },
+    { key: "mentorship", Icon: Users, label: "Flash Mentorship", badge: "" },
     {
       key: "events",
       Icon: Calendar,
@@ -676,6 +678,13 @@ const AdminDashboard = () => {
               </p>
             </div>
           )}
+          {/* Mentorship Tab */}
+          {activeTab === "mentorship" && (
+            <motion.div key="mentorship" variants={iv} initial="hidden" animate="visible" exit={{ opacity: 0 }}>
+              <MentorshipTab onError={setError} onSuccess={setSuccess} onOpenMail={() => setActiveTab("mailing")} />
+            </motion.div>
+          )}
+
           {/* ✅ NEW: Notifications Tab */}
           {activeTab === "notifications" && (
             <motion.div
