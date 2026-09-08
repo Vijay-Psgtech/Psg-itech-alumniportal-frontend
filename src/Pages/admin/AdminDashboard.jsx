@@ -456,7 +456,7 @@ const AdminDashboard = () => {
 
                   bg-white
                   border border-slate-200/80
-                  rounded-2xl
+                  
 
                   px-4 py-4
 
@@ -517,13 +517,13 @@ const AdminDashboard = () => {
           ))}
         </motion.div>
         {/* Tabs Panel */}
-        <div className="bg-white rounded-2xl p-4 mb-6 shadow-sm">
+        <div className="bg-white p-4 mb-6 shadow-sm">
           <div className="flex gap-2 flex-wrap">
             {TABS.map(({ key, Icon, label, badge }) => (
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
-                className={`px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition ${activeTab === key
+                className={`px-4 py-2  font-bold flex items-center gap-2 transition ${activeTab === key
                   ? "bg-orange-600 text-white"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
