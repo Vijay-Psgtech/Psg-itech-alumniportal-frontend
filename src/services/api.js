@@ -779,4 +779,15 @@ export const donationAPI = {
   getHistory: (params) => api.get("/donation/history", { params }),
 };
 
+// ── MentorShip API ────────────────────────────────────────────────────────
+export const mentorshipAPI = {
+  getDashboard: () => api.get("/mentorship/dashboard"),
+  getProfiles: (params) => api.get("/mentorship/profiles", { params }),
+  createProfile: (data) => api.post("/mentorship/profiles", data),
+  updateProfile: (id, data) => api.put(`/mentorship/profiles/${id}`, data),
+  getSessions: (params) => api.get("/mentorship/sessions", { params }),
+  createSession: (data) => api.post("/mentorship/sessions", data),
+  updateSession: (id, data) => api.put(`/mentorship/sessions/${id}`, data),
+};
+
 export default api;
