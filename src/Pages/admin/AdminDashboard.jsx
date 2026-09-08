@@ -1,31 +1,9 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  LogOut,
-  Users,
-  FileText,
-  X,
-  CheckCircle,
-  AlertCircle,
-  Calendar,
-  Camera,
-  Bell,
-  BookOpen,
-  History,
-  Megaphone,
-  ClipboardList,
-  Plus,
-  Clock3,
-  IndianRupee,
-  BadgeCheck,
-  Building,
-} from "lucide-react";
-import { adminAPI, API_BASE, campaignsAPI } from "../../services/api";
-import {
-  formatNumber,
-  formatCurrency,
-} from "../../utils/formatters";
+import { LogOut, Users, X, CheckCircle, AlertCircle, Calendar, Camera, Bell, BookOpen, History, Mail, MessageSquare, Megaphone, Plus, Clock3, IndianRupee, BadgeCheck, Building, ChevronRight } from "lucide-react";
+import { adminAPI, API_BASE, campaignsAPI, messagingAPI } from "../../services/api";
+import { formatNumber, formatCurrency } from "../../utils/formatters";
 import { useAuth } from "../../context/AuthContext";
 import usePageTitle from "../../hooks/usePageTitle";
 
@@ -33,7 +11,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 import { EventsTab } from "../../components/admin/EventsTab";
 import { AlbumsTab } from "../../components/admin/AlbumsTab";
 import { AlumniTab } from "../../components/admin/AlumniTab";
-import { DonationsTab } from "../../components/admin/DonationsTab";
+
 import DepartmentTab from "../../components/admin/DepartmentTab";
 import AdminUsersTab from "../../components/admin/AdminUsersTab";
 import NotificationManager from "../../pages/Notificationmanager";
@@ -41,15 +19,10 @@ import NotificationManager from "../../pages/Notificationmanager";
 import DonationHistory from "../../components/admin/DonationHistory";
 import CampaignCreator from "../../components/admin/CampaignCreator";
 import CampaignResponsesManager from "../../components/admin/CampaignResponsesManager";
+import MailingTab from "../../components/admin/MailingTab";
 import MentorshipTab from "../../components/admin/MentorshipTab";
 
 // ✅ Safe import with fallback
-const donationsAPI = {
-  getAll:
-    adminAPI.getAllDonations ||
-    (() => Promise.resolve({ data: { donations: [] } })),
-};
-
 // ✅ Helper function to validate MongoDB ObjectId or UUID format
 const isValidCampaignId = (id) => {
   if (!id || typeof id !== "string") return false;
@@ -75,8 +48,8 @@ const AdminDashboard = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [alumniList, setAlumniList] = useState([]);
-  const [donationList, setDonationList] = useState([]);
   const [campaignList, setCampaignList] = useState([]);
+  const [recentMessages, setRecentMessages] = useState([]);
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
 
   const [alumniPageData, setAlumniPageData] = useState({
@@ -98,6 +71,14 @@ const AdminDashboard = () => {
 
   const department = user.department || "";
   const isAdmin = user.role === "admin";
+  const currentUserId = String(user?._id || user?.id || "");
+  const getUnreadForConversation = (conversation) => {
+    const unreadCounts = conversation?.unreadCounts || {};
+    if (typeof unreadCounts?.get === "function") {
+      return Number(unreadCounts.get(currentUserId) || 0);
+    }
+    return Number(unreadCounts[currentUserId] || 0);
+  };
   usePageTitle(isAdmin ? `${department} Dashboard` : "Admin Dashboard");
   // ✅ Memoize params to prevent unnecessary object recreation
   const params = useMemo(
@@ -124,7 +105,7 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
 
-        const [statsRes, alumniRes, donationsRes, campaignsRes] =
+        const [statsRes, alumniRes, campaignsRes, messagesRes] =
           await Promise.all([
             adminAPI.getStats(),
             adminAPI.getAllAlumni({
@@ -132,8 +113,8 @@ const AdminDashboard = () => {
               page: 1,
               limit: 20,
             }),
-            donationsAPI.getAll(),
             campaignsAPI.getAll(),
+            messagingAPI.getConversations().catch(() => ({ data: { conversations: [] } })),
           ]);
         const campaignsData = campaignsRes.data || {};
 
@@ -149,8 +130,8 @@ const AdminDashboard = () => {
           currentPage: alumniRes.data.currentPage || 1,
         });
 
-        setDonationList(donationsRes.data.donations || []);
         setCampaignList(campaignsData.campaigns || []);
+        setRecentMessages((messagesRes.data?.conversations || []).slice(0, 3));
 
         // ✅ Get campaign ID from URL with validation
         const urlParams = new URLSearchParams(location.search);
@@ -277,6 +258,7 @@ const AdminDashboard = () => {
       label: "Campaign Manager",
       badge: stats.totalCampaigns,
     },
+    { key: "mailing", Icon: Mail, label: "Mailing", badge: "" },
     { key: "mentorship", Icon: Users, label: "Flash Mentorship", badge: "" },
     {
       key: "events",
@@ -456,7 +438,7 @@ const AdminDashboard = () => {
 
                   bg-white
                   border border-slate-200/80
-                  
+                 
 
                   px-4 py-4
 
@@ -516,6 +498,65 @@ const AdminDashboard = () => {
             </motion.div>
           ))}
         </motion.div>
+        <div className="mb-6 border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+                <MessageSquare size={18} />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">Communication</p>
+                <h3 className="text-lg font-black text-slate-900">Recent Messages</h3>
+              </div>
+            </div>
+            <Link to="/admin/messages" className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:border-slate-300 hover:bg-slate-50">
+              Message center <ChevronRight size={14} />
+            </Link>
+          </div>
+
+          {recentMessages.length > 0 ? (
+            <div className="grid gap-3 md:grid-cols-3">
+              {recentMessages.map((conversation) => {
+                const participant = conversation.participants?.find((person) => String(person._id) !== String(user?._id || user?.id)) || conversation.participants?.[0];
+                const unreadCount = getUnreadForConversation(conversation);
+                return (
+                  <div key={conversation._id} className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-red-500 text-xs font-bold text-white">
+                          {`${participant?.firstName?.[0] || ""}${participant?.lastName?.[0] || ""}`.toUpperCase() || "A"}
+                          {unreadCount > 0 && (
+                            <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[8px] font-bold text-white">
+                              {unreadCount > 9 ? "9+" : unreadCount}
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-sm font-semibold text-slate-800">
+                          {participant ? `${participant.firstName || ""} ${participant.lastName || ""}`.trim() || "Alumni" : "Alumni"}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-slate-400">
+                        {conversation.lastMessageAt ? new Date(conversation.lastMessageAt).toLocaleDateString("en-IN", { month: "short", day: "numeric" }) : "Now"}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="line-clamp-2 text-sm text-slate-600">{conversation.lastMessage || "New conversation started"}</p>
+                      {unreadCount > 0 && (
+                        <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-bold text-orange-700">
+                          {unreadCount} new
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">
+              No recent message threads yet.
+            </div>
+          )}
+        </div>
         {/* Tabs Panel */}
         <div className="bg-white p-4 mb-6 shadow-sm">
           <div className="flex gap-2 flex-wrap">
@@ -678,13 +719,22 @@ const AdminDashboard = () => {
               </p>
             </div>
           )}
-          {/* Mentorship Tab */}
+          {activeTab === "mailing" && (
+            <motion.div
+              key="mailing"
+              variants={iv}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0 }}
+            >
+              <MailingTab onError={setError} onSuccess={setSuccess} />
+            </motion.div>
+          )}
           {activeTab === "mentorship" && (
             <motion.div key="mentorship" variants={iv} initial="hidden" animate="visible" exit={{ opacity: 0 }}>
               <MentorshipTab onError={setError} onSuccess={setSuccess} onOpenMail={() => setActiveTab("mailing")} />
             </motion.div>
           )}
-
           {/* ✅ NEW: Notifications Tab */}
           {activeTab === "notifications" && (
             <motion.div
@@ -738,7 +788,7 @@ const AdminDashboard = () => {
               <div
                 onClick={() => setSelectedItem(null)}
                 style={{
-                  position: "absolute inset-0 z-[2000]",
+                  position: "absolute inset-0 z-2000",
                   inset: 0,
                   background: "rgba(0,0,0,0.45)",
                   backdropFilter: "blur(4px)",
