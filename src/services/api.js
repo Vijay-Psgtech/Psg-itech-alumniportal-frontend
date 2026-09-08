@@ -790,4 +790,37 @@ export const mentorshipAPI = {
   updateSession: (id, data) => api.put(`/mentorship/sessions/${id}`, data),
 };
 
+// ── Mailing API ────────────────────────────────────────────────────────
+export const mailingsAPI = {
+  getAll: (params) => api.get("/mailings", { params }),
+  getAnalytics: () => api.get("/mailings/analytics"),
+  create: (data) => api.post("/mailings", data),
+  update: (id, data) => api.put(`/mailings/${id}`, data),
+  delete: (id) => api.delete(`/mailings/${id}`),
+  send: (id) => api.post(`/mailings/${id}/send`),
+  getSettings: () => api.get("/mailings/settings"),
+  updateSettings: (data) => api.put("/mailings/settings", data),
+  getTemplates: () => api.get("/mailings/templates"),
+  createTemplate: (data) => api.post("/mailings/templates", data),
+  deleteTemplate: (id) => api.delete(`/mailings/templates/${id}`),
+};
+
+export const messagingAPI = {
+  getContacts: () => api.get("/messages/contacts"),
+  getConversations: () => api.get("/messages/conversations"),
+  createConversation: (recipientId) =>
+    api.post("/messages/conversations", { recipientId }),
+  getMessages: (conversationId) =>
+    api.get(`/messages/conversations/${conversationId}/messages`),
+  sendMessage: (conversationId, body) =>
+    api.post(`/messages/conversations/${conversationId}/messages`, { body }),
+  markRead: (conversationId) =>
+    api.patch(`/messages/conversations/${conversationId}/read`),
+  getSettings: () => api.get("/messages/settings"),
+  updateSettings: (data) => api.patch("/messages/settings", data),
+  heartbeat: () => api.post("/messages/presence/heartbeat"),
+  getPresence: (ids) =>
+    api.get("/messages/presence", { params: { ids: ids.join(",") } }),
+};
+
 export default api;
