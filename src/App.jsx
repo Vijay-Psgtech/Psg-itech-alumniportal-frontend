@@ -31,6 +31,7 @@ const AlumniDonations = lazy(() => import("./Pages/alumni/AlumniDonations"));
 const SendNotification = lazy(() => import("./Pages/alumni/SendNotification"));
 const NotificationInbox = lazy(() => import("./Pages/alumni/NotificationInbox"));
 const ForgotPassword = lazy(() => import("./Pages/alumni/ForgotPassword"));
+const MessagesPage = lazy(() => import("./Pages/alumni/MessagesPage"));
 
 const AdminLogin = lazy(() => import("./Pages/admin/AdminLogin"));
 const AdminEvents = lazy(() => import("./Pages/admin/AdminEvents"));
@@ -85,6 +86,7 @@ function AnimatedRoutes() {
         <Route path="/alumni/notifications/new" element={<ProtectedRoute><SendNotification /></ProtectedRoute>} />
         <Route path="/alumni/notifications" element={<ProtectedRoute><NotificationInbox /></ProtectedRoute>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/alumni/messages" element={<ProtectedRoute><MessagesPage /></ProtectedRoute>} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -95,7 +97,7 @@ function AnimatedRoutes() {
         <Route path="/admin/alumni" element={<ProtectedAdminRoute><AlumniUsersList /></ProtectedAdminRoute>} />
         <Route path="/admin/notifications" element={<ProtectedAdminRoute><AdminNotifications /></ProtectedAdminRoute>} />
         <Route path="/admin/reports" element={<ProtectedAdminRoute><AdminReports /></ProtectedAdminRoute>} />
-
+        <Route path="/admin/messages" element={<ProtectedAdminRoute><MessagesPage /></ProtectedAdminRoute>} />
       </Routes>
     </AnimatePresence>
   )
