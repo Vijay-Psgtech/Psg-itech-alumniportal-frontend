@@ -1,30 +1,9 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  X,
-  CheckCircle,
-  Linkedin,
-  Twitter,
-  Instagram,
-  Mail,
-  Phone,
-  MapPin,
-  Briefcase,
-  BookOpen,
-  GraduationCap,
-  Hash,
-  ExternalLink,
-  Crown,
-} from "lucide-react";
+import { X, Briefcase, GraduationCap, Hash, Crown } from "lucide-react";
 
 const getInitials = (first = "", last = "") =>
   `${first.charAt(0)}${last.charAt(0)}`.toUpperCase() || "?";
-
-const canSeeFullDetails = (viewer, subject) => {
-  if (!viewer || !subject) return false;
-  if (viewer.role === "admin" || viewer.role === "superadmin") return true;
-  return String(viewer.batchYear) === String(subject.batchYear);
-};
 
 const Section = ({ title, children }) => (
   <div style={{ marginBottom: 26 }}>
@@ -93,34 +72,8 @@ const InfoRow = ({ icon: Icon, label, value }) => {
   );
 };
 
-const SocialBtn = ({ href, icon: Icon }) => {
-  if (!href) return null;
-
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        width: 36,
-        height: 36,
-        borderRadius: 8,
-        border: "1px solid #e2e8f0",
-        background: "#fff",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Icon size={16} color="#475569" />
-    </a>
-  );
-};
-
-const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
+const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer, onMessage }) => {
   if (!isOpen || !alumni) return null;
-
-  const full = canSeeFullDetails(viewer, alumni);
 
   const photo = alumni.files?.currentPhoto || alumni.profileImage;
 
@@ -139,14 +92,14 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[2000] flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-2000 flex items-center justify-center p-4"
         onClick={onClose}
       >
         {/* Backdrop */}
         <div
           onClick={onClose}
           style={{
-            position: "absolute inset-0 z-[2000]",
+            position: "absolute inset-0 z-2000",
             inset: 0,
             background: "rgba(0,0,0,0.45)",
             backdropFilter: "blur(4px)",
@@ -306,6 +259,20 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer }) => {
               gap: 8,
             }}
           >
+            {onMessage && viewer?.role === "alumni" && String(viewer?._id || viewer?.id) !== String(alumni?._id) && (
+              <button
+                onClick={() => onMessage(alumni)}
+                style={{
+                  background: "#344579",
+                  color: "#fff",
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  border: "none",
+                }}
+              >
+                Message
+              </button>
+            )}
             <button
               onClick={onClose}
               style={{
