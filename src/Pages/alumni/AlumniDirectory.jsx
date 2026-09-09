@@ -1,42 +1,10 @@
 // src/pages/alumni/AlumniDirectory.jsx
 // ✅ Batch-first directory — Admin sees all, Alumni sees own batch full / others limited
 
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Users,
-  GraduationCap,
-  ChevronRight,
-  ArrowLeft,
-  Search,
-  Briefcase,
-  Building2,
-  Globe,
-  Linkedin,
-  Twitter,
-  Instagram,
-  Facebook,
-  CheckCircle,
-  Filter,
-  X,
-  SlidersHorizontal,
-  Calendar,
-  BookOpen,
-  Hash,
-  Eye,
-  LayoutGrid,
-  List,
-  ChevronDown,
-  Layers,
-  ArrowRight,
-  Crown,
-} from "lucide-react";
+import { Users, GraduationCap, ChevronRight, ArrowLeft, Search, Briefcase, Building2, CheckCircle, X, SlidersHorizontal, Calendar, BookOpen, Hash, Eye, LayoutGrid, List, ChevronDown, Layers, ArrowRight, Crown } from "lucide-react";
 import { alumniAPI, API_BASE } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import AlumniDetailModal from "./AlumniDetailModal";
@@ -149,7 +117,7 @@ function StatCell({ icon: Icon, label, value }) {
   if (!value) return null;
   return (
     <div className="flex items-start gap-2.5 min-w-0">
-      <div className="mt-0.5 flex-shrink-0 w-6 h-6 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+      <div className="mt-0.5 shrink-0 w-6 h-6 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
         <Icon size={12} className="text-slate-500 dark:text-slate-400" />
       </div>
       <div className="min-w-0">
@@ -196,7 +164,7 @@ const BatchCard = ({ year, count, palette, isMine, onClick, index }) => (
     transition={{ delay: index * 0.06, duration: 0.4, ease: "easeOut" }}
     whileHover={{ y: -4, scale: 1.02 }}
     whileTap={{ scale: 0.97 }}
-    className={`relative w-full text-left bg-gradient-to-br ${palette.bg} rounded-2xl p-6 overflow-hidden border-l-4 ${palette.accent} shadow-lg hover:shadow-xl transition-shadow`}
+    className={`relative w-full text-left bg-linear-to-br ${palette.bg} rounded-2xl p-6 overflow-hidden border-l-4 ${palette.accent} shadow-lg hover:shadow-xl transition-shadow`}
   >
     {/* Decorative rings */}
     <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full border border-white/5" />
@@ -284,7 +252,7 @@ const AlumniCard = ({ alumni, apiBase, index, onSelect }) => {
     >
       {/* ── Left accent stripe ── */}
       <span
-        className={`absolute inset-y-0 left-0 w-[3px] bg-gradient-to-b ${gradient} rounded-l-2xl`}
+        className={`absolute inset-y-0 left-0 w-[3px] bg-linear-to-b ${gradient} rounded-l-2xl`}
         aria-hidden
       />
 
@@ -294,10 +262,10 @@ const AlumniCard = ({ alumni, apiBase, index, onSelect }) => {
           {/* Avatar */}
           <div
             className={`
-              relative flex-shrink-0
+              relative shrink-0
               w-14 h-14 rounded-xl
               ring-2 ${accent.ring}
-              bg-gradient-to-br ${gradient}
+              bg-linear-to-br ${gradient}
               flex items-center justify-center
               text-white text-base font-bold tracking-tight
               overflow-hidden
@@ -443,6 +411,7 @@ const AlumniCard = ({ alumni, apiBase, index, onSelect }) => {
 ═══════════════════════════════════════════ */
 const AlumniDirectory = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const isAdmin = user?.role === "admin" || false;
   const alumniRef = useRef(null);
   usePageTitle("Alumni Directory");
@@ -508,7 +477,7 @@ const AlumniDirectory = () => {
         } else if (countsArray && typeof countsArray === "object") {
           setBatchCounts(countsArray);
         }
-      } catch (e) {
+      } catch {
         setError("Could not load batches. Please try again.");
       } finally {
         setBatchLoading(false);
@@ -527,7 +496,7 @@ const AlumniDirectory = () => {
           batchStats: data.batchStats || 0,
           departmentStats: data.departmentStats || 0,
         });
-      } catch (e) {
+      } catch {
         // Ignore stats loading errors — not critical
       }
     })();
@@ -564,7 +533,7 @@ const AlumniDirectory = () => {
         setSelectedBatch(year);
         setView("alumni");
         setFilters({ occupations: data.filters.jobTitles || [], departments: data.filters.departments || [] });
-      } catch (e) {
+      } catch {
         setError("Failed to load alumni for this batch.");
       } finally {
         setLoading(false);
@@ -954,7 +923,7 @@ const AlumniDirectory = () => {
                                 </tr>
                               </thead>
                               <tbody className="bg-white divide-y divide-slate-100">
-                                {displayedAlumni.map((alumni, i) => (
+                                {displayedAlumni.map((alumni) => (
                                   <tr
                                     key={alumni._id}
                                     onClick={() => setSelectedAlumni(alumni)}
@@ -963,7 +932,7 @@ const AlumniDirectory = () => {
                                     <td className="px-4 py-3 align-middle">
                                       <div className="flex items-center gap-3">
                                         <div
-                                          className={`w-9 h-9 rounded-md bg-gradient-to-br ${pickGradient(alumni.firstName)} flex items-center justify-center text-white font-bold`}
+                                          className={`w-9 h-9 rounded-md bg-linear-to-br ${pickGradient(alumni.firstName)} flex items-center justify-center text-white font-bold`}
                                         >
                                           {getInitials(
                                             alumni.firstName,
@@ -1142,6 +1111,7 @@ const AlumniDirectory = () => {
             onClose={() => setSelectedAlumni(null)}
             apiBase={API_BASE}
             viewer={user}
+            onMessage={(alumni) => navigate(`/alumni/messages?recipientId=${alumni._id}&recipientName=${encodeURIComponent(`${alumni.firstName || ""} ${alumni.lastName || ""}`.trim())}`)}
           />
         )}
       </AnimatePresence>
