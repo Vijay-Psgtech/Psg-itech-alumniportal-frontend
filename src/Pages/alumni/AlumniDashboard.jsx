@@ -12,6 +12,7 @@ import {
   User,
   Bell,
   Send,
+  MessageSquare,
   ChevronRight,
   GraduationCap,
   MapPin,
@@ -28,7 +29,7 @@ import {
 } from "lucide-react";
 import SendNotification from "./SendNotification";
 import NotificationInbox from "./NotificationInbox";
-import { notificationAPI, alumniAPI } from "../../services/api";
+import { notificationAPI, alumniAPI, messagingAPI } from "../../services/api";
 import usePageTitle from "../../hooks/usePageTitle";
 import { formatNumber } from "../../utils/formatters";
 
@@ -129,6 +130,7 @@ const AlumniDashboard = () => {
   const navigate = useNavigate();
 
   const [stats, setStats] = useState([]);
+  const [recentMessages, setRecentMessages] = useState([]);
   const [showSendModal, setShowSendModal] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -138,6 +140,14 @@ const AlumniDashboard = () => {
   const initials =
     `${user?.firstName?.charAt(0) ?? ""}${user?.lastName?.charAt(0) ?? ""}`.toUpperCase();
   const avatarGrad = pickColor(user?.firstName ?? "");
+  const currentUserId = String(user?._id || user?.id || "");
+  const getUnreadForConversation = (conversation) => {
+    const unreadCounts = conversation?.unreadCounts || {};
+    if (typeof unreadCounts?.get === "function") {
+      return Number(unreadCounts.get(currentUserId) || 0);
+    }
+    return Number(unreadCounts[currentUserId] || unreadCounts[String(user?._id || user?.id)] || 0);
+  };
 
   /* --- Stats ---- */
   const STATS = [
@@ -188,6 +198,32 @@ const AlumniDashboard = () => {
   useEffect(() => {
     refreshCount();
   }, []);
+
+  useEffect(() => {
+    const loadRecentMessages = async () => {
+      try {
+        const response = await messagingAPI.getConversations();
+        const conversations = response.data.conversations || [];
+        const trimmed = conversations
+          .slice(0, 3)
+          .map((conversation) => ({
+            ...conversation,
+            otherPerson:
+              conversation.participants?.find(
+                (person) => String(person._id) !== String(user?._id || user?.id),
+              ) || conversation.participants?.[0],
+          }));
+        setRecentMessages(trimmed);
+      } catch (error) {
+        console.warn("Recent messages unavailable:", error.message || error);
+        setRecentMessages([]);
+      }
+    };
+
+    if (user) {
+      loadRecentMessages();
+    }
+  }, [user]);
 
   const handleCardClick = (card) => {
     if (card.id === "notifications") setShowNotifications(true);
@@ -250,7 +286,7 @@ const AlumniDashboard = () => {
                 </p>
               </div>
               <div
-                className={`w-9 h-9 rounded-xl bg-gradient-to-br ${avatarGrad} flex items-center justify-center text-white text-sm font-black shadow-md flex-shrink-0 cursor-pointer`}
+                className={`w-9 h-9 rounded-xl bg-linear-to-br ${avatarGrad} flex items-center justify-center text-white text-sm font-black shadow-md shrink-0 cursor-pointer`}
                 onClick={() => navigate("/alumni/profile")}
               >
                 {initials || "?"}
@@ -325,7 +361,7 @@ const AlumniDashboard = () => {
                 Welcome back, {user?.firstName}! 👋
               </h2>
               <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-                You're connected to the PSG Alumni Network. Explore the
+                You&apos;re connected to the PSG Alumni Network. Explore the
                 directory, find fellow alumni, donate to the institution, and
                 stay connected with your batch.
               </p>
@@ -359,7 +395,7 @@ const AlumniDashboard = () => {
             </div>
 
             {/* CTA */}
-            <div className="flex flex-row sm:flex-col gap-2.5 flex-shrink-0">
+            <div className="flex flex-row sm:flex-col gap-2.5 shrink-0">
               <motion.button
                 onClick={() => navigate("/alumni/profile")}
                 whileHover={{ scale: 1.03 }}
@@ -379,6 +415,95 @@ const AlumniDashboard = () => {
             </div>
           </div>
         </motion.div>
+
+        <div className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
+          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+                  <MessageSquare size={16} />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Inbox</p>
+                  <h3 className="text-lg font-bold text-slate-900">Recent Messages</h3>
+                </div>
+              </div>
+              <button
+                onClick={() => navigate("/alumni/messages")}
+                className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+              >
+                Open inbox <ChevronRight size={14} />
+              </button>
+            </div>
+
+            {recentMessages.length > 0 ? (
+              <div className="space-y-3">
+                {recentMessages.map((conversation) => {
+                  const unreadCount = (conversation);
+                  return (
+                    <button
+                      key={conversation._id}
+                      onClick={() => navigate(`/alumni/messages?recipientId=${conversation.otherPerson?._id || ""}`)}
+                      className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3 text-left transition hover:border-orange-200 hover:bg-orange-50"
+                    >
+                      <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-orange-500 to-rose-500 text-sm font-bold text-white">
+                        {`${conversation.otherPerson?.firstName?.[0] || ""}${conversation.otherPerson?.lastName?.[0] || ""}`.toUpperCase() || "A"}
+                        {unreadCount > 0 && (
+                          <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">
+                            {unreadCount > 9 ? "9+" : unreadCount}
+                          </span>
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="truncate text-sm font-semibold text-slate-900">
+                            {conversation.otherPerson ? `${conversation.otherPerson.firstName || ""} ${conversation.otherPerson.lastName || ""}`.trim() : "Alumni contact"}
+                          </p>
+                          <span className="text-[10px] text-slate-400">
+                            {conversation.lastMessageAt ? new Date(conversation.lastMessageAt).toLocaleDateString("en-IN", { month: "short", day: "numeric" }) : "Now"}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="truncate text-xs text-slate-500">
+                            {conversation.lastMessage || "New conversation started"}
+                          </p>
+                          {unreadCount > 0 && (
+                            <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-bold text-orange-700">
+                              {unreadCount} new
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">
+                No recent messages yet.
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Quick Access</p>
+                <h3 className="text-lg font-bold text-slate-900">Message Center</h3>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <button onClick={() => navigate("/alumni/messages")} className="flex w-full items-center justify-between rounded-2xl bg-slate-100 px-3 py-3 text-left text-sm font-semibold text-slate-700 hover:bg-slate-200">
+                <span>Open inbox</span>
+                <ChevronRight size={14} />
+              </button>
+              <button onClick={() => navigate("/alumni/directory")} className="flex w-full items-center justify-between rounded-2xl bg-orange-50 px-3 py-3 text-left text-sm font-semibold text-orange-700 hover:bg-orange-100">
+                <span>Message alumni</span>
+                <ChevronRight size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
 
         {/* ── Stats Row ── */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -417,7 +542,7 @@ const AlumniDashboard = () => {
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-6 py-5">
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center flex-shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center shrink-0">
                 <Zap size={19} className="text-orange-500" />
               </div>
               <div>
@@ -434,12 +559,12 @@ const AlumniDashboard = () => {
               onClick={() => setShowSendModal(true)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold shadow-lg shadow-orange-200 transition-colors"
+              className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold shadow-lg shadow-orange-200 transition-colors"
             >
               <Send size={13} /> Compose
             </motion.button>
           </div>
-          <div className="h-0.5 bg-gradient-to-r from-orange-500 via-orange-500 to-purple-600" />
+          <div className="h-0.5 bg-linear-to-r from-orange-500 via-orange-500 to-purple-600" />
         </motion.div>
 
         {/* ── Quick Access Cards ── */}
@@ -469,10 +594,10 @@ const AlumniDashboard = () => {
                 className="group relative bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 p-6 text-left overflow-hidden"
               >
                 <div
-                  className={`absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r ${card.accent} scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}
+                  className={`absolute top-0 inset-x-0 h-0.5 bg-linear-to-r ${card.accent} scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left`}
                 />
                 <div
-                  className={`absolute -right-7 -bottom-7 w-28 h-28 rounded-full bg-gradient-to-br ${card.accent} opacity-[0.06] group-hover:opacity-[0.12] transition-opacity duration-300`}
+                  className={`absolute -right-7 -bottom-7 w-28 h-28 rounded-full bg-linear-to-br ${card.accent} opacity-[0.06] group-hover:opacity-[0.12] transition-opacity duration-300`}
                 />
 
                 <div className="relative z-10">
@@ -539,8 +664,8 @@ const AlumniDashboard = () => {
                 </span>
               </div>
               <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-orange-500 to-orange-500 rounded-full"
+                <motion.div 
+                  className="h-full bg-linear-to-r from-orange-500 to-orange-500 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${completionPct}%` }}
                   transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
@@ -558,7 +683,7 @@ const AlumniDashboard = () => {
                   >
                     <div className="flex items-center gap-2.5">
                       <div
-                        className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${done ? "bg-emerald-500" : "bg-slate-200"}`}
+                        className={`w-1.5 h-1.5 rounded-full shrink-0 ${done ? "bg-emerald-500" : "bg-slate-200"}`}
                       />
                       <span className="text-xs font-semibold text-slate-600">
                         {label}
@@ -621,7 +746,7 @@ const AlumniDashboard = () => {
                   path: "/alumni/profile",
                   color: "text-purple-500",
                   bg: "bg-purple-50",
-                },
+                },  
               ].map(({ label, icon: Icon, path, color, bg }) => (
                 <button
                   key={label}
@@ -629,13 +754,13 @@ const AlumniDashboard = () => {
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group text-left"
                 >
                   <div
-                    className={`w-7 h-7 rounded-lg ${bg} flex items-center justify-center flex-shrink-0`}
+                    className={`w-7 h-7 rounded-lg ${bg} flex items-center justify-center shrink-0`}
                   >
                     <Icon size={13} className={color} />
                   </div>
                   <span className="flex-1 text-xs font-semibold text-slate-700 group-hover:text-slate-900 transition-colors">
                     {label}
-                  </span>
+                  </span>  
                   <ChevronRight
                     size={13}
                     className="text-slate-300 group-hover:text-slate-500 group-hover:translate-x-0.5 transition-all"
@@ -664,7 +789,7 @@ const AlumniDashboard = () => {
       <AnimatePresence>
         {showNotifications && (
           <motion.div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[2000] flex justify-end"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-2000 flex justify-end"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
