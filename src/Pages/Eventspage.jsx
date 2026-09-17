@@ -107,12 +107,12 @@ export default function EventsPage() {
       const matchesQuery = title.toLowerCase().includes(query.toLowerCase())
       const matchesStatus =
         statusFilter.length === 0 ||
-        (statusFilter.includes('Past events') && normalizedStatus.includes('past')) ||
+        (statusFilter.includes('Past events') && normalizedStatus.includes('completed')) ||
         (statusFilter.includes('Upcoming events') && normalizedStatus.includes('upcoming'))
       const matchesMode = modeFilter.length === 0 || modeFilter.some((filter) => filter.toLowerCase() === normalizedMode)
       return matchesQuery && matchesStatus && matchesMode
     })
-    const getEventSortKey = (event) => Number(event?.id ?? event?._id ?? 0) || 0
+    const getEventSortKey = (event) => Number(new Date(event?.date || 0))
     list = [...list].sort((a, b) => {
       const diff = getEventSortKey(a) - getEventSortKey(b)
       return sortDesc ? -diff : diff
@@ -188,7 +188,7 @@ export default function EventsPage() {
               </div>
             </div>
 
-            <div className="bg-white border border-slate-100 rounded-2xl p-5">
+            {/* <div className="bg-white border border-slate-100 rounded-2xl p-5">
               <p className="text-sm font-semibold text-slate-900 mb-4">Event mode</p>
               <div className="flex flex-col gap-3">
                 {eventModes.map((m) => (
@@ -203,7 +203,7 @@ export default function EventsPage() {
                   </label>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             <div className="bg-white border border-slate-100 rounded-2xl p-5">
               <p className="text-sm font-semibold text-slate-900 mb-4">Date</p>
@@ -263,7 +263,7 @@ export default function EventsPage() {
               className="flex flex-col gap-5"
             >
               {filtered.map((event) => (
-                <motion.div key={event._id} variants={fadeUp}>
+                <motion.div key={event._id} initial="hidden" whileInView="show" variants={fadeUp} viewport={viewport}>
                   <Link
                     to={`/events/${event._id}`}
                     className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
