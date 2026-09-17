@@ -274,7 +274,7 @@ export default function FeedPage() {
               className="flex flex-col gap-5"
             >
               {filtered.map((post) => (
-                <motion.div key={post.id} variants={fadeUp}>
+                <motion.div key={post.id} initial="hidden" whileInView="show" variants={fadeUp} viewport={viewport}>
                   <Link
                     to={`/feed/${post.slug}`}
                     className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
