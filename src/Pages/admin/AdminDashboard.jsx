@@ -14,7 +14,7 @@ import { AlumniTab } from "../../components/admin/AlumniTab";
 
 import DepartmentTab from "../../components/admin/DepartmentTab";
 import AdminUsersTab from "../../components/admin/AdminUsersTab";
-import NotificationManager from "../../pages/Notificationmanager";
+import NotificationManager from "../../Pages/Notificationmanager";
 
 import DonationHistory from "../../components/admin/DonationHistory";
 import CampaignCreator from "../../components/admin/Campaigncreator";
