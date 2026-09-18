@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ChevronUp } from 'lucide-react'
 
-const BackToTop = () => {
+const BacktoTop = () => {
     const [ isVisible, setIsVisible ] = useState(false);
 
     const toggleVisibility = () => {
@@ -29,4 +29,4 @@ const BackToTop = () => {
   )
 }
 
-export default BackToTop
+export default BacktoTop
