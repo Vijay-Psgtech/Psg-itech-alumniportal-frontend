@@ -35,7 +35,7 @@ const MessagesPage = lazy(() => import("./Pages/alumni/MessagesPage"));
 
 const AdminLogin = lazy(() => import("./Pages/admin/AdminLogin"));
 const AdminEvents = lazy(() => import("./Pages/admin/AdminEvents"));
-const AdminNewsLetter = lazy(() => import("./Pages/admin/AdminNewsletter"));
+const AdminNewsLetter = lazy(() => import("./Pages/admin/AdminNewsLetter"));
 const AdminDashboard = lazy(() => import("./Pages/admin/AdminDashboard"));
 const AlumniUsersList = lazy(() => import("./Pages/admin/AlumniUsersList"));
 const AdminNotifications = lazy(() => import("./Pages/admin/AdminNotifications"));
