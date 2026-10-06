@@ -100,7 +100,7 @@ const AdminLogin = () => {
         {/* Left Panel - Branding */}
         <div className="hidden md:flex flex-col items-center justify-center w-1/2 bg-white shadow-2xl p-8 text-center">
           <img src="/logo.png" alt="Logo" className="h-20 mb-6" />
-          <h2 className="text-2xl font-bold text-orange-800">Welcome Admin!</h2>
+          <h2 className="text-2xl font-bold text-blue-800">Welcome Admin!</h2>
           <p className="text-sm font-semibold text-gray-600 mt-4">
             Sign in to manage the alumni network and oversee registrations.
           </p>
@@ -108,8 +108,8 @@ const AdminLogin = () => {
         {/* Right Panel - Login Form */}
         <div className="w-full md:w-1/2 p-8">
           <div className="flex flex-col items-center mb-6">
-            <div className="bg-orange-100 p-3 rounded-full mb-2">
-              <Lock className="text-orange-700" size={32} />
+            <div className="bg-blue-100 p-3 rounded-full mb-2">
+              <Lock className="text-blue-700" size={32} />
             </div>
             <h2 className="text-xl font-semibold text-gray-800">Admin Login</h2>
           </div>
@@ -127,7 +127,7 @@ const AdminLogin = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {error.email && (
               <p className="text-red-500 text-sm">{error.email}</p>
@@ -139,7 +139,7 @@ const AdminLogin = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 pr-10"
+                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
               />
               <span
                 className="absolute right-3 top-2.5 cursor-pointer text-gray-600"
@@ -154,7 +154,7 @@ const AdminLogin = () => {
 
             {/* Submit */}
             <div className="flex justify-between items-center text-sm">
-              <button type="button" className="text-orange-600 hover:underline">
+              <button type="button" className="text-blue-600 hover:underline">
                 <Link to="/forgot-password">Forgot Password?</Link>
               </button>
             </div>
@@ -163,13 +163,13 @@ const AdminLogin = () => {
               <button
                 type="button"
                 onClick={resetFields}
-                className="text-orange-600 hover:underline font-medium"
+                className="text-blue-600 hover:underline font-medium"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="bg-orange-700 hover:bg-orange-800 text-white px-5 py-2 rounded-lg shadow"
+                className="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 rounded-lg shadow"
               >
                 {loading ? "Signing In..." : "Sign In"}
               </button>
