@@ -1,52 +1,48 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../context/AuthContext.jsx';
-import logo from '/logo.png'
+import logo from '/Alumni Logo 1.jpg'
 
 const links = [
   { label: 'About', to: '/about' },
+  { label: 'Leadership', to: '/leadership' },
   {
     label: 'Events',
     to: '/events',
     children: [
       { label: 'All Events', to: '/events' },
       { label: 'Gallery', to: '/gallery' },
-      { label: 'NewsCorner', to: '/feed' },
+      { label: 'Alumni Calendar', to: '/events/calendar' },
     ],
   },
   {
-    label: 'Alumni',
+    label: 'Find Alumni',
     to: '/alumni/dashboard',
     children: [
-      { label: 'Login', to: '/alumni/login' },
-      { label: 'Register', to: '/alumni/register' },
       { label: 'Dashboard', to: '/alumni/dashboard' },
       { label: 'Directory', to: '/alumni/directory' },
-      { label: 'Profile', to: '/alumni/profile' },
-      { label: 'Map', to: '/alumni/map' },
-      { label: 'Chapters', to: '/alumni/chapters' },
-      { label: 'Donations', to: '/alumni/donations' },
       { label: 'Messages', to: '/alumni/messages' },
-      // { label: 'Notifications', to: '/alumni/notifications' },
-      // { label: 'Send Notification', to: '/alumni/notifications/new' },
-      { label: 'Campaigns', to: '/campaigns' },
     ],
   },
   {
-    label: 'Admin',
-    to: '/admin/dashboard',
+    label: 'Careers',
+    to: '/careers/job',
     children: [
-      { label: 'Login', to: '/admin/login' },
-      { label: 'Dashboard', to: '/admin/dashboard' },
-      { label: 'Events', to: '/admin/events' },
-      { label: 'Alumni Users', to: '/admin/alumni' },
-      { label: 'Newsletter', to: '/admin/newsletter' },
-      { label: 'Messages', to: '/admin/messages' },
-      { label: 'Notifications', to: '/admin/notifications' },
-      { label: 'Reports', to: '/admin/reports' },
+      { label: 'Job', to: '/careers/job' },
+      { label: 'Internship', to: '/careers/internship' },
+      { label: 'Mentorship', to: '/careers/mentorship' },
     ],
   },
+  {
+    label: 'Chapters',
+    to: '/chapters/bangalore',
+    children: [
+      { label: 'Bangalore', to: '/chapters/bangalore' },
+      { label: 'Chennai', to: '/chapters/chennai' },
+    ],
+  },
+  { label: 'Donations', to: '/campaigns' },
   { label: 'Institute', href: 'https://psgitech.ac.in/' },
 ]
 
@@ -66,6 +62,7 @@ export default function Navbar() {
   const [authDropdown, setAuthDropdown] = useState(false)
   const closeTimer = useRef(null)
   const authCloseTimer = useRef(null)
+  const location = useLocation()
   const navigate = useNavigate()
   const { user, isAuthenticated, logout } = useAuth()
 
@@ -82,7 +79,8 @@ export default function Navbar() {
     setAuthDropdown(false)
   }
 
-  const solid = scrolled || open || authDropdown
+  const solid = scrolled || open || authDropdown || Boolean(desktopDropdown)
+  const transparent = location.pathname === '/' && !solid
 
   const openDropdown = (label) => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
@@ -123,26 +121,30 @@ export default function Navbar() {
     ]
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur shadow-sm shadow-black/[0.03] transition-colors duration-300">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur transition-all duration-300 ${
+        transparent ? 'bg-transparent shadow-none' : 'bg-white/95 shadow-sm shadow-black/3'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 shrink-0">
           <div
-            className={`w-11 h-11 rounded-full flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-300 ${solid ? 'bg-white shadow-sm shadow-black/5 ring-1 ring-slate-100' : 'bg-white/90 backdrop-blur'
+            className={`w-14 h-16 rounded-lg flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-300 ${solid ? 'bg-white shadow-sm shadow-black/5 ring-1 ring-slate-100' : 'bg-white/95 shadow-sm shadow-black/10 backdrop-blur'
               }`}
           >
-            <img src={logo} alt="PSG logo" className="w-8 h-8 object-contain" />
+            <img src={logo} alt="PSG iTech Alumni Association logo" className="w-full h-full object-contain" />
           </div>
           <div className="leading-tight">
-            <p className="font-display font-semibold text-[15px] tracking-tight text-slate-900">
+            <p className={`font-display font-semibold text-[15px] tracking-tight ${transparent ? 'text-white' : 'text-slate-900'}`}>
               PSG iTech Alumni
             </p>
-            <p className="text-[10px] uppercase tracking-[0.18em] font-medium text-slate-500">
+            <p className={`text-[10px] uppercase tracking-[0.18em] font-medium ${transparent ? 'text-white/75' : 'text-slate-500'}`}>
               Since 2013
             </p>
           </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-7 text-[14px] font-medium text-slate-700 transition-colors duration-300">
+        <nav className={`hidden xl:flex items-center gap-7 text-[14px] font-medium transition-colors duration-300 ${transparent ? 'text-white' : 'text-slate-700'}`}>
           {links.map((l) => {
             if (l.children) {
               const isOpen = desktopDropdown === l.label
@@ -156,7 +158,11 @@ export default function Navbar() {
                   <NavLink
                     to={l.to}
                     className={({ isActive }) =>
-                      `flex items-center gap-1.5 transition-colors ${isActive ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'
+                      `flex items-center gap-1.5 transition-colors ${transparent
+                        ? 'text-white hover:text-blue-100'
+                        : isActive
+                          ? 'text-slate-900'
+                          : 'text-slate-700 hover:text-slate-900'
                       }`
                     }
                   >
@@ -180,7 +186,7 @@ export default function Navbar() {
                               to={child.to}
                               className={({ isActive }) =>
                                 `block px-4 py-2.5 text-sm transition-colors ${isActive
-                                  ? 'text-orange-600 font-medium bg-orange-50'
+                                  ? 'text-blue-600 font-medium bg-blue-50'
                                   : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                                 }`
                               }
@@ -201,7 +207,11 @@ export default function Navbar() {
                 key={l.label}
                 to={l.to}
                 className={({ isActive }) =>
-                  `transition-colors ${isActive ? 'text-slate-900' : 'text-slate-700 hover:text-slate-900'}`
+                  `transition-colors ${transparent
+                    ? 'text-white hover:text-blue-100'
+                    : isActive
+                      ? 'text-slate-900'
+                      : 'text-slate-700 hover:text-slate-900'}`
                 }
               >
                 {l.label}
@@ -212,7 +222,7 @@ export default function Navbar() {
                 href={l.href}
                 target={l.href?.startsWith('http') ? '_blank' : undefined}
                 rel={l.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="transition-colors text-slate-700 hover:text-slate-900"
+                className={`transition-colors ${transparent ? 'text-white hover:text-blue-100' : 'text-slate-700 hover:text-slate-900'}`}
               >
                 {l.label}
               </a>
@@ -231,7 +241,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setAuthDropdown((current) => !current)}
-              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors"
+              className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors"
               aria-expanded={authDropdown}
               aria-haspopup="menu"
             >
@@ -268,7 +278,7 @@ export default function Navbar() {
           </div>
           <button
             onClick={() => setOpen((o) => !o)}
-            className="lg:hidden w-9 h-9 grid place-items-center rounded-full border border-slate-200 bg-white text-slate-900 transition-colors duration-300"
+            className="xl:hidden w-9 h-9 grid place-items-center rounded-full border border-slate-200 bg-white text-slate-900 transition-colors duration-300"
             aria-label="Toggle menu"
           >
             <svg width="16" height="12" viewBox="0 0 18 14" fill="none">
@@ -287,7 +297,7 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="lg:hidden bg-white overflow-hidden"
+            className="xl:hidden bg-white overflow-hidden"
           >
             <div className="px-6 py-4 flex flex-col gap-1 text-sm font-medium text-slate-600">
               {links.map((l) => {
@@ -362,7 +372,7 @@ export default function Navbar() {
                       onClick={() => handleAuthAction(item.action || item.to)}
                       className={`rounded-xl px-4 py-3 text-left text-sm font-semibold ${item.action === 'logout'
                           ? 'bg-red-50 text-red-500'
-                          : 'bg-orange-500 text-white'
+                          : 'bg-blue-500 text-white'
                         }`}
                     >
                       {item.label}

@@ -50,7 +50,7 @@ export default function News() {
         className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14"
       >
         <div>
-          <p className="text-orange-500 text-xs font-medium tracking-[0.2em] uppercase mb-3">Latest</p>
+          <p className="text-blue-500 text-xs font-medium tracking-[0.2em] uppercase mb-3">Latest</p>
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 leading-tight max-w-lg">
             News and stories from the network
           </h2>
@@ -75,7 +75,7 @@ export default function News() {
             variants={fadeUp}
             whileHover={{ y: -6 }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            className="rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm shadow-black/[0.03]"
+            className="rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm shadow-black/3"
           >
             <div className="h-48 relative bg-slate-100 flex items-center justify-center">
               <img
@@ -85,7 +85,7 @@ export default function News() {
               />
             </div>
             <div className="p-6">
-              <p className="text-xs font-medium text-orange-500 uppercase tracking-wide mb-2">{formatDate(n.date)}</p>
+              <p className="text-xs font-medium text-blue-500 uppercase tracking-wide mb-2">{formatDate(n.date)}</p>
               <h3 className="font-display font-semibold text-lg text-slate-900 leading-snug">{n.title}</h3>
             </div>
           </motion.article>

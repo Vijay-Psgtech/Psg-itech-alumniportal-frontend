@@ -78,7 +78,7 @@ export default function Events() {
         className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
       >
         <div>
-          <p className="text-orange-500 text-xs font-medium tracking-[0.2em] uppercase mb-3">Gather round</p>
+          <p className="text-blue-500 text-xs font-medium tracking-[0.2em] uppercase mb-3">Gather round</p>
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 leading-tight max-w-lg">
             Reunions, chapters and meets across the map
           </h2>
@@ -95,6 +95,9 @@ export default function Events() {
             >
               {category === 'All' ? 'All' : getCategoryLabel(category)}
             </button>
+
+
+            
           ))}
         </div>
       </motion.div>
@@ -122,7 +125,7 @@ export default function Events() {
                 />
               </div>
               <div className="p-6">
-                <p className="text-xs font-medium text-orange-500 uppercase tracking-wide mb-2">{formatDate(e.date)}</p>
+                <p className="text-xs font-medium text-blue-500 uppercase tracking-wide mb-2">{formatDate(e.date)}</p>
                 <h3 className="font-display font-semibold text-lg text-slate-900">{e.title}</h3>
                 <p className="text-sm text-slate-400 mt-1">{e.place}</p>
                 <div className="flex items-center gap-4 mt-4 text-xs text-slate-500 border-t border-slate-100 pt-4">
@@ -143,7 +146,7 @@ export default function Events() {
         <motion.button
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          className="bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium px-8 py-3.5 rounded-full text-sm cursor-pointer"
+          className="bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium px-8 py-3.5 rounded-full text-sm cursor-pointer"
           onClick={() => navigate('/events')}
         >
           Explore all events

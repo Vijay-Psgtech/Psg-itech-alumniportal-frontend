@@ -69,7 +69,7 @@ function CardArt({ icon, uid }) {
               transform={`rotate(${i * 30})`}
             />
           ))}
-          <polygon points="0,-30 8,4 0,-6 -8,4" fill="#f97316" />
+          <polygon points="0,-30 8,4 0,-6 -8,4" fill="#3b82f6" />
           <polygon points="0,30 8,-4 0,6 -8,-4" fill="#e2e8f0" />
           <circle r="5" fill="#1e293b" />
         </g>
@@ -80,7 +80,7 @@ function CardArt({ icon, uid }) {
           <circle r="52" stroke="#94a3b8" strokeWidth="2" />
           <circle r="34" stroke="#94a3b8" strokeWidth="2" />
           <circle r="16" stroke="#94a3b8" strokeWidth="2" />
-          <circle r="5" fill="#f97316" />
+          <circle r="5" fill="#3b82f6" />
           <path
             d="M -85 85 L -22 22"
             stroke="#1e293b"
@@ -108,11 +108,11 @@ function CardArt({ icon, uid }) {
           <line x1="0" y1="-10" x2="0" y2="55" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
           <path
             d="M 0 10 C -26 4 -34 -18 -22 -34 C -8 -22 -4 4 0 10 Z"
-            fill="#f97316"
+            fill="#3b82f6"
           />
           <path
             d="M 0 26 C 24 20 32 -2 20 -18 C 6 -6 2 20 0 26 Z"
-            fill="#fb923c"
+            fill="#60a5fa"
           />
           <line x1="-30" y1="55" x2="30" y2="55" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
         </g>
@@ -133,7 +133,7 @@ export default function Engagement() {
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14"
         >
           <div>
-            <p className="text-orange-500 text-xs font-medium tracking-[0.2em] uppercase mb-3">Get involved</p>
+            <p className="text-blue-500 text-xs font-medium tracking-[0.2em] uppercase mb-3">Get involved</p>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 leading-tight max-w-lg">
               Redefining alumni engagement
             </h2>
@@ -162,7 +162,7 @@ export default function Engagement() {
 
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/10 to-transparent" />
 
-              <span className="absolute top-4 left-4 bg-orange-500 text-white text-xs font-medium px-3 py-1.5 rounded-full">
+              <span className="absolute top-4 left-4 bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-full">
                 {w.tag}
               </span>
 
