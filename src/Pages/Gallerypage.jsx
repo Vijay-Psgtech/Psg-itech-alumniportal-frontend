@@ -1,9 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { fadeUp, staggerContainer, viewport } from '../utils/motion'
-
-// import { galleries, galleryCategories } from '../content/data/Galleries'
-import bannerImage from '../assets/campus.jpg'
+import { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { fadeUp, staggerContainer, viewport } from "../utils/motion";
 import { albumsAPI, API_BASE } from "../services/api";
 
 function SearchIcon(props) {
@@ -78,12 +75,11 @@ const sortOptions = [
 ]
 
 export default function GalleryPage() {
-  const [query, setQuery] = useState('')
   const [activeCategories, setActiveCategories] = useState([])
   const [sortKey, setSortKey] = useState('newest')
   const [sortOpen, setSortOpen] = useState(false)
   const [search, setSearch] = useState("");
-  const [filterYear, setFilterYear] = useState("");
+  const [filterYear] = useState("");
 
   const [activeGallery, setActiveGallery] = useState(null)
   const [activeIndex, setActiveIndex] = useState(0)
@@ -156,7 +152,6 @@ export default function GalleryPage() {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', onKey)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeGallery, activeIndex])
 
   return (
@@ -168,7 +163,7 @@ export default function GalleryPage() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-orange-400 mb-4"
+            className="flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-blue-400 mb-4"
           >
             Home <span className="text-white/30">/</span> Gallery
           </motion.p>
@@ -204,7 +199,7 @@ export default function GalleryPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search gallery"
-                className="w-full bg-white border border-slate-200 rounded-full pl-11 pr-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-orange-500 transition-colors"
+                className="w-full bg-white border border-slate-200 rounded-full pl-11 pr-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
               />
             </div>
 
@@ -217,7 +212,7 @@ export default function GalleryPage() {
                       type="checkbox"
                       checked={activeCategories.includes(cat)}
                       onChange={() => toggleCategory(cat)}
-                      className="w-4 h-4 rounded border-slate-300 text-orange-500 focus:ring-orange-500"
+                      className="w-4 h-4 rounded border-slate-300 text-blue-500 focus:ring-blue-500"
                     />
                     {cat}
                   </label>
@@ -234,7 +229,7 @@ export default function GalleryPage() {
             <div className="relative">
               <button
                 onClick={() => setSortOpen((s) => !s)}
-                className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-4 py-2 hover:border-orange-400 transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-4 py-2 hover:border-blue-400 transition-colors"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
@@ -251,7 +246,7 @@ export default function GalleryPage() {
                         setSortOpen(false)
                       }}
                       className={`w-full text-left px-4 py-2 text-sm transition-colors ${
-                        sortKey === o.key ? 'text-orange-600 font-medium' : 'text-slate-600 hover:bg-slate-50'
+                        sortKey === o.key ? 'text-blue-600 font-medium' : 'text-slate-600 hover:bg-slate-50'
                       }`}
                     >
                       {o.label}
@@ -281,27 +276,27 @@ export default function GalleryPage() {
                   onClick={() => openLightbox(g.images)}
                   variants={fadeUp}
                   whileHover={{ y: -4 }}
-                  className="group block text-left bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm shadow-black/[0.03] hover:shadow-md hover:shadow-black/[0.06] transition-shadow"
+                  className="group block text-left bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm shadow-black/3 hover:shadow-md hover:shadow-black/6 transition-shadow"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                  <div className="relative aspect-4/3 overflow-hidden bg-slate-100">
                     <img
                       src={`${API_BASE}/${g.coverImage}`}
                       alt={g.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
                     <span
                       onClick={(e) => e.stopPropagation()}
                       className="absolute top-3 right-3 w-9 h-9 grid place-items-center rounded-full bg-white/90 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       <ShareIcon />
                     </span>
-                    <span className="absolute bottom-3 left-3 bg-orange-500 text-white text-[11px] font-medium px-2.5 py-1 rounded-full">
+                    <span className="absolute bottom-3 left-3 bg-blue-500 text-white text-[11px] font-medium px-2.5 py-1 rounded-full">
                       {g.images.length} Items
                     </span>
                   </div>
                   <div className="p-5">
-                    <h3 className="font-display text-base font-semibold text-slate-900 leading-snug group-hover:text-orange-600 transition-colors">
+                    <h3 className="font-display text-base font-semibold text-slate-900 leading-snug group-hover:text-blue-600 transition-colors">
                       {g.title}
                     </h3>
                     <div className="mt-3 flex items-center gap-5 text-sm text-slate-400">
@@ -329,7 +324,7 @@ export default function GalleryPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-slate-950/95 backdrop-blur-sm flex flex-col"
+            className="fixed inset-0 z-60 bg-slate-950/95 backdrop-blur-sm flex flex-col"
             onClick={closeLightbox}
           >
             {/* Top bar */}

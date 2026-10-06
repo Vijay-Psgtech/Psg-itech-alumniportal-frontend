@@ -12,8 +12,10 @@ import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 const Home = lazy(() => import("./Pages/Home"));
 const AboutPage = lazy(() => import("./Pages/Aboutpage"));
+const LeadershipPage = lazy(() => import("./Pages/LeadershipPage"));
 const EventsPage = lazy(() => import("./Pages/Eventspage"));
 const EventDetailPage = lazy(() => import("./Pages/Eventdetailpage"));
+const AlumniCalendarPage = lazy(() => import("./Pages/AlumniCalendarPage"));
 const FeedPage = lazy(() => import("./Pages/Feedpage"));
 const FeedDetailPage = lazy(() => import("./Pages/Feeddetailpage"));
 const GalleryPage = lazy(() => import("./Pages/Gallerypage"));
@@ -66,8 +68,10 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/leadership" element={<LeadershipPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/events/:id" element={<EventDetailPage />} />
+        <Route path="/events/calendar" element={<AlumniCalendarPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:slug" element={<FeedDetailPage />} />
         <Route path="/gallery" element={<GalleryPage />} />

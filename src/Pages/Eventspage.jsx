@@ -130,7 +130,7 @@ export default function EventsPage() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-orange-400 mb-4"
+            className="flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-blue-400 mb-4"
           >
             Home <span className="text-white/30">/</span> Events
           </motion.p>
@@ -167,7 +167,7 @@ export default function EventsPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search events"
-                className="w-full bg-white border border-slate-100 rounded-2xl pl-11 pr-4 py-3 text-sm text-slate-600 outline-none transition-colors placeholder:text-slate-400 focus:border-orange-400"
+                className="w-full bg-white border border-slate-100 rounded-2xl pl-11 pr-4 py-3 text-sm text-slate-600 outline-none transition-colors placeholder:text-slate-400 focus:border-blue-400"
               />
             </div>
 
@@ -180,7 +180,7 @@ export default function EventsPage() {
                       type="checkbox"
                       checked={statusFilter.includes(s)}
                       onChange={() => toggle(statusFilter, setStatusFilter, s)}
-                      className="w-4 h-4 rounded border-slate-300 text-orange-500 focus:ring-orange-500"
+                      className="w-4 h-4 rounded border-slate-300 text-blue-500 focus:ring-blue-500"
                     />
                     {s}
                   </label>
@@ -197,7 +197,7 @@ export default function EventsPage() {
                       type="checkbox"
                       checked={modeFilter.includes(m)}
                       onChange={() => toggle(modeFilter, setModeFilter, m)}
-                      className="w-4 h-4 rounded border-slate-300 text-orange-500 focus:ring-orange-500"
+                      className="w-4 h-4 rounded border-slate-300 text-blue-500 focus:ring-blue-500"
                     />
                     {m}
                   </label>
@@ -214,7 +214,7 @@ export default function EventsPage() {
                     type="date"
                     value={dateFrom}
                     onChange={(e) => setDateFrom(e.target.value)}
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:border-orange-500 transition-colors"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                   />
                 </div>
                 <div>
@@ -223,7 +223,7 @@ export default function EventsPage() {
                     type="date"
                     value={dateTo}
                     onChange={(e) => setDateTo(e.target.value)}
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:border-orange-500 transition-colors"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                   />
                 </div>
               </div>
@@ -237,7 +237,7 @@ export default function EventsPage() {
             <h2 className="font-display text-xl font-semibold text-slate-900">Events</h2>
             <button
               onClick={() => setSortDesc((s) => !s)}
-              className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-4 py-2 hover:border-orange-400 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-4 py-2 hover:border-blue-400 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
@@ -266,9 +266,9 @@ export default function EventsPage() {
                 <motion.div key={event._id} initial="hidden" whileInView="show" variants={fadeUp} viewport={viewport}>
                   <Link
                     to={`/events/${event._id}`}
-                    className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
+                    className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-blue-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
                   >
-                    <div className="w-full sm:w-56 h-40 sm:h-36 shrink-0 rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-700 grid place-items-center text-orange-400/80 relative">
+                    <div className="w-full sm:w-56 h-40 sm:h-36 shrink-0 rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-700 grid place-items-center text-blue-400/80 relative">
                       <img
                         src={`${API_BASE}/${event.imageUrl}`}
                         alt={event.title}
@@ -280,23 +280,23 @@ export default function EventsPage() {
                     <div className="flex-1 min-w-0 flex flex-col justify-between py-1">
                       <div>
                         <div className="flex items-start justify-between gap-3">
-                          <h3 className="font-display text-lg font-semibold text-slate-900 group-hover:text-orange-600 transition-colors">
+                          <h3 className="font-display text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
                             {event.title}
                           </h3>
                           <span
                             onClick={(e) => e.preventDefault()}
-                            className="shrink-0 w-8 h-8 grid place-items-center rounded-full text-slate-400 hover:text-orange-500 hover:bg-orange-50 transition-colors"
+                            className="shrink-0 w-8 h-8 grid place-items-center rounded-full text-slate-400 hover:text-blue-500 hover:bg-blue-50 transition-colors"
                           >
                             <ShareIcon />
                           </span>
                         </div>
                         <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500">
                           <span className="flex items-center gap-1.5">
-                            <CalendarIcon className="text-orange-500" />
+                            <CalendarIcon className="text-blue-500" />
                             {formatDate(event.date)}
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <PinIcon className="text-orange-500" />
+                            <PinIcon className="text-blue-500" />
                             {event.venue}, {event.city}
                           </span>
                         </div>
