@@ -7,6 +7,7 @@ import { LogIn, AlertCircle, Eye, EyeOff, Loader } from "lucide-react";
 import { authAPI } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import usePageTitle from "../../hooks/usePageTitle";
+import alumniLogo from "../../assets/images/Leadership/Alumni Logo 1.jpg";
 
 const AlumniLogin = () => {
   const navigate = useNavigate();
@@ -176,11 +177,11 @@ const AlumniLogin = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* Left Panel — Branding */}
-          <div className="hidden md:flex flex-col items-center justify-center w-1/2 bg-linear-to-br from-[#f97316] to-[#ea580c] shadow-2xl p-8 text-center text-white">
+          <div className="hidden md:flex flex-col items-center justify-center w-1/2 bg-linear-to-br from-[#3b82f6] to-[#2563eb] shadow-2xl p-8 text-center text-white">
             <img
-              src="/logo.png"
+              src={alumniLogo}
               alt="PSG iTech Logo"
-              className="h-20 mb-6 opacity-90"
+              className="mb-6 h-24 w-36 rounded-lg bg-white object-contain p-2"
               loading="lazy"
               decoding="async"
             />
@@ -215,8 +216,8 @@ const AlumniLogin = () => {
           {/* Right Panel — Login Form */}
           <div className="w-full md:w-1/2 p-8">
             <div className="flex flex-col items-center mb-6">
-              <div className="bg-orange-100 p-3 rounded-full mb-2">
-                <LogIn className="text-orange-700" size={32} />
+              <div className="bg-blue-100 p-3 rounded-full mb-2">
+                <LogIn className="text-blue-700" size={32} />
               </div>
               <h2 className="text-xl font-semibold text-gray-800">Login</h2>
               <p className="text-xs text-gray-500 mt-1">Enter your credentials to continue</p>
@@ -243,7 +244,7 @@ const AlumniLogin = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isFormDisabled}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed"
                   required
                 />
                 {errors.email && (
@@ -264,7 +265,7 @@ const AlumniLogin = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isFormDisabled}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed pr-11"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition disabled:bg-gray-50 disabled:cursor-not-allowed pr-11"
                     required
                   />
                   <button
@@ -288,7 +289,7 @@ const AlumniLogin = () => {
               <div className="flex justify-end pt-2">
                 <Link
                   to="/forgot-password"
-                  className="text-[#ea580c] hover:text-[#f97316] text-xs font-semibold hover:underline transition"
+                  className="text-[#2563eb] hover:text-[#3b82f6] text-xs font-semibold hover:underline transition"
                 >
                   Forgot Password?
                 </Link>
@@ -300,14 +301,14 @@ const AlumniLogin = () => {
                   type="button"
                   onClick={resetFields}
                   disabled={isFormDisabled}
-                  className="flex-1 px-5 py-2.5 rounded-lg font-semibold text-sm text-[#ea580c] border border-[#ea580c] hover:bg-[#ea580c]/5 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-5 py-2.5 rounded-lg font-semibold text-sm text-[#2563eb] border border-[#2563eb] hover:bg-[#2563eb]/5 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Clear
                 </button>
                 <button
                   type="submit"
                   disabled={isFormDisabled}
-                  className="flex-1 flex items-center justify-center gap-2 bg-[#f97316] hover:bg-[#ea580c] disabled:opacity-60 disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-lg shadow-md shadow-[#f97316]/20 hover:shadow-lg hover:shadow-[#ea580c]/20 font-semibold text-sm transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-60 disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-lg shadow-md shadow-[#3b82f6]/20 hover:shadow-lg hover:shadow-[#2563eb]/20 font-semibold text-sm transition-all"
                 >
                   {loading ? (
                     <>
@@ -327,7 +328,7 @@ const AlumniLogin = () => {
                 Don&apos;t have an account?{" "}
                 <Link
                   to="/alumni/register"
-                  className="text-[#f97316] font-semibold hover:text-[#ea580c] hover:underline transition"
+                  className="text-[#3b82f6] font-semibold hover:text-[#2563eb] hover:underline transition"
                 >
                   Create one now
                 </Link>

@@ -50,7 +50,7 @@ function StepArt({ icon, uid }) {
       {icon === 'profile' && (
         <g transform="translate(150 108)" fill="none">
           <rect x="-56" y="-42" width="112" height="84" rx="10" stroke="#94a3b8" strokeWidth="2" />
-          <circle cx="-24" cy="-10" r="14" fill="#f97316" />
+          <circle cx="-24" cy="-10" r="14" fill="#3b82f6" />
           <path d="M -46 24 C -46 6 -6 6 -6 24" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" fill="none" />
           <line x1="10" y1="-18" x2="42" y2="-18" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
           <line x1="10" y1="-4" x2="42" y2="-4" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" />
@@ -66,7 +66,7 @@ function StepArt({ icon, uid }) {
             strokeWidth="2"
             fill="#f1f5f9"
           />
-          <circle r="26" fill="#f97316" />
+          <circle r="26" fill="#3b82f6" />
           <path d="M -11 0 L -3 9 L 13 -10" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
         </g>
       )}
@@ -81,7 +81,7 @@ function StepArt({ icon, uid }) {
           <circle cx="52" cy="-30" r="12" fill="#cbd5e1" stroke="#94a3b8" strokeWidth="2" />
           <circle cx="-52" cy="34" r="12" fill="#cbd5e1" stroke="#94a3b8" strokeWidth="2" />
           <circle cx="52" cy="34" r="12" fill="#cbd5e1" stroke="#94a3b8" strokeWidth="2" />
-          <circle r="18" fill="#f97316" />
+          <circle r="18" fill="#3b82f6" />
         </g>
       )}
     </svg>
@@ -97,7 +97,7 @@ export default function Process() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="text-orange-500 text-xs font-medium tracking-[0.2em] uppercase mb-3 text-center"
+          className="text-blue-500 text-xs font-medium tracking-[0.2em] uppercase mb-3 text-center"
         >
           How it works
         </motion.p>
@@ -126,7 +126,7 @@ export default function Process() {
                 className="rounded-2xl overflow-hidden bg-slate-100 h-56 relative mb-5"
               >
                 <StepArt icon={s.icon} uid={s.step} />
-                <span className="absolute top-4 left-4 bg-orange-500 text-white text-xs font-medium w-8 h-8 rounded-full grid place-items-center">
+                <span className="absolute top-4 left-4 bg-blue-500 text-white text-xs font-medium w-8 h-8 rounded-full grid place-items-center">
                   {s.step}
                 </span>
               </motion.div>
@@ -146,7 +146,7 @@ export default function Process() {
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium px-9 py-3.5 rounded-full text-sm"
+            className="bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium px-9 py-3.5 rounded-full text-sm"
           >
             Get started
           </motion.button>

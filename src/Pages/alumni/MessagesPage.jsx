@@ -14,7 +14,7 @@ const displayName = (person) => {
 };
 const formatDate = (value) => value ? new Date(value).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "";
 
-const Avatar = ({ person, online }) => <span className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#d9c0ea] text-sm font-semibold text-[#4c216e]">{initials(person)}{online && <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-emerald-500" />}</span>;
+const Avatar = ({ person, online }) => <span className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#c7d2fe] text-sm font-semibold text-[#3730a3]">{initials(person)}{online && <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-blue-500" />}</span>;
 
 const MessagesPage = () => {
   usePageTitle("Messages");

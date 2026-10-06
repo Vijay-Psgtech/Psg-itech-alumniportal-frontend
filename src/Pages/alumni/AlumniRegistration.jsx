@@ -107,7 +107,7 @@ const YearPicker = ({ value, onChange, min = 1950, max = 2030 }) => {
         onClick={() => setShowPicker(!showPicker)}
         className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-800 bg-white
         placeholder:text-slate-400 transition-all duration-150 outline-none
-        focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 hover:border-slate-300
+        focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 hover:border-slate-300
         flex items-center justify-between"
       >
         <span>{value || "Select Year"}</span>
@@ -131,9 +131,9 @@ const YearPicker = ({ value, onChange, min = 1950, max = 2030 }) => {
                   setShowPicker(false);
                 }}
                 className={`py-2 px-2 rounded-lg text-xs font-semibold transition-all duration-150 ${value === year.toString()
-                    ? "bg-orange-500 text-white shadow-md shadow-orange-200"
+                    ? "bg-blue-500 text-white shadow-md shadow-blue-200"
                     : year === currentYear
-                      ? "bg-orange-50 text-orange-600 border border-orange-200"
+                      ? "bg-blue-50 text-blue-600 border border-blue-200"
                       : "hover:bg-slate-100 text-slate-700"
                   }`}
               >
@@ -151,7 +151,7 @@ const YearPicker = ({ value, onChange, min = 1950, max = 2030 }) => {
 const Field = ({ label, required, error, children, className = "" }) => (
   <div className={`flex flex-col gap-1.5 ${className}`}>
     <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500">
-      {label} {required && <span className="text-orange-600">*</span>}
+      {label} {required && <span className="text-blue-600">*</span>}
     </label>
     {children}
     {error && (
@@ -165,13 +165,13 @@ const Field = ({ label, required, error, children, className = "" }) => (
 const inputCls = (err) =>
   `px-3.5 py-2.5 rounded-lg border text-sm text-slate-800 bg-white
    placeholder:text-slate-400 transition-all duration-150 w-full outline-none
-   focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500
+   focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500
    ${err ? "border-red-400 bg-red-50/30" : "border-slate-200 hover:border-slate-300"}`;
 
 const selectCls = (err) =>
   `px-3.5 py-2.5 rounded-lg border text-sm text-slate-800 bg-white
    transition-all duration-150 w-full outline-none appearance-none
-   focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500
+   focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500
    ${err ? "border-red-400 bg-red-50/30" : "border-slate-200 hover:border-slate-300"}`;
 
 // ─── File Upload Widget ──────────────────────────────────────────────────────
@@ -201,7 +201,7 @@ const FileUpload = ({
             (optional)
           </span>
         )}
-        {required && <span className="text-orange-600"> *</span>}
+        {required && <span className="text-blue-600"> *</span>}
       </label>
       <div
         onClick={() => ref.current?.click()}
@@ -210,8 +210,8 @@ const FileUpload = ({
         className={`relative border-2 border-dashed rounded-xl p-4 cursor-pointer
           transition-all duration-200 flex flex-col items-center justify-center gap-2 min-h-[90px]
           ${value
-            ? "border-orange-400 bg-orange-50/40"
-            : "border-slate-200 hover:border-orange-300 hover:bg-orange-50/20"
+            ? "border-blue-400 bg-blue-50/40"
+            : "border-slate-200 hover:border-blue-300 hover:bg-blue-50/20"
           }`}
       >
         <input
@@ -224,7 +224,7 @@ const FileUpload = ({
         {value ? (
           <>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+              <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
                 <Check size={14} />
               </div>
               <div>
@@ -251,7 +251,7 @@ const FileUpload = ({
           <>
             <div className="text-2xl">{icon}</div>
             <p className="text-xs text-slate-500 text-center">
-              <span className="text-orange-600 font-semibold">
+              <span className="text-blue-600 font-semibold">
                 Click to upload
               </span>{" "}
               or drag & drop
@@ -730,14 +730,14 @@ const AlumniRegistration = () => {
   // ── Pending Approval Screen ────────────────────────────────────────────────
   if (registered) {
     return (
-      <div className="fixed inset-0 overflow-y-auto bg-linear-to-br from-slate-50 via-orange-50/30 to-slate-100 flex items-center justify-center p-6 z-50">
+      <div className="fixed inset-0 overflow-y-auto bg-linear-to-br from-slate-50 via-blue-50/30 to-slate-100 flex items-center justify-center p-6 z-50">
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="bg-white rounded-2xl shadow-xl border border-slate-100 p-10 max-w-md w-full text-center"
         >
-          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-linear-to-br from-orange-500 to-orange-700 flex items-center justify-center shadow-lg shadow-orange-200">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-linear-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-200">
             <Check size={36} className="text-white" />
           </div>
           <h2 className="text-2xl font-bold text-slate-800 mb-2 tracking-tight">
@@ -767,10 +767,10 @@ const AlumniRegistration = () => {
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0
                   ${done
-                      ? "bg-green-100 text-green-600"
+                      ? "bg-blue-100 text-blue-600"
                       : color === "yellow"
-                        ? "bg-amber-100 text-amber-600"
-                        : "bg-orange-100 text-orange-600"
+                        ? "bg-blue-100 text-blue-600"
+                        : "bg-blue-100 text-blue-600"
                     }`}
                 >
                   {done ? (
@@ -788,7 +788,7 @@ const AlumniRegistration = () => {
 
           <button
             onClick={() => navigate("/")}
-            className="w-full py-3 rounded-xl bg-linear-to-r from-[#f97316] to-[#ea580c] text-white font-semibold text-sm tracking-wide hover:shadow-lg hover:shadow-orange-200 transition-all duration-200"
+            className="w-full py-3 rounded-xl bg-linear-to-r from-[#3b82f6] to-[#2563eb] text-white font-semibold text-sm tracking-wide hover:shadow-lg hover:shadow-blue-200 transition-all duration-200"
           >
             Return to Home
           </button>
@@ -809,7 +809,7 @@ const AlumniRegistration = () => {
       <div className="min-h-full flex flex-col items-center justify-start py-10 px-4">
         {/* Header */}
         <div className="w-full max-w-3xl mb-7 text-center">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-[#f97316]/60 mb-1">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#3b82f6]/60 mb-1">
             PSG Institute of Technology &amp; and Applied Research
           </p>
           <h1 className="text-2xl font-bold text-slate-800 tracking-tight">
@@ -830,9 +830,9 @@ const AlumniRegistration = () => {
                     <div
                       className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 font-bold text-sm
                       ${done
-                          ? "bg-green-500 text-white shadow-sm shadow-green-200"
+                          ? "bg-blue-500 text-white shadow-sm shadow-blue-200"
                           : active
-                            ? "bg-[#f97316] text-white shadow-md shadow-orange-200"
+                            ? "bg-[#3b82f6] text-white shadow-md shadow-blue-200"
                             : "bg-slate-100 text-slate-400"
                         }`}
                     >
@@ -841,7 +841,7 @@ const AlumniRegistration = () => {
                     <div className="hidden sm:flex flex-col">
                       <span
                         className={`text-[10px] font-bold uppercase tracking-widest leading-none
-                        ${active ? "text-[#f97316]" : done ? "text-green-600" : "text-slate-400"}`}
+                        ${active ? "text-[#3b82f6]" : done ? "text-blue-600" : "text-slate-400"}`}
                       >
                         Step {s.id}
                       </span>
@@ -857,7 +857,7 @@ const AlumniRegistration = () => {
                     <div
                       className="flex-1 mx-3 h-0.5 rounded-full transition-all duration-500"
                       style={{
-                        background: step > s.id ? "#22c55e" : "#e2e8f0",
+                        background: step > s.id ? "#60a5fa" : "#e2e8f0",
                       }}
                     />
                   )}
@@ -876,13 +876,13 @@ const AlumniRegistration = () => {
             transition={{ duration: 0.3 }}
           >
             {/* Card Header Bar */}
-            <div className="bg-linear-to-r from-[#f97316] to-[#ea580c] px-8 py-5 flex items-center gap-3">
+            <div className="bg-linear-to-r from-[#3b82f6] to-[#2563eb] px-8 py-5 flex items-center gap-3">
               {(() => {
                 const Icon = STEPS[step - 1].icon;
                 return <Icon size={18} className="text-white/80" />;
               })()}
               <div>
-                <p className="text-[10px] text-orange-200 uppercase tracking-widest font-semibold">
+                <p className="text-[10px] text-blue-200 uppercase tracking-widest font-semibold">
                   Step {step} of {STEPS.length}
                 </p>
                 <h2 className="text-white font-bold text-base tracking-tight">
@@ -1476,7 +1476,7 @@ const AlumniRegistration = () => {
                                   onClick={() =>
                                     handleSelectLocation(pl, "office")
                                   }
-                                  className="px-4 py-2.5 text-xs text-slate-700 hover:bg-orange-50 hover:text-orange-700 cursor-pointer border-b last:border-0 border-slate-100 flex items-center gap-2"
+                                  className="px-4 py-2.5 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer border-b last:border-0 border-slate-100 flex items-center gap-2"
                                 >
                                   <MapPin
                                     size={11}
@@ -1703,7 +1703,7 @@ const AlumniRegistration = () => {
                                   onClick={() =>
                                     handleSelectLocation(pl, "residence")
                                   }
-                                  className="px-4 py-2.5 text-xs text-slate-700 hover:bg-orange-50 hover:text-orange-700 cursor-pointer border-b last:border-0 border-slate-100 flex items-center gap-2"
+                                  className="px-4 py-2.5 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer border-b last:border-0 border-slate-100 flex items-center gap-2"
                                 >
                                   <MapPin
                                     size={11}
@@ -1778,8 +1778,8 @@ const AlumniRegistration = () => {
                     type="button"
                     onClick={handleNext}
                     className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-linear-to-r
-                    from-[#f97316] to-[#ea580c] text-white text-sm font-semibold
-                    hover:shadow-lg hover:shadow-orange-200 transition-all duration-200"
+                    from-[#3b82f6] to-[#2563eb] text-white text-sm font-semibold
+                    hover:shadow-lg hover:shadow-blue-200 transition-all duration-200"
                   >
                     Next <ChevronRight size={16} />
                   </button>
@@ -1788,8 +1788,8 @@ const AlumniRegistration = () => {
                     type="submit"
                     disabled={loading}
                     className="flex items-center gap-2 px-8 py-2.5 rounded-xl bg-linear-to-r
-                    from-[#f97316] to-[#ea580c] text-white text-sm font-semibold
-                    hover:shadow-lg hover:shadow-orange-200 transition-all duration-200
+                    from-[#3b82f6] to-[#2563eb] text-white text-sm font-semibold
+                    hover:shadow-lg hover:shadow-blue-200 transition-all duration-200
                     disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {loading ? (
@@ -1810,7 +1810,7 @@ const AlumniRegistration = () => {
                 Already registered?{" "}
                 <Link
                   to="/alumni/login"
-                  className="text-[#f97316] font-semibold hover:underline"
+                  className="text-[#3b82f6] font-semibold hover:underline"
                 >
                   Sign in here
                 </Link>

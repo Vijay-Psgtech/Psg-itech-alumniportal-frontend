@@ -127,11 +127,11 @@ const NotificationManager = ({ onError, onSuccess }) => {
 
   const getTypeStyles = (type) => {
     const styles = {
-      success: { color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-200" },
-      warning: { color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200" },
+      success: { color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200" },
+      warning: { color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200" },
       info: { color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200" },
-      trending: { color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-200" },
-      default: { color: "text-pink-600", bg: "bg-pink-50", border: "border-pink-200" },
+      trending: { color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200" },
+      default: { color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-200" },
     };
     return styles[type] || styles.default;
   };
@@ -215,7 +215,7 @@ const NotificationManager = ({ onError, onSuccess }) => {
                       </h3>
                       {/* ✅ ADDED: Show active status */}
                       {notif.isActive ? (
-                        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">
+                        <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded font-semibold">
                           ACTIVE
                         </span>
                       ) : (
@@ -368,7 +368,7 @@ const NotificationManager = ({ onError, onSuccess }) => {
                       onClick={() => setFormData({ ...formData, isActive: true })}
                       className={`flex-1 py-2.5 px-4 rounded-lg font-semibold text-sm transition ${
                         formData.isActive
-                          ? "bg-green-100 text-green-700 border-2 border-green-600"
+                          ? "bg-blue-100 text-blue-700 border-2 border-blue-600"
                           : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                       }`}
                     >

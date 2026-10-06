@@ -94,15 +94,15 @@ export const DonationsTab = ({
   const getStatusStyles = (status) => {
     const styles = {
       completed: {
-        bg: "bg-emerald-50",
-        text: "text-emerald-700",
-        border: "border-emerald-100",
+        bg: "bg-blue-50",
+        text: "text-blue-700",
+        border: "border-blue-100",
         icon: <CheckCircle size={12} />,
       },
       pending: {
-        bg: "bg-amber-50",
-        text: "text-amber-700",
-        border: "border-amber-100",
+        bg: "bg-blue-50",
+        text: "text-blue-700",
+        border: "border-blue-100",
         icon: <Clock size={12} />,
       },
       failed: {
@@ -124,9 +124,9 @@ export const DonationsTab = ({
   const getVerificationBadge = (verification) => {
     const styles = {
       verified: {
-        bg: "bg-orange-50",
-        text: "text-orange-700",
-        border: "border-orange-100",
+        bg: "bg-blue-50",
+        text: "text-blue-700",
+        border: "border-blue-100",
         label: "Verified",
       },
       flagged: {
@@ -208,7 +208,7 @@ export const DonationsTab = ({
             <div className="space-y-3 mb-4 pb-4 border-b border-slate-200">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-600">Amount</span>
-                <span className="font-bold text-emerald-600 text-lg">
+                <span className="font-bold text-blue-600 text-lg">
                   {formatCurrency(donation.amount, donation.currency)}
                 </span>
               </div>
@@ -271,7 +271,7 @@ export const DonationsTab = ({
                   <span className="text-sm text-gray-600">Transaction ID</span>
                   <button
                     onClick={() => copyToClipboard(donation.transactionId)}
-                    className="text-xs text-emerald-600 hover:text-emerald-700 flex items-center gap-1"
+                    className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
                   >
                     {donation.transactionId.substring(0, 8)}...
                     <Copy size={12} />
@@ -284,12 +284,12 @@ export const DonationsTab = ({
             {isSuperAdmin && (
               <div className="space-y-2 mb-4 pb-4 border-b border-slate-200">
                 {donation.adminNote && (
-                  <div className="bg-orange-50 border border-orange-100 rounded-lg p-3">
-                    <p className="text-xs font-semibold text-orange-700 mb-1 flex items-center gap-1">
+                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-blue-700 mb-1 flex items-center gap-1">
                       <MessageCircle size={12} />
                       Admin Notes
                     </p>
-                    <p className="text-xs text-orange-600">
+                    <p className="text-xs text-blue-600">
                       {donation.adminNote}
                     </p>
                   </div>
@@ -331,7 +331,7 @@ export const DonationsTab = ({
                 setSelectedItem(donation);
                 onClose();
               }}
-              className="w-full px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2"
+              className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2"
             >
               <Eye size={16} />
               View Full Details
@@ -357,15 +357,15 @@ export const DonationsTab = ({
     >
       {/* Header with Super Admin Badge */}
       {isSuperAdmin && (
-        <div className="bg-linear-to-r from-emerald-50 to-orange-50 border border-emerald-200 rounded-2xl p-4 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-            <Shield size={20} className="text-emerald-700" />
+        <div className="bg-linear-to-r from-blue-50 to-blue-50 border border-blue-200 rounded-2xl p-4 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+            <Shield size={20} className="text-blue-700" />
           </div>
           <div>
-            <p className="text-sm font-bold text-emerald-900">
+            <p className="text-sm font-bold text-blue-900">
               Super Admin Mode Active
             </p>
-            <p className="text-xs text-emerald-700">
+            <p className="text-xs text-blue-700">
               You have full access to all donation records and admin controls
             </p>
           </div>
@@ -373,7 +373,7 @@ export const DonationsTab = ({
       )}
 
       {/* Search Bar */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 flex gap-2.5 items-center shadow-sm transition-shadow focus-within:shadow-md focus-within:border-emerald-200 mb-2">
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 flex gap-2.5 items-center shadow-sm transition-shadow focus-within:shadow-md focus-within:border-blue-200 mb-2">
         <Filter size={18} className="text-gray-400 ml-1 shrink-0" />
         <input
           placeholder="Search by donor name, email, phone, amount, transaction ID..."
@@ -397,7 +397,7 @@ export const DonationsTab = ({
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="px-3 py-2 text-sm border border-slate-200 rounded-lg bg-white hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all font-medium text-gray-700"
+          className="px-3 py-2 text-sm border border-slate-200 rounded-lg bg-white hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-medium text-gray-700"
         >
           <option value="all">All Status</option>
           <option value="completed">✓ Completed</option>
@@ -412,7 +412,7 @@ export const DonationsTab = ({
           onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
           className={`px-3 py-2 text-sm rounded-lg font-medium transition-all flex items-center gap-2 ${
             showAdvancedSearch
-              ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+              ? "bg-blue-100 text-blue-700 border border-blue-200"
               : "border border-slate-200 text-gray-700 bg-white hover:bg-slate-50"
           }`}
         >
@@ -455,7 +455,7 @@ export const DonationsTab = ({
                       minAmount: e.target.value,
                     }))
                   }
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 />
               </div>
 
@@ -473,7 +473,7 @@ export const DonationsTab = ({
                       maxAmount: e.target.value,
                     }))
                   }
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 />
               </div>
             </div>
@@ -493,7 +493,7 @@ export const DonationsTab = ({
                       dateFrom: e.target.value,
                     }))
                   }
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 />
               </div>
 
@@ -510,7 +510,7 @@ export const DonationsTab = ({
                       dateTo: e.target.value,
                     }))
                   }
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 />
               </div>
             </div>
@@ -549,7 +549,7 @@ export const DonationsTab = ({
                     className="w-4 h-4 rounded"
                   />
                   <span className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <CheckCircle size={14} className="text-orange-600" />
+                    <CheckCircle size={14} className="text-blue-600" />
                     Show Only Verified Donations
                   </span>
                 </label>
@@ -586,14 +586,14 @@ export const DonationsTab = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 flex items-center justify-between text-sm"
+            className="bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-center justify-between text-sm"
           >
-            <span className="font-semibold text-emerald-900">
+            <span className="font-semibold text-blue-900">
               {selectedForBulk.size} selected
             </span>
             <button
               onClick={() => setSelectedForBulk(new Set())}
-              className="px-3 py-1 text-emerald-700 hover:bg-emerald-100 rounded transition-all"
+              className="px-3 py-1 text-blue-700 hover:bg-blue-100 rounded transition-all"
             >
               Clear
             </button>
@@ -611,7 +611,7 @@ export const DonationsTab = ({
               animate={{ opacity: 1 }}
               transition={{ delay: i * 0.05 }}
               className={`flex items-center p-4 sm:p-5 cursor-pointer transition-all hover:bg-slate-50 ${
-                selectedForBulk.has(d._id) ? "bg-emerald-50" : ""
+                selectedForBulk.has(d._id) ? "bg-blue-50" : ""
               } ${i < filtered.length - 1 ? "border-b border-slate-100" : ""}`}
             >
               {/* Selection Checkbox */}
@@ -626,7 +626,7 @@ export const DonationsTab = ({
               )}
 
               {/* Icon */}
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mr-4 shrink-0 shadow-sm border border-emerald-100/50">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mr-4 shrink-0 shadow-sm border border-blue-100/50">
                 💰
               </div>
 
@@ -642,7 +642,7 @@ export const DonationsTab = ({
 
                 {/* Details Row */}
                 <div className="text-[13px] text-gray-500 font-medium flex items-center flex-wrap gap-2 mb-1">
-                  <span className="font-bold text-emerald-600">
+                  <span className="font-bold text-blue-600">
                     {formatCurrency(d.amount, d.currency)}
                   </span>
                   <span className="mx-0.5 text-gray-300">•</span>
@@ -666,7 +666,7 @@ export const DonationsTab = ({
 
                 {/* Admin Badge */}
                 {isSuperAdmin && d.adminReviewed && (
-                  <div className="text-[11px] text-orange-600 font-semibold mt-1 flex items-center gap-1">
+                  <div className="text-[11px] text-blue-600 font-semibold mt-1 flex items-center gap-1">
                     <CheckCircle size={11} />
                     Reviewed
                   </div>
@@ -709,7 +709,7 @@ export const DonationsTab = ({
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                className="ml-3 text-gray-400 hover:text-emerald-600 transition-colors" onClick={(e) => e.stopPropagation()}
+                className="ml-3 text-gray-400 hover:text-blue-600 transition-colors" onClick={(e) => e.stopPropagation()}
               >
                 <Eye size={18} />
               </motion.button>

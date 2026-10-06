@@ -22,7 +22,7 @@ const normalizeAlbumsData = (payload) => {
 
       if (!acc[year]) {
         acc[year] = {
-          coverColor: album.coverColor || "#f97316",
+          coverColor: album.coverColor || "#3b82f6",
           totalPhotos: 0,
           albums: [],
         };
@@ -161,7 +161,7 @@ export const AlbumsTab = ({ onError, onSuccess }) => {
     setAlbumsData((prev) => ({
       ...prev,
       [String(y)]: {
-        coverColor: "#f97316",
+        coverColor: "#3b82f6",
         totalPhotos: 0,
         albums: [],
       },
@@ -175,7 +175,7 @@ export const AlbumsTab = ({ onError, onSuccess }) => {
     <div className="relative">
       {isFetching && (
         <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-20 rounded-2xl flex items-center justify-center">
-          <Loader size={32} className="text-orange-500 animate-spin" />
+          <Loader size={32} className="text-blue-500 animate-spin" />
         </div>
       )}
       {/* Year pills */}
@@ -222,7 +222,7 @@ export const AlbumsTab = ({ onError, onSuccess }) => {
             />
             <button
               onClick={handleAddYear}
-              className="px-3 py-1 rounded-xl border-none bg-emerald-500 text-white text-xs font-bold cursor-pointer hover:bg-emerald-600 transition-colors shadow-sm"
+              className="px-3 py-1 rounded-xl border-none bg-blue-500 text-white text-xs font-bold cursor-pointer hover:bg-blue-600 transition-colors shadow-sm"
             >
               Add
             </button>
@@ -247,8 +247,8 @@ export const AlbumsTab = ({ onError, onSuccess }) => {
       <div
         className="rounded-2xl p-5 sm:p-6 mb-6 flex justify-between items-center space-y-4 sm:space-y-0 flex-col sm:flex-row shadow-sm transition-all"
         style={{
-          backgroundColor: `${yearData?.coverColor || "#f97316"}08`,
-          border: `1.5px solid ${yearData?.coverColor || "#f97316"}25`,
+          backgroundColor: `${yearData?.coverColor || "#3b82f6"}08`,
+          border: `1.5px solid ${yearData?.coverColor || "#3b82f6"}25`,
         }}
       >
         <div className="text-center sm:text-left">
@@ -277,12 +277,12 @@ export const AlbumsTab = ({ onError, onSuccess }) => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search albums…"
-              className="w-full sm:w-56 py-2.5 pr-4 pl-9 border border-white bg-white/80 backdrop-blur-sm rounded-xl text-[13px] font-medium outline-none focus:bg-white focus:ring-2 focus:ring-orange-500/20 transition-all shadow-sm"
+              className="w-full sm:w-56 py-2.5 pr-4 pl-9 border border-white bg-white/80 backdrop-blur-sm rounded-xl text-[13px] font-medium outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 transition-all shadow-sm"
             />
           </div>
           <button
             onClick={() => setModal({ type: "add" })}
-            className="px-4.5 py-2.5 rounded-xl border-none bg-linear-to-br from-orange-500 to-orange-900 text-white text-[13px] font-bold cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-lg shadow-orange-600/30 transition-all hover:-translate-y-0.5 hover:shadow-orange-600/50 active:translate-y-0"
+            className="px-4.5 py-2.5 rounded-xl border-none bg-linear-to-br from-blue-500 to-blue-900 text-white text-[13px] font-bold cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-lg shadow-blue-600/30 transition-all hover:-translate-y-0.5 hover:shadow-blue-600/50 active:translate-y-0"
           >
             <Plus size={14} strokeWidth={3} /> Add Album
           </button>
@@ -336,7 +336,7 @@ export const AlbumsTab = ({ onError, onSuccess }) => {
                       </span>
                     ))}
                 </div>
-                <h3 className="font-display text-[16px] font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-amber-700 transition-colors">
+                <h3 className="font-display text-[16px] font-extrabold text-slate-900 mb-2 leading-tight group-hover:text-blue-700 transition-colors">
                   {album.title}
                 </h3>
                 <p className="text-gray-500 text-[12px] mb-4 truncate font-medium flex-1">
@@ -345,7 +345,7 @@ export const AlbumsTab = ({ onError, onSuccess }) => {
                 </p>
 
                 <div className="flex justify-between items-center pt-4 border-t border-slate-100 mt-auto">
-                  <span className="flex items-center gap-1.5 text-gray-500 text-[11px] font-bold bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100 group-hover:bg-amber-50 group-hover:text-amber-700 group-hover:border-amber-100 transition-colors">
+                  <span className="flex items-center gap-1.5 text-gray-500 text-[11px] font-bold bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100 group-hover:bg-blue-50 group-hover:text-blue-700 group-hover:border-blue-100 transition-colors">
                     <Image size={12} />
                     {album.photos} <span className="font-medium">photos</span>
                   </span>
@@ -353,7 +353,7 @@ export const AlbumsTab = ({ onError, onSuccess }) => {
                     <button
                       onClick={() => setModal({ type: "edit", data: album })}
                       disabled={isLoading}
-                      className={`w-8 h-8 border border-slate-200 rounded-xl bg-white flex items-center justify-center transition-all shadow-sm ${isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-orange-50 hover:border-orange-200 hover:text-orange-600 text-gray-400"}`}
+                      className={`w-8 h-8 border border-slate-200 rounded-xl bg-white flex items-center justify-center transition-all shadow-sm ${isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 text-gray-400"}`}
                     >
                       <Pencil size={13} className="text-inherit" />
                     </button>

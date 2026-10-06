@@ -10,7 +10,7 @@ export default function Spotlight() {
         initial="hidden"
         whileInView="show"
         viewport={viewport}
-        className="text-orange-500 text-xs font-medium tracking-[0.2em] uppercase mb-3 text-center"
+        className="text-blue-500 text-xs font-medium tracking-[0.2em] uppercase mb-3 text-center"
       >
         Alumni spotlight
       </motion.p>
@@ -43,13 +43,13 @@ export default function Spotlight() {
         </div>
 
         <motion.div
-          className="absolute -top-10 -right-10 w-72 h-72 bg-orange-500/20 rounded-full blur-3xl"
+          className="absolute -top-10 -right-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl"
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
         <div className="relative p-8 sm:p-12 w-full flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
           <div className="flex items-center gap-5">
-            <div className="w-20 h-20 rounded-2xl bg-orange-500/15 grid place-items-center font-display font-semibold text-2xl text-orange-400">
+            <div className="w-20 h-20 rounded-2xl bg-blue-500/15 grid place-items-center font-display font-semibold text-2xl text-blue-400">
               SS
             </div>
             <div>
@@ -59,7 +59,7 @@ export default function Spotlight() {
             </div>
           </div>
           <div className="flex items-center gap-6">
-            <span className="bg-orange-500 text-white text-xs font-medium px-4 py-2 rounded-full">
+            <span className="bg-blue-500 text-white text-xs font-medium px-4 py-2 rounded-full">
               Featured story
             </span>
             <motion.button

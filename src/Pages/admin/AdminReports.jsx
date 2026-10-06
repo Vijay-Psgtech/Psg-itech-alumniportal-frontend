@@ -76,7 +76,7 @@ const AdminReports = () => {
   }, [alumniList]);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-orange-50 mt-16 p-4 sm:p-6 lg:p-24">
+    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-blue-50 mt-16 p-4 sm:p-6 lg:p-24">
       <header className="mb-8">
         <h1 className="text-2xl sm:text-3xl font-semibold text-slate-800">
           Admin Reports
@@ -92,8 +92,8 @@ const AdminReports = () => {
           <p className="text-center text-slate-600">Loading report data…</p>
         </div>
       ) : error ? (
-        <div className="rounded-xl bg-rose-50 p-6 shadow-sm border border-rose-200">
-          <p className="text-sm text-rose-700">{error}</p>
+        <div className="rounded-xl bg-blue-50 p-6 shadow-sm border border-blue-200">
+          <p className="text-sm text-blue-700">{error}</p>
         </div>
       ) : (
         <>
@@ -214,15 +214,15 @@ const AdminReports = () => {
                         cy="50%"
                         innerRadius={60}
                         outerRadius={100}
-                        fill="#8884d8"
+                        fill="#6366f1"
                         dataKey="count"
                         label={false}
                       >
                         {departmentData.map((entry, index) => {
                           const colors = [
-                            "#3b82f6", "#10b981", "#f59e0b", "#ef4444",
-                            "#8b5cf6", "#ec4899", "#14b8a6", "#f97316",
-                            "#06b6d4", "#6366f1", "#84cc16", "#d946ef"
+                            "#5141b5", "#4338ca", "#1d4ed8", "#2563eb",
+                            "#3b82f6", "#60a5fa", "#818cf8", "#a5b4fc",
+                            "#93c5fd", "#6366f1", "#4f46e5", "#bfdbfe"
                           ];
                           return (
                             <Cell 
@@ -250,9 +250,9 @@ const AdminReports = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-64 overflow-y-auto pr-2">
                     {departmentData.map((dept, index) => {
                       const colors = [
-                        "#3b82f6", "#10b981", "#f59e0b", "#ef4444",
-                        "#8b5cf6", "#ec4899", "#14b8a6", "#f97316",
-                        "#06b6d4", "#6366f1", "#84cc16", "#d946ef"
+                        "#5141b5", "#4338ca", "#1d4ed8", "#2563eb",
+                        "#3b82f6", "#60a5fa", "#818cf8", "#a5b4fc",
+                        "#93c5fd", "#6366f1", "#4f46e5", "#bfdbfe"
                       ];
                       const total = departmentData.reduce((sum, d) => sum + d.count, 0);
                       const percentage = ((dept.count / total) * 100).toFixed(1);

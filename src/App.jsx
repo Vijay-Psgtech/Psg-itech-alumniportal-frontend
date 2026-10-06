@@ -6,12 +6,17 @@ import Navbar from "./components/Navbar";
 import Footer from './components/Footer';
 import ScrolltoTop from './components/ScrolltoTop';
 import BackToTop from './components/BackToTop';
+import ScrollReveal from "./components/ScrollReveal";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 const Home = lazy(() => import("./Pages/Home"));
 const AboutPage = lazy(() => import("./Pages/Aboutpage"));
+const LeadershipPage = lazy(() => import("./Pages/LeadershipPage"));
+const AlumniCalendarPage = lazy(() => import("./Pages/AlumniCalendarPage"));
+const CareerPage = lazy(() => import("./Pages/CareerPage"));
+const ChapterCityPage = lazy(() => import("./Pages/ChapterCityPage"));
 const EventsPage = lazy(() => import("./Pages/Eventspage"));
 const EventDetailPage = lazy(() => import("./Pages/Eventdetailpage"));
 const FeedPage = lazy(() => import("./Pages/Feedpage"));
@@ -49,7 +54,7 @@ function ScrollProgressBar() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 z-60 h-[3px] origin-left bg-linear-to-r from-orange-400 via-amber-400 to-orange-500"
+      className="fixed top-0 left-0 right-0 z-60 h-[3px] origin-left bg-linear-to-r from-blue-400 via-blue-400 to-blue-500"
       style={{ scaleX }}
     />
   )
@@ -66,6 +71,10 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/leadership" element={<LeadershipPage />} />
+        <Route path="/events/calendar" element={<AlumniCalendarPage />} />
+        <Route path="/careers/:section" element={<CareerPage />} />
+        <Route path="/chapters/:city" element={<ChapterCityPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/events/:id" element={<EventDetailPage />} />
         <Route path="/feed" element={<FeedPage />} />   
@@ -108,12 +117,14 @@ export default function App() {
   return (
     <BrowserRouter>
       <BackToTop />
-      <Suspense fallback={<div className="fixed inset-0 grid place-items-center bg-slate-900/70 z-60"><div className="w-12 h-12 rounded-full border-4 border-t-orange-400 border-r-orange-400 border-b-transparent border-l-transparent animate-spin" /></div>}>
+      <Suspense fallback={<div className="fixed inset-0 grid place-items-center bg-slate-900/70 z-60"><div className="w-12 h-12 rounded-full border-4 border-t-blue-400 border-r-blue-400 border-b-transparent border-l-transparent animate-spin" /></div>}>
         <div className="text-slate-900 antialiased">
           <ScrollProgressBar />
           <Navbar />
           <ScrolltoTop />
-          <AnimatedRoutes />
+          <ScrollReveal>
+            <AnimatedRoutes />
+          </ScrollReveal>
           <Footer />
         </div>
       </Suspense>

@@ -54,12 +54,12 @@ export const AlumniTab = ({
       {/* Rich Search Input & Filters */}
       <div ref={alumniRef} className="flex flex-col gap-4">
         <div className="relative group">
-          <div className="absolute -inset-1 bg-linear-to-r from-orange-500/20 to-orange-500/20 rounded-[22px] blur opacity-0 group-focus-within:opacity-100 transition duration-500"></div>
+          <div className="absolute -inset-1 bg-linear-to-r from-blue-500/20 to-blue-500/20 rounded-[22px] blur opacity-0 group-focus-within:opacity-100 transition duration-500"></div>
           <div className="relative bg-white border border-slate-200 rounded-2xl p-4 flex gap-3 items-center shadow-sm transition-all duration-300 focus-within:shadow-xl focus-within:border-white/50">
-            <div className="bg-slate-50 p-2 rounded-xl group-focus-within:bg-orange-50 transition-colors">
+            <div className="bg-slate-50 p-2 rounded-xl group-focus-within:bg-blue-50 transition-colors">
               <Search
                 size={20}
-                className="text-slate-400 group-focus-within:text-orange-500 transition-colors"
+                className="text-slate-400 group-focus-within:text-blue-500 transition-colors"
               />
             </div>
             <input
@@ -211,7 +211,7 @@ export const AlumniTab = ({
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full bg-linear-to-br from-orange-400 to-orange-500 flex items-center justify-center text-white font-bold text-lg">
+                        <div className="w-full h-full bg-linear-to-br from-blue-400 to-blue-500 flex items-center justify-center text-white font-bold text-lg">
                           {a.firstName.charAt(0)}
                           {a.lastName && a.lastName.charAt(0)}
                           
@@ -229,8 +229,8 @@ export const AlumniTab = ({
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
                             a.isApproved
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-blue-100 text-blue-700"
                           }`}
                         >
                           {a.isApproved ? (
@@ -277,7 +277,7 @@ export const AlumniTab = ({
                         href={a.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm text-orange-600 hover:text-orange-800"
+                        className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800"
                       >
                         <Linkedin size={14} />
                         LinkedIn Profile
@@ -290,7 +290,7 @@ export const AlumniTab = ({
                     {!a.isApproved && (
                       <button
                         onClick={() => setSelectedItem(a)}
-                        className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                        className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors"
                       >
                         Approve
                       </button>
@@ -394,7 +394,7 @@ export const AlumniTab = ({
           className="text-center py-24 px-6 bg-white border-2 border-dashed border-slate-200 rounded-[32px] flex flex-col items-center"
         >
           <div className="relative mb-6">
-            <div className="absolute inset-0 bg-orange-100 rounded-full blur-2xl opacity-50 scale-150"></div>
+            <div className="absolute inset-0 bg-blue-100 rounded-full blur-2xl opacity-50 scale-150"></div>
             <div className="relative w-20 h-20 bg-linear-to-br from-slate-50 to-slate-100 border border-white rounded-[24px] shadow-sm flex items-center justify-center">
               <Search size={32} className="text-slate-300" />
             </div>

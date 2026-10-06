@@ -7,8 +7,8 @@ import { notificationAPI, API_BASE } from "../../services/api";
 
 /* ── Status config ─────────────────────────────────────────────── */
 const STATUS = {
-  pending: { label: "Pending Review", color: "#d97706", bg: "#fffbeb", border: "#fde68a", icon: Clock },
-  approved: { label: "Approved", color: "#16a34a", bg: "#f0fdf4", border: "#86efac", icon: CheckCircle },
+  pending: { label: "Pending Review", color: "#2563eb", bg: "#eff6ff", border: "#bfdbfe", icon: Clock },
+  approved: { label: "Approved", color: "#3b82f6", bg: "#eff6ff", border: "#bfdbfe", icon: CheckCircle },
   rejected: { label: "Rejected", color: "#dc2626", bg: "#fef2f2", border: "#fca5a5", icon: XCircle },
 };
 
@@ -127,9 +127,9 @@ const AdminNotifCard = ({ notification, onApprove, onReject, onDelete }) => {
       <div style={{
         height: 4,
         background: notification.status === "pending"
-          ? "linear-gradient(90deg, #f97316, #ea580c)"
+          ? "linear-gradient(90deg, #3b82f6, #2563eb)"
           : notification.status === "approved"
-          ? "linear-gradient(90deg, #22c55e, #16a34a)"
+          ? "linear-gradient(90deg, #60a5fa, #3b82f6)"
           : "linear-gradient(90deg, #ef4444, #dc2626)",
       }} />
 
@@ -150,8 +150,8 @@ const AdminNotifCard = ({ notification, onApprove, onReject, onDelete }) => {
               <span style={{
                 display: "flex", alignItems: "center", gap: 4,
                 padding: "3px 10px", borderRadius: 20,
-                background: notification.audienceType === "all" ? "#eff6ff" : "#faf5ff",
-                color: notification.audienceType === "all" ? "#3b82f6" : "#9333ea",
+                background: notification.audienceType === "all" ? "#eff6ff" : "#eef2ff",
+                color: notification.audienceType === "all" ? "#3b82f6" : "#5141b5",
                 fontSize: 11, fontWeight: 700,
               }}>
                 {notification.audienceType === "all"
@@ -196,7 +196,7 @@ const AdminNotifCard = ({ notification, onApprove, onReject, onDelete }) => {
             onClick={() => setExpanded(!expanded)}
             style={{
               background: "none", border: "none", cursor: "pointer",
-              color: "#f97316", fontSize: 12, fontWeight: 600,
+              color: "#3b82f6", fontSize: 12, fontWeight: 600,
               marginTop: 6, display: "flex", alignItems: "center",
               gap: 4, padding: 0, fontFamily: "inherit",
             }}
@@ -236,8 +236,8 @@ const AdminNotifCard = ({ notification, onApprove, onReject, onDelete }) => {
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   padding: "9px 14px", borderRadius: 10,
-                  background: "#fff7ed", border: "1.5px solid #fed7aa",
-                  color: "#ea580c", fontSize: 13, fontWeight: 600,
+                  background: "#eff6ff", border: "1.5px solid #bfdbfe",
+                  color: "#2563eb", fontSize: 13, fontWeight: 600,
                   textDecoration: "none",
                 }}>
                 <FileText size={15} />
@@ -258,8 +258,8 @@ const AdminNotifCard = ({ notification, onApprove, onReject, onDelete }) => {
                 display: "flex", alignItems: "center", gap: 7,
                 padding: "10px 20px", borderRadius: 12, border: "none",
                 background: actionLoading === "approve"
-                  ? "#dcfce7" : "linear-gradient(135deg, #22c55e, #16a34a)",
-                color: actionLoading === "approve" ? "#16a34a" : "white",
+                  ? "#eff6ff" : "linear-gradient(135deg, #60a5fa, #3b82f6)",
+                color: actionLoading === "approve" ? "#3b82f6" : "white",
                 fontSize: 13, fontWeight: 700, cursor: "pointer",
                 fontFamily: "inherit", transition: "all 0.2s",
                 boxShadow: "0 4px 12px rgba(22,163,74,0.25)",
@@ -396,8 +396,8 @@ const AdminNotifications = () => {
   });
 
   const TABS = [
-    { key: "pending", label: "Pending", color: "#d97706" },
-    { key: "approved", label: "Approved", color: "#16a34a" },
+    { key: "pending", label: "Pending", color: "#2563eb" },
+    { key: "approved", label: "Approved", color: "#3b82f6" },
     { key: "rejected", label: "Rejected", color: "#dc2626" },
     { key: "", label: "All", color: "#64748b" },
   ];
@@ -409,7 +409,7 @@ const AdminNotifications = () => {
         <div style={{
           position: "fixed", top: 20, right: 20, zIndex: 3000,
           padding: "14px 20px", borderRadius: 14,
-          background: toast.type === "error" ? "#dc2626" : "#16a34a",
+          background: toast.type === "error" ? "#dc2626" : "#3b82f6",
           color: "white", fontSize: 14, fontWeight: 600,
           boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
           animation: "popIn 0.3s ease",
@@ -434,7 +434,7 @@ const AdminNotifications = () => {
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{
             width: 44, height: 44, borderRadius: 14,
-            background: "linear-gradient(135deg, #f97316, #ea580c)",
+            background: "linear-gradient(135deg, #3b82f6, #2563eb)",
             display: "flex", alignItems: "center", justifyContent: "center", color: "white",
           }}>
             <Bell size={20} />
@@ -521,7 +521,7 @@ const AdminNotifications = () => {
         <div style={{ textAlign: "center", padding: "60px 20px", color: "#94a3b8" }}>
           <div style={{
             width: 40, height: 40, border: "3px solid #e2e8f0",
-            borderTopColor: "#f97316", borderRadius: "50%",
+            borderTopColor: "#3b82f6", borderRadius: "50%",
             animation: "spin 0.8s linear infinite", margin: "0 auto 16px",
           }} />
           Loading notifications…
@@ -532,7 +532,7 @@ const AdminNotifications = () => {
             width: 60, height: 60, borderRadius: 20,
             background: "linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1))",
             display: "flex", alignItems: "center", justifyContent: "center",
-            margin: "0 auto 16px", color: "#f97316",
+            margin: "0 auto 16px", color: "#3b82f6",
           }}>
             <Bell size={28} />
           </div>

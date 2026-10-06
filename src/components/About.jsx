@@ -14,7 +14,7 @@ export default function About() {
     <section id="about" className="bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-28 grid lg:grid-cols-2 gap-14 items-center relative">
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
-          <p className="text-orange-500 text-xs font-medium tracking-[0.2em] uppercase mb-4">Who we are</p>
+          <p className="text-blue-500 text-xs font-medium tracking-[0.2em] uppercase mb-4">Who we are</p>
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 leading-tight">
             We keep the iTech family within reach
           </h2>
@@ -27,7 +27,7 @@ export default function About() {
           <motion.a
             href="/about"
             whileHover={{ x: 2 }}
-            className="inline-flex items-center gap-2 mt-8 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
+            className="inline-flex items-center gap-2 mt-8 bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
           >
             Explore About Us <span>→</span>
           </motion.a>
@@ -45,7 +45,7 @@ export default function About() {
               alt="PSG iTech alumni community"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-slate-900/50 via-transparent to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 text-white">
               <p className="text-sm font-medium">Alumni Meet 2024</p>
               <p className="text-xs text-white/70 mt-0.5">Coimbatore campus reunion</p>

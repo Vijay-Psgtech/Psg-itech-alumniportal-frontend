@@ -9,10 +9,10 @@ export default function AppCTA() {
         initial="hidden"
         whileInView="show"
         viewport={viewport}
-        className="relative rounded-[2rem] overflow-hidden bg-slate-900 px-8 py-14 sm:px-14 sm:py-16 flex flex-col sm:flex-row items-center justify-between gap-8"
+        className="relative rounded-4xl overflow-hidden bg-slate-900 px-8 py-14 sm:px-14 sm:py-16 flex flex-col sm:flex-row items-center justify-between gap-8"
       >
         <motion.div
-          className="absolute -top-16 -left-16 w-64 h-64 bg-orange-500/15 rounded-full blur-3xl"
+          className="absolute -top-16 -left-16 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl"
           animate={{ scale: [1, 1.15, 1] }}
           transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -29,7 +29,7 @@ export default function AppCTA() {
             href="tel:0422 3933 494"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-6 py-3.5 rounded-full"
+            className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium text-sm px-6 py-3.5 rounded-full"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path

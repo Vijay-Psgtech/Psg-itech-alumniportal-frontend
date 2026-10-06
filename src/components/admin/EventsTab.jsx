@@ -17,14 +17,14 @@ import { EventFormModal } from "./EventFormModal";
 
 // Category colors mapping
 const CATEGORY_COLORS = {
-  Awards: "#f97316",
-  Lecture: "#ea580c",
-  Sports: "#f093fb",
+  Awards: "#3b82f6",
+  Lecture: "#2563eb",
+  Sports: "#a5b4fc",
   Memorial: "#4facfe",
-  Congress: "#00f2fe",
-  Workshop: "#43e97b",
-  Networking: "#fa709a",
-  Cultural: "#fee140",
+  Congress: "#60a5fa",
+  Workshop: "#93c5fd",
+  Networking: "#818cf8",
+  Cultural: "#bfdbfe",
   Other: "#a0aec0",
 };
 
@@ -156,7 +156,7 @@ export const EventsTab = ({ onError, onSuccess }) => {
           <div className="text-center">
             <Loader
               size={32}
-              className="mx-auto mb-2 text-orange-500 animate-spin"
+              className="mx-auto mb-2 text-blue-500 animate-spin"
             />
             <p className="text-gray-600 text-sm font-medium">
               Loading events...
@@ -175,7 +175,7 @@ export const EventsTab = ({ onError, onSuccess }) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search events…"
-            className="w-full py-2.5 pr-3.5 pl-9 border border-slate-200 rounded-xl text-[13px] outline-none bg-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all"
+            className="w-full py-2.5 pr-3.5 pl-9 border border-slate-200 rounded-xl text-[13px] outline-none bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all"
           />
         </div>
         <div className="flex bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm shadow-black/5">
@@ -183,7 +183,7 @@ export const EventsTab = ({ onError, onSuccess }) => {
             <button
               key={f}
               onClick={() => setStatusFilter(f)}
-              className={`px-4 py-2 border-none text-xs font-bold transition-colors capitalize ${statusFilter === f ? "bg-[#f97316] text-white" : "bg-transparent text-gray-400 hover:bg-slate-50 hover:text-gray-600"}`}
+              className={`px-4 py-2 border-none text-xs font-bold transition-colors capitalize ${statusFilter === f ? "bg-[#3b82f6] text-white" : "bg-transparent text-gray-400 hover:bg-slate-50 hover:text-gray-600"}`}
             >
               {f}
             </button>
@@ -191,7 +191,7 @@ export const EventsTab = ({ onError, onSuccess }) => {
         </div>
         <button
           onClick={() => setModal({ type: "add" })}
-          className="px-4 py-2.5 rounded-xl border-none bg-linear-to-br from-[#f97316] to-[#ea580c] text-white text-[13px] font-bold cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-md shadow-orange-500/25 transition-all hover:-translate-y-0.5 hover:shadow-orange-500/40"
+          className="px-4 py-2.5 rounded-xl border-none bg-linear-to-br from-[#3b82f6] to-[#2563eb] text-white text-[13px] font-bold cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-md shadow-blue-500/25 transition-all hover:-translate-y-0.5 hover:shadow-blue-500/40"
         >
           <Plus size={14} /> Add Event
         </button>
@@ -226,7 +226,7 @@ export const EventsTab = ({ onError, onSuccess }) => {
 
         <div className="">
           {paginated.map((ev, i) => {
-            const cc = CATEGORY_COLORS[ev.category] || "#f97316";
+            const cc = CATEGORY_COLORS[ev.category] || "#3b82f6";
             return (
               <motion.div
                 key={ev._id}
@@ -248,7 +248,7 @@ export const EventsTab = ({ onError, onSuccess }) => {
                       {ev.highlight && (
                         <Star
                           size={11}
-                          className="fill-amber-500 text-amber-500 shrink-0"
+                          className="fill-blue-500 text-blue-500 shrink-0"
                         />
                       )}
                       <span className="font-semibold text-[16px] text-slate-900 leading-tight">
@@ -277,7 +277,7 @@ export const EventsTab = ({ onError, onSuccess }) => {
                   {fmtDate(ev.date)}
                 </span>
                 <span
-                  className={`hidden sm:inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider ${ev.status === "upcoming" ? "text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full w-max border border-emerald-100" : "text-gray-500 bg-gray-50 px-2.5 py-1 rounded-full w-max border border-gray-200"}`}
+                  className={`hidden sm:inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider ${ev.status === "upcoming" ? "text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full w-max border border-blue-100" : "text-gray-500 bg-gray-50 px-2.5 py-1 rounded-full w-max border border-gray-200"}`}
                 >
                   {ev.status === "upcoming" ? (
                     <Clock size={10} />
@@ -294,7 +294,7 @@ export const EventsTab = ({ onError, onSuccess }) => {
                   <button
                     onClick={() => setModal({ type: "edit", data: ev })}
                     disabled={isLoading}
-                    className={`w-8 h-8 border border-slate-200 rounded-lg bg-white flex items-center justify-center transition-all ${isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-orange-50 hover:border-orange-200 hover:text-orange-600 text-gray-500 shadow-sm"}`}
+                    className={`w-8 h-8 border border-slate-200 rounded-lg bg-white flex items-center justify-center transition-all ${isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 text-gray-500 shadow-sm"}`}
                   >
                     <Pencil size={13} className="text-inherit" />
                   </button>

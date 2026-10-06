@@ -24,9 +24,9 @@ const testimonials = [
 
 function Stars({ count }) {
   return (
-    <div className="flex gap-0.5 text-orange-500 mb-4">
+    <div className="flex gap-0.5 text-blue-500 mb-4">
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < count ? '#f97316' : '#e2e8f0'}>
+        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={i < count ? '#3b82f6' : '#e2e8f0'}>
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ))}
@@ -43,7 +43,7 @@ export default function Testimonials() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="text-orange-500 text-xs font-medium tracking-[0.2em] uppercase mb-3 text-center"
+          className="text-blue-500 text-xs font-medium tracking-[0.2em] uppercase mb-3 text-center"
         >
           Testimonials
         </motion.p>
@@ -76,7 +76,7 @@ export default function Testimonials() {
               <Stars count={t.stars} />
               <p className="text-slate-600 text-sm leading-relaxed">{t.quote}</p>
               <div className="flex items-center gap-3 mt-6 pt-6 border-t border-slate-100">
-                <div className="w-10 h-10 rounded-full bg-orange-50 grid place-items-center font-medium text-orange-500 text-sm shrink-0">
+                <div className="w-10 h-10 rounded-full bg-blue-50 grid place-items-center font-medium text-blue-500 text-sm shrink-0">
                   {t.name.charAt(0)}
                 </div>
                 <div>

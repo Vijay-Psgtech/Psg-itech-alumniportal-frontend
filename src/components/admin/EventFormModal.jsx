@@ -163,8 +163,8 @@ export const EventFormModal = ({ initial, onSave, onClose, isLoading }) => {
                   onClick={() => set("highlight", v)}
                   disabled={isLoading}
                   className={`flex-1 py-2 rounded-xl border text-[13px] font-semibold transition-all
-                                        ${form.highlight === v ? "border-orange-500 bg-orange-50 text-orange-500" : "border-slate-200 bg-[#fafbfd] text-gray-400"}
-                                        ${isLoading ? "opacity-60 cursor-not-allowed" : "cursor-pointer hover:border-orange-300"}
+                                        ${form.highlight === v ? "border-blue-500 bg-blue-50 text-blue-500" : "border-slate-200 bg-[#fafbfd] text-gray-400"}
+                                        ${isLoading ? "opacity-60 cursor-not-allowed" : "cursor-pointer hover:border-blue-300"}
                                     `}
                 >
                   {label}
@@ -201,7 +201,7 @@ export const EventFormModal = ({ initial, onSave, onClose, isLoading }) => {
                   </button>
                 </div>
               ) : (
-                <label className="w-full p-4 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer hover:border-orange-400 hover:bg-orange-50/30 transition-colors">
+                <label className="w-full p-4 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 hover:bg-blue-50/30 transition-colors">
                   <Upload size={24} className="text-slate-400 mb-2" />
                   <span className="text-sm font-semibold text-slate-600">
                     Click to upload image
@@ -227,7 +227,7 @@ export const EventFormModal = ({ initial, onSave, onClose, isLoading }) => {
             onClick={() => valid && onSave(form)}
             disabled={!valid || isLoading}
             className={`flex-1 py-3 rounded-xl border-none text-sm font-bold flex items-center justify-center gap-2 transition-all
-                            ${valid && !isLoading ? "bg-linear-to-br from-orange-500 to-orange-900 text-white cursor-pointer shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5" : "bg-slate-200 text-slate-400 cursor-not-allowed"}
+                            ${valid && !isLoading ? "bg-linear-to-br from-blue-500 to-blue-900 text-white cursor-pointer shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5" : "bg-slate-200 text-slate-400 cursor-not-allowed"}
                             ${isLoading ? "opacity-70" : ""}`}
           >
             <CheckCircle size={15} />{" "}
@@ -243,7 +243,7 @@ export const EventFormModal = ({ initial, onSave, onClose, isLoading }) => {
           </button>
         </div>
         {!valid && (
-          <p className="text-amber-500 text-xs mt-2 ">
+          <p className="text-blue-500 text-xs mt-2 ">
             ⚠ Title, Date, and Venue are required.
           </p>
         )}

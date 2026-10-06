@@ -44,12 +44,12 @@ const getCompletion = (data) => {
 /* ─── Sub-components ─── */
 const Badge = ({ children, color = "indigo" }) => {
   const map = {
-    indigo: "bg-orange-50 text-orange-700 border-orange-100",
-    emerald: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    amber: "bg-amber-50 text-amber-700 border-amber-200",
+    indigo: "bg-blue-50 text-blue-700 border-blue-100",
+    emerald: "bg-blue-50 text-blue-700 border-blue-200",
+    amber: "bg-blue-50 text-blue-700 border-blue-200",
     slate: "bg-slate-100 text-slate-600 border-slate-200",
-    violet: "bg-orange-50 text-orange-700 border-orange-100",
-    rose: "bg-rose-50 text-rose-700 border-rose-100",
+    violet: "bg-blue-50 text-blue-700 border-blue-100",
+    rose: "bg-blue-50 text-blue-700 border-blue-100",
   };
   return (
     <span
@@ -62,10 +62,10 @@ const Badge = ({ children, color = "indigo" }) => {
 
 const InfoRow = ({ icon: Icon, label, value, href, mono = false }) => (
   <div className="flex items-start gap-3 py-3 border-b border-slate-100/80 last:border-0 group">
-    <div className="mt-0.5 shrink-0 w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-orange-50 flex items-center justify-center transition-colors">
+    <div className="mt-0.5 shrink-0 w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-50 flex items-center justify-center transition-colors">
       <Icon
         size={13}
-        className="text-slate-400 group-hover:text-orange-500 transition-colors"
+        className="text-slate-400 group-hover:text-blue-500 transition-colors"
       />
     </div>
     <div className="min-w-0 flex-1">
@@ -77,7 +77,7 @@ const InfoRow = ({ icon: Icon, label, value, href, mono = false }) => (
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-sm text-orange-600 font-medium hover:text-orange-800 transition-colors"
+          className="inline-flex items-center gap-1 text-sm text-blue-600 font-medium hover:text-blue-800 transition-colors"
         >
           View Profile <ExternalLink size={11} />
         </a>
@@ -99,8 +99,8 @@ const InfoRow = ({ icon: Icon, label, value, href, mono = false }) => (
 const SectionCard = ({
   title,
   icon: Icon,
-  iconBg = "bg-orange-100",
-  iconColor = "text-orange-600",
+  iconBg = "bg-blue-100",
+  iconColor = "text-blue-600",
   children,
   action,
 }) => (
@@ -138,9 +138,9 @@ const EditSection = ({ title, icon: Icon, iconBg, iconColor, children }) => (
       className={`flex items-center gap-2 mb-4 pb-3 border-b-2 border-dashed border-slate-100`}
     >
       <div
-        className={`w-7 h-7 rounded-lg ${iconBg || "bg-orange-100"} flex items-center justify-center`}
+        className={`w-7 h-7 rounded-lg ${iconBg || "bg-blue-100"} flex items-center justify-center`}
       >
-        <Icon size={14} className={iconColor || "text-orange-600"} />
+        <Icon size={14} className={iconColor || "text-blue-600"} />
       </div>
       <h3 className="text-xs font-extrabold text-slate-600 tracking-widest uppercase">
         {title}
@@ -152,7 +152,7 @@ const EditSection = ({ title, icon: Icon, iconBg, iconColor, children }) => (
 
 const inputCls =
   "w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm " +
-  "placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 " +
+  "placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 " +
   "focus:bg-white transition-all duration-200";
 
 const selectCls = inputCls + " cursor-pointer appearance-none";
@@ -420,8 +420,8 @@ const AlumniProfile = () => {
   /* ═══ LOADING ═══ */
   if (loading)
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-linear-to-br from-slate-50 via-white to-orange-50">
-        <div className="w-10 h-10 rounded-full border-4 border-slate-200 border-t-orange-500 animate-spin" />
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-linear-to-br from-slate-50 via-white to-blue-50">
+        <div className="w-10 h-10 rounded-full border-4 border-slate-200 border-t-blue-500 animate-spin" />
         <p className="text-slate-400 text-sm font-medium tracking-wide">
           Loading your profile…
         </p>
@@ -431,7 +431,7 @@ const AlumniProfile = () => {
   /* ═══ ERROR ═══ */
   if (!profileData)
     return (
-      <div className="min-h-screen flex items-center justify-center p-6 bg-linear-to-br from-slate-50 via-white to-orange-50">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-linear-to-br from-slate-50 via-white to-blue-50">
         <div className="bg-white rounded-3xl p-10 max-w-md w-full text-center shadow-xl border border-slate-100">
           <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center mx-auto mb-5">
             <AlertCircle size={26} className="text-red-500" />
@@ -445,7 +445,7 @@ const AlumniProfile = () => {
           <div className="flex gap-3 justify-center">
             <button
               onClick={loadProfile}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 text-white text-sm font-semibold hover:bg-orange-700 transition-all"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-all"
             >
               <RefreshCw size={14} /> Try Again
             </button>
@@ -490,7 +490,7 @@ const AlumniProfile = () => {
             transition={{ duration: 0.4 }}
           >
             <div>
-              <p className="text-xs font-bold text-orange-400 uppercase tracking-widest mb-1">
+              <p className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">
                 Alumni Portal
               </p>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -503,7 +503,7 @@ const AlumniProfile = () => {
                   onClick={() => setIsEditing(true)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-600 text-white text-sm font-bold shadow-lg shadow-orange-200 hover:bg-orange-700 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition-colors"
                 >
                   <Edit size={14} /> Edit Profile
                 </motion.button>
@@ -541,7 +541,7 @@ const AlumniProfile = () => {
             {success && (
               <motion.div
                 key="success"
-                className="flex items-center gap-3 px-5 py-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium mb-4"
+                className="flex items-center gap-3 px-5 py-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 text-sm font-medium mb-4"
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
@@ -559,12 +559,12 @@ const AlumniProfile = () => {
             transition={{ duration: 0.45, delay: 0.05 }}
           >
             {/* Accent bar */}
-            <div className="h-1 w-full bg-linear-to-r from-orange-500 via-orange-500 to-purple-600" />
+            <div className="h-1 w-full bg-linear-to-r from-blue-500 via-blue-500 to-blue-600" />
 
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 px-6 sm:px-8 pt-6 pb-7">
               {/* Avatar */}
               <div className="relative shrink-0">
-                <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-2xl font-extrabold shadow-lg shadow-orange-200 select-none overflow-hidden">
+                <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-2xl font-extrabold shadow-lg shadow-blue-200 select-none overflow-hidden">
                   {profileData.files?.currentPhoto ? (
                     <img
                       src={`${API_BASE}/uploads/${profileData.files?.currentPhoto}`}
@@ -580,7 +580,7 @@ const AlumniProfile = () => {
                   )}
                 </div>
                 {profileData.isApproved && (
-                  <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center shadow-sm">
+                  <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center shadow-sm">
                     <CheckCircle size={11} className="text-white" />
                   </div>
                 )}
@@ -677,8 +677,8 @@ const AlumniProfile = () => {
                         x2="100%"
                         y2="0%"
                       >
-                        <stop offset="0%" stopColor="#f97316" />
-                        <stop offset="100%" stopColor="#a78bfa" />
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#818cf8" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -719,8 +719,8 @@ const AlumniProfile = () => {
                   <EditSection
                     title="Personal Information"
                     icon={User}
-                    iconBg="bg-orange-100"
-                    iconColor="text-orange-600"
+                    iconBg="bg-blue-100"
+                    iconColor="text-blue-600"
                   >
                     <FormField label="First Name" required>
                       <input
@@ -798,8 +798,8 @@ const AlumniProfile = () => {
                   <EditSection
                     title="Academic Information ( Cannot be changed once set )"
                     icon={GraduationCap}
-                    iconBg="bg-orange-100"
-                    iconColor="text-orange-600"
+                    iconBg="bg-blue-100"
+                    iconColor="text-blue-600"
                   >
                     <FormField label="Department" required>
                       <select
@@ -891,8 +891,8 @@ const AlumniProfile = () => {
                   <EditSection
                     title="Professional Information"
                     icon={Briefcase}
-                    iconBg="bg-amber-100"
-                    iconColor="text-amber-600"
+                    iconBg="bg-blue-100"
+                    iconColor="text-blue-600"
                   >
                     <FormField label="Current Company">
                       <input
@@ -940,8 +940,8 @@ const AlumniProfile = () => {
                   <EditSection
                     title="Office Address"
                     icon={Building}
-                    iconBg="bg-sky-100"
-                    iconColor="text-sky-600"
+                    iconBg="bg-blue-100"
+                    iconColor="text-blue-600"
                   >
                     <FormField label="Address Line 1">
                       <input
@@ -1009,8 +1009,8 @@ const AlumniProfile = () => {
                   <EditSection
                     title="Current Location"
                     icon={MapPin}
-                    iconBg="bg-emerald-100"
-                    iconColor="text-emerald-600"
+                    iconBg="bg-blue-100"
+                    iconColor="text-blue-600"
                   >
                     <div className="sm:col-span-2 relative">
                       <FormField label="Search Location" required>
@@ -1030,7 +1030,7 @@ const AlumniProfile = () => {
                               key={place.place_id}
                               type="button"
                               onClick={() => handleSelect(place)}
-                              className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-orange-700 border-b border-slate-50 last:border-0 transition-colors font-medium"
+                              className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 border-b border-slate-50 last:border-0 transition-colors font-medium"
                             >
                               📍 {place.display_name}
                             </button>
@@ -1066,8 +1066,8 @@ const AlumniProfile = () => {
                   <EditSection
                     title="Social Links"
                     icon={Link2}
-                    iconBg="bg-pink-100"
-                    iconColor="text-pink-600"
+                    iconBg="bg-blue-100"
+                    iconColor="text-blue-600"
                   >
                     {[
                       {
@@ -1112,8 +1112,8 @@ const AlumniProfile = () => {
                   {/* ── Documents ── */}
                   <section>
                     <div className="flex items-center gap-2 mb-4 pb-3 border-b-2 border-dashed border-slate-100">
-                      <div className="w-7 h-7 rounded-lg bg-teal-100 flex items-center justify-center">
-                        <FileText size={14} className="text-teal-600" />
+                      <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center">
+                        <FileText size={14} className="text-blue-600" />
                       </div>
                       <h3 className="text-xs font-extrabold text-slate-600 tracking-widest uppercase">
                         Documents & Photos
@@ -1187,7 +1187,7 @@ const AlumniProfile = () => {
                                   </label>
                                   {/* staged badge */}
                                   {staged && (
-                                    <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-extrabold tracking-wide">
+                                    <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-blue-500 text-white text-[10px] font-extrabold tracking-wide">
                                       NEW
                                     </span>
                                   )}
@@ -1253,9 +1253,9 @@ const AlumniProfile = () => {
                               <span
                                 className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
                                   staged
-                                    ? "bg-amber-100 text-amber-600"
+                                    ? "bg-blue-100 text-blue-600"
                                     : existing
-                                      ? "bg-emerald-100 text-emerald-600"
+                                      ? "bg-blue-100 text-blue-600"
                                       : "bg-slate-100 text-slate-400"
                                 }`}
                               >
@@ -1277,7 +1277,7 @@ const AlumniProfile = () => {
                     <button
                       type="button"
                       onClick={handleSaveProfile}
-                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-orange-600 text-white text-sm font-extrabold hover:bg-orange-700 active:scale-[0.98] transition-all shadow-lg shadow-orange-200"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-600 text-white text-sm font-extrabold hover:bg-blue-700 active:scale-[0.98] transition-all shadow-lg shadow-blue-200"
                     >
                       <Save size={15} /> Save Changes
                     </button>
@@ -1308,7 +1308,7 @@ const AlumniProfile = () => {
                       onClick={() => setActiveTab(tab)}
                       className={`shrink-0 px-4 py-2 rounded-xl text-xs font-extrabold tracking-wide transition-all ${
                         activeTab === tab
-                          ? "bg-orange-600 text-white shadow-md shadow-orange-200"
+                          ? "bg-blue-600 text-white shadow-md shadow-blue-200"
                           : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
                       }`}
                     >
@@ -1361,8 +1361,8 @@ const AlumniProfile = () => {
                         <SectionCard
                           title="Current Location"
                           icon={MapPin}
-                          iconBg="bg-emerald-100"
-                          iconColor="text-emerald-600"
+                          iconBg="bg-blue-100"
+                          iconColor="text-blue-600"
                         >
                           <InfoRow
                             icon={MapPin}
@@ -1399,8 +1399,8 @@ const AlumniProfile = () => {
                         <SectionCard
                           title="Academic Information"
                           icon={GraduationCap}
-                          iconBg="bg-orange-100"
-                          iconColor="text-orange-600"
+                          iconBg="bg-blue-100"
+                          iconColor="text-blue-600"
                         >
                           <InfoRow
                             icon={BookOpen}
@@ -1428,8 +1428,8 @@ const AlumniProfile = () => {
                         <SectionCard
                           title="Study Period"
                           icon={Calendar}
-                          iconBg="bg-sky-100"
-                          iconColor="text-sky-600"
+                          iconBg="bg-blue-100"
+                          iconColor="text-blue-600"
                         >
                           <InfoRow
                             icon={Calendar}
@@ -1456,8 +1456,8 @@ const AlumniProfile = () => {
                         <SectionCard
                           title="Current Role"
                           icon={Briefcase}
-                          iconBg="bg-amber-100"
-                          iconColor="text-amber-600"
+                          iconBg="bg-blue-100"
+                          iconColor="text-blue-600"
                         >
                           <InfoRow
                             icon={Building2}
@@ -1484,8 +1484,8 @@ const AlumniProfile = () => {
                         <SectionCard
                           title="Office Address"
                           icon={Building}
-                          iconBg="bg-sky-100"
-                          iconColor="text-sky-600"
+                          iconBg="bg-blue-100"
+                          iconColor="text-blue-600"
                         >
                           {officeAddress.line1 || officeAddress.city ? (
                             <>
@@ -1536,8 +1536,8 @@ const AlumniProfile = () => {
                         <SectionCard
                           title="Social Profiles"
                           icon={Link2}
-                          iconBg="bg-pink-100"
-                          iconColor="text-pink-600"
+                          iconBg="bg-blue-100"
+                          iconColor="text-blue-600"
                         >
                           <InfoRow
                             icon={Linkedin}
@@ -1574,8 +1574,8 @@ const AlumniProfile = () => {
                         <SectionCard
                           title="Quick Connect"
                           icon={BadgeCheck}
-                          iconBg="bg-orange-100"
-                          iconColor="text-orange-600"
+                          iconBg="bg-blue-100"
+                          iconColor="text-blue-600"
                         >
                           <div className="py-3 space-y-3">
                             {[
@@ -1583,31 +1583,31 @@ const AlumniProfile = () => {
                                 key: "linkedin",
                                 label: "LinkedIn",
                                 icon: Linkedin,
-                                color: "bg-orange-600",
+                                color: "bg-blue-600",
                               },
                               {
                                 key: "twitter",
                                 label: "Twitter",
                                 icon: Twitter,
-                                color: "bg-sky-500",
+                                color: "bg-blue-500",
                               },
                               {
                                 key: "instagram",
                                 label: "Instagram",
                                 icon: Instagram,
-                                color: "bg-pink-500",
+                                color: "bg-blue-500",
                               },
                               {
                                 key: "facebook",
                                 label: "Facebook",
                                 icon: Facebook,
-                                color: "bg-orange-600",
+                                color: "bg-blue-600",
                               },
                               {
                                 key: "website",
                                 label: "Website",
                                 icon: Globe,
-                                color: "bg-emerald-600",
+                                color: "bg-blue-600",
                               },
                             ]
                               .filter(({ key }) => social[key])
@@ -1686,13 +1686,13 @@ const AlumniProfile = () => {
                                     {label}
                                   </p>
                                   <p
-                                    className={`text-[10px] font-medium mt-0.5 ${fileName ? "text-emerald-500" : "text-slate-300"}`}
+                                    className={`text-[10px] font-medium mt-0.5 ${fileName ? "text-blue-500" : "text-slate-300"}`}
                                   >
                                     {fileName ? "Uploaded" : "Not available"}
                                   </p>
                                 </div>
                                 <div
-                                  className={`w-2 h-2 rounded-full ${fileName ? "bg-emerald-400" : "bg-slate-200"}`}
+                                  className={`w-2 h-2 rounded-full ${fileName ? "bg-blue-400" : "bg-slate-200"}`}
                                 />
                               </div>
                             </div>

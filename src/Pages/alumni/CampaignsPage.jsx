@@ -75,9 +75,9 @@ const CampaignsPage = () => {
   const getStatusColor = (status) => {
     const colors = {
       Draft: "bg-slate-100 text-slate-700",
-      Active: "bg-green-100 text-green-700",
+      Active: "bg-blue-100 text-blue-700",
       Closed: "bg-red-100 text-red-700",
-      Pending: "bg-yellow-100 text-yellow-700",
+      Pending: "bg-blue-100 text-blue-700",
       Archived: "bg-slate-100 text-slate-600",
     };
     return colors[status] || "bg-slate-100 text-slate-700";
@@ -128,7 +128,7 @@ const CampaignsPage = () => {
               placeholder="Search campaigns by title or description..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+              className="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             />
           </div>
 
@@ -141,7 +141,7 @@ const CampaignsPage = () => {
                 onClick={() => setSelectedStatus(status)}
                 className={`px-4 py-2 rounded-full text-xs font-bold transition-all capitalize ${
                   selectedStatus === status
-                    ? "bg-orange-600 text-white shadow-lg shadow-orange-200"
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
                     : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300"
                 }`}
               >
@@ -154,7 +154,7 @@ const CampaignsPage = () => {
         {/* Loading State */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
-            <Loader size={40} className="text-orange-600 animate-spin mb-4" />
+            <Loader size={40} className="text-blue-600 animate-spin mb-4" />
             <p className="text-slate-600 font-medium">Loading campaigns...</p>
           </div>
         ) : error ? (
@@ -195,7 +195,7 @@ const CampaignsPage = () => {
                   setSearchTerm("");
                   setSelectedStatus("all");
                 }}
-                className="px-6 py-2.5 rounded-xl bg-orange-600 text-white font-bold hover:bg-orange-700 transition-colors"
+                className="px-6 py-2.5 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors"
               >
                 Clear Filters
               </button>
@@ -236,7 +236,7 @@ const CampaignsPage = () => {
                       <div
                         className={`h-3 w-full ${
                           isActive
-                            ? "bg-linear-to-r from-orange-600 to-orange-600"
+                            ? "bg-linear-to-r from-blue-600 to-blue-600"
                             : "bg-linear-to-r from-slate-400 to-slate-500"
                         }`}
                       />
@@ -253,7 +253,7 @@ const CampaignsPage = () => {
                             {campaign.status}
                           </span>
                           {isActive && daysLeft > 0 && (
-                            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+                            <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
                               {daysLeft} days left
                             </span>
                           )}
@@ -261,7 +261,7 @@ const CampaignsPage = () => {
 
                         {/* Title */}
                         <div>
-                          <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-orange-600 transition-colors line-clamp-2 mb-1">
+                          <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
                             {campaign.title}
                           </h3>
                           <p className="text-sm text-slate-600 line-clamp-2">
@@ -272,7 +272,7 @@ const CampaignsPage = () => {
                         {/* Category & Target */}
                         <div className="flex flex-wrap gap-2">
                           {campaign.category && (
-                            <span className="text-xs font-semibold bg-orange-50 text-orange-700 px-2.5 py-1 rounded-lg">
+                            <span className="text-xs font-semibold bg-blue-50 text-blue-700 px-2.5 py-1 rounded-lg">
                               {campaign.category}
                             </span>
                           )}
@@ -306,7 +306,7 @@ const CampaignsPage = () => {
                         {isActive ? (
                           <motion.button
                             whileHover={{ x: 4 }}
-                            className="w-full flex items-center justify-center gap-2 mt-4 px-4 py-2.5 rounded-xl bg-orange-600 text-white font-bold text-sm hover:bg-orange-700 transition-colors shadow-md shadow-orange-200"
+                            className="w-full flex items-center justify-center gap-2 mt-4 px-4 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors shadow-md shadow-blue-200"
                           >
                             Respond Now
                             <ArrowRight size={14} />

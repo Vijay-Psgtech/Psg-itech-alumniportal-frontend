@@ -147,7 +147,7 @@ const SendNotification = ({ onClose, onSuccess }) => {
           width: 46px;
           height: 46px;
           border-radius: 14px;
-          background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+          background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -227,7 +227,7 @@ const SendNotification = ({ onClose, onSuccess }) => {
         .sn-input:focus,
         .sn-textarea:focus,
         .sn-select:focus {
-          border-color: #f97316;
+          border-color: #3b82f6;
           background: #fff;
           box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
         }
@@ -272,13 +272,13 @@ const SendNotification = ({ onClose, onSuccess }) => {
 
         .sn-tab:hover {
           border-color: #c7d2fe;
-          color: #f97316;
+          color: #3b82f6;
         }
 
         .sn-tab.active {
-          border-color: #f97316;
+          border-color: #3b82f6;
           background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(234, 88, 12, 0.08) 100%);
-          color: #c2410c;
+          color: #2563eb;
         }
 
         .sn-tab-radio {
@@ -297,7 +297,7 @@ const SendNotification = ({ onClose, onSuccess }) => {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: #f97316;
+          background: #3b82f6;
         }
 
         /* Attachment Zone */
@@ -327,7 +327,7 @@ const SendNotification = ({ onClose, onSuccess }) => {
           align-items: center;
           justify-content: center;
           margin: 0 auto 12px;
-          color: #f97316;
+          color: #3b82f6;
         }
 
         .sn-attach-text {
@@ -348,8 +348,8 @@ const SendNotification = ({ onClose, onSuccess }) => {
           align-items: center;
           gap: 12px;
           padding: 14px 16px;
-          background: #f0fdf4;
-          border: 1.5px solid #86efac;
+          background: #eff6ff;
+          border: 1.5px solid #bfdbfe;
           border-radius: 12px;
           margin-top: 10px;
         }
@@ -358,11 +358,11 @@ const SendNotification = ({ onClose, onSuccess }) => {
           width: 38px;
           height: 38px;
           border-radius: 10px;
-          background: #dcfce7;
+          background: #eff6ff;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #16a34a;
+          color: #3b82f6;
           flex-shrink: 0;
         }
 
@@ -370,7 +370,7 @@ const SendNotification = ({ onClose, onSuccess }) => {
           flex: 1;
           font-size: 13px;
           font-weight: 600;
-          color: #166534;
+          color: #1e40af;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -378,7 +378,7 @@ const SendNotification = ({ onClose, onSuccess }) => {
 
         .sn-attachment-size {
           font-size: 11px;
-          color: #4ade80;
+          color: #60a5fa;
           margin-top: 2px;
         }
 
@@ -426,7 +426,7 @@ const SendNotification = ({ onClose, onSuccess }) => {
           width: 64px;
           height: 64px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #22c55e, #16a34a);
+          background: linear-gradient(135deg, #60a5fa, #3b82f6);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -484,7 +484,7 @@ const SendNotification = ({ onClose, onSuccess }) => {
           font-size: 14px;
           font-weight: 700;
           color: white;
-          background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+          background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
           cursor: pointer;
           display: flex;
           align-items: center;

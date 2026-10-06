@@ -157,7 +157,7 @@ export default function FeedPage() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-orange-400 mb-4"
+            className="flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-blue-400 mb-4"
           >
             Home <span className="text-white/30">/</span> NewsCorner
           </motion.p>
@@ -192,7 +192,7 @@ export default function FeedPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search"
-                className="w-full bg-white border border-slate-200 rounded-full pl-11 pr-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-orange-500 transition-colors"
+                className="w-full bg-white border border-slate-200 rounded-full pl-11 pr-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
               />
             </div>
 
@@ -205,7 +205,7 @@ export default function FeedPage() {
                     type="date"
                     value={dateFrom}
                     onChange={(e) => setDateFrom(e.target.value)}
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:border-orange-500 transition-colors"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                   />
                 </div>
                 <div>
@@ -214,7 +214,7 @@ export default function FeedPage() {
                     type="date"
                     value={dateTo}
                     onChange={(e) => setDateTo(e.target.value)}
-                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:border-orange-500 transition-colors"
+                    className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                   />
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function FeedPage() {
                       type="checkbox"
                       checked={activeCategories.includes(cat)}
                       onChange={() => toggleCategory(cat)}
-                      className="w-4 h-4 rounded border-slate-300 text-orange-500 focus:ring-orange-500"
+                      className="w-4 h-4 rounded border-slate-300 text-blue-500 focus:ring-blue-500"
                     />
                     {cat}
                   </label>
@@ -244,7 +244,7 @@ export default function FeedPage() {
             <h2 className="font-display text-xl font-semibold text-slate-900">NewsCorner</h2>
             <button
               onClick={() => setSortDesc((s) => !s)}
-              className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-4 py-2 hover:border-orange-400 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full px-4 py-2 hover:border-blue-400 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
@@ -277,7 +277,7 @@ export default function FeedPage() {
                 <motion.div key={post.id} variants={fadeUp}>
                   <Link
                     to={`/feed/${post.slug}`}
-                    className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-orange-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
+                    className="group flex flex-col sm:flex-row gap-5 bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 hover:border-blue-300 hover:shadow-md hover:shadow-black/[0.04] transition-all"
                   >
                     <div className="w-full sm:w-44 h-40 sm:h-32 shrink-0 rounded-xl overflow-hidden bg-slate-100">
                       <img
@@ -295,16 +295,16 @@ export default function FeedPage() {
                             {post.date}
                           </span>
                           <span className="w-1 h-1 rounded-full bg-slate-300" />
-                          <span className="text-orange-500 font-medium">{post.category}</span>
+                          <span className="text-blue-500 font-medium">{post.category}</span>
                         </div>
                         <span
                           onClick={(e) => e.preventDefault()}
-                          className="shrink-0 w-8 h-8 grid place-items-center rounded-full text-slate-400 hover:text-orange-500 hover:bg-orange-50 transition-colors"
+                          className="shrink-0 w-8 h-8 grid place-items-center rounded-full text-slate-400 hover:text-blue-500 hover:bg-blue-50 transition-colors"
                         >
                           <MoreIcon />
                         </span>
                       </div>
-                      <h3 className="font-display text-lg font-semibold text-slate-900 mt-2 group-hover:text-orange-600 transition-colors leading-snug">
+                      <h3 className="font-display text-lg font-semibold text-slate-900 mt-2 group-hover:text-blue-600 transition-colors leading-snug">
                         {post.title}
                       </h3>
                       <p className="text-sm text-slate-500 mt-1.5 leading-relaxed line-clamp-2">

@@ -6,8 +6,8 @@ import { Bell, FileText, ExternalLink, Clock, Users, BookOpen, RefreshCw, Send, 
 import { notificationAPI, API_BASE } from "../../services/api";
 
 const STATUS_BADGE = {
-  pending: { label: "Pending", color: "#f59e0b", bg: "#fffbeb", icon: Clock },
-  approved: { label: "Approved", color: "#16a34a", bg: "#f0fdf4", icon: CheckCircle },
+  pending: { label: "Pending", color: "#3b82f6", bg: "#eff6ff", icon: Clock },
+  approved: { label: "Approved", color: "#3b82f6", bg: "#eff6ff", icon: CheckCircle },
   rejected: { label: "Rejected", color: "#dc2626", bg: "#fef2f2", icon: XCircle },
 };
 
@@ -90,7 +90,7 @@ const NotificationCard = ({ notification, isSubmission }) => {
             onClick={() => setExpanded(!expanded)}
             style={{
               background: "none", border: "none", cursor: "pointer",
-              color: "#f97316", fontSize: 12, fontWeight: 600, marginTop: 6,
+              color: "#3b82f6", fontSize: 12, fontWeight: 600, marginTop: 6,
               display: "flex", alignItems: "center", gap: 4, padding: 0,
               fontFamily: "inherit",
             }}
@@ -132,8 +132,8 @@ const NotificationCard = ({ notification, isSubmission }) => {
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   padding: "10px 16px", borderRadius: 10,
-                  background: "#fff7ed", border: "1.5px solid #fed7aa",
-                  color: "#ea580c", fontSize: 13, fontWeight: 600,
+                  background: "#eff6ff", border: "1.5px solid #bfdbfe",
+                  color: "#2563eb", fontSize: 13, fontWeight: 600,
                   textDecoration: "none", transition: "all 0.2s",
                 }}
               >
@@ -193,11 +193,11 @@ const NotificationInbox = () => {
               style={{
                 display: "flex", alignItems: "center", gap: 8,
                 padding: "9px 18px", borderRadius: 12,
-                border: tab === key ? "1.5px solid #f97316" : "1.5px solid #e2e8f0",
+                border: tab === key ? "1.5px solid #3b82f6" : "1.5px solid #e2e8f0",
                 background: tab === key
                   ? "linear-gradient(135deg, rgba(249, 115, 22,0.1) 0%, rgba(234, 88, 12,0.1) 100%)"
                   : "#f8fafc",
-                color: tab === key ? "#c2410c" : "#64748b",
+                color: tab === key ? "#2563eb" : "#64748b",
                 fontSize: 13, fontWeight: 600, cursor: "pointer",
                 fontFamily: "inherit", transition: "all 0.2s",
               }}
@@ -206,7 +206,7 @@ const NotificationInbox = () => {
               {label}
               <span style={{
                 padding: "1px 7px", borderRadius: 20,
-                background: tab === key ? "#f97316" : "#e2e8f0",
+                background: tab === key ? "#3b82f6" : "#e2e8f0",
                 color: tab === key ? "#fff" : "#64748b",
                 fontSize: 11, fontWeight: 700,
               }}>
@@ -237,7 +237,7 @@ const NotificationInbox = () => {
         <div style={{ textAlign: "center", padding: "60px 20px", color: "#94a3b8" }}>
           <div style={{
             width: 40, height: 40, border: "3px solid #e2e8f0",
-            borderTopColor: "#f97316", borderRadius: "50%",
+            borderTopColor: "#3b82f6", borderRadius: "50%",
             animation: "spin 0.8s linear infinite", margin: "0 auto 16px",
           }} />
           Loading notifications…
@@ -248,7 +248,7 @@ const NotificationInbox = () => {
             width: 60, height: 60, borderRadius: 20,
             background: "linear-gradient(135deg, rgba(249, 115, 22,0.1), rgba(234, 88, 12,0.1))",
             display: "flex", alignItems: "center", justifyContent: "center",
-            margin: "0 auto 16px", color: "#f97316",
+            margin: "0 auto 16px", color: "#3b82f6",
           }}>
             <Bell size={28} />
           </div>

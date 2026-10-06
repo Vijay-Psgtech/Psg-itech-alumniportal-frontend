@@ -170,8 +170,8 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer, onMessage
                   <span
                     style={{
                       marginLeft: 8,
-                      background: "#d1fae5",
-                      color: "#10b981",
+                      background: "#dbeafe",
+                      color: "#3b82f6",
                       fontSize: 10,
                       fontWeight: 600,
                       padding: "2px 6px",
@@ -181,7 +181,7 @@ const AlumniDetailModal = ({ alumni, isOpen, onClose, apiBase, viewer, onMessage
                       gap: 4,
                     }}
                   >
-                    <Crown size={12} className="text-emerald-500" />
+                    <Crown size={12} className="text-blue-500" />
                     Membership Active
                   </span>
                 )}

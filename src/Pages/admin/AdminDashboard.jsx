@@ -291,44 +291,44 @@ const AdminDashboard = () => {
     user.role === "admin"
       ? [
         {
-          icon: <Users className="w-6 h-6 text-orange-600" />,
+          icon: <Users className="w-6 h-6 text-blue-600" />,
           val: formatNumber(stats.totalAlumni),
           label: "Total Alumni",
         },
         {
-          icon: <Building className="w-6 h-6 text-green-600" />,
+          icon: <Building className="w-6 h-6 text-blue-600" />,
           val: formatNumber(alumniPageData.totalAlumni || 0),
           label: `${user.department} Alumni`,
         },
         {
-          icon: <IndianRupee className="w-6 h-6 text-purple-600" />,
+          icon: <IndianRupee className="w-6 h-6 text-blue-600" />,
           val: formatCurrency(stats.totalDonatedAmount),
           label: "Total Donations",
         },
         {
-          icon: <BadgeCheck className="w-6 h-6 text-teal-600" />,
+          icon: <BadgeCheck className="w-6 h-6 text-blue-600" />,
           val: formatNumber(stats.completedDonations),
           label: "Completed",
         },
       ]
       : [
         {
-          icon: <Users className="w-6 h-6 text-orange-600" />,
+          icon: <Users className="w-6 h-6 text-blue-600" />,
           val: formatNumber(stats.totalAlumni),
           label: "Total Alumni",
         },
         {
-          icon: <Clock3 className="w-6 h-6 text-yellow-600" />,
+          icon: <Clock3 className="w-6 h-6 text-blue-600" />,
           val: formatNumber(stats.pendingAlumni),
           label: "Pending Approval",
         },
         {
-          icon: <IndianRupee className="w-6 h-6 text-purple-600" />,
+          icon: <IndianRupee className="w-6 h-6 text-blue-600" />,
           val: formatCurrency(stats.totalDonatedAmount),
           label: "Total Donations",
         },
         {
-          icon: <BadgeCheck className="w-6 h-6 text-teal-600" />,
+          icon: <BadgeCheck className="w-6 h-6 text-blue-600" />,
           val: formatNumber(stats.completedDonations),
           label: "Completed",
         },
@@ -336,9 +336,9 @@ const AdminDashboard = () => {
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8f5ee] ">
+      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc] ">
         <div className="text-center">
-          <div className="w-10 h-10 border-[3px] border-slate-200 border-t-orange-500 rounded-full mx-auto mb-4 animate-spin" />
+          <div className="w-10 h-10 border-[3px] border-slate-200 border-t-blue-500 rounded-full mx-auto mb-4 animate-spin" />
           <p className="text-gray-400 font-medium">Loading dashboard…</p>
         </div>
       </div>
@@ -409,7 +409,7 @@ const AdminDashboard = () => {
           )}
           {success && (
             <motion.div
-              className="px-4 py-3 rounded-xl mb-5 text-sm flex items-center gap-2.5 font-medium bg-emerald-50 border border-emerald-200 text-emerald-800 shadow-sm"
+              className="px-4 py-3 rounded-xl mb-5 text-sm flex items-center gap-2.5 font-medium bg-blue-50 border border-blue-200 text-blue-800 shadow-sm"
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
@@ -449,7 +449,7 @@ const AdminDashboard = () => {
                 "
             >
               {/* Left Accent */}
-              <div className="absolute left-0 top-0 h-full w-1 bg-linear-to-b from-orange-500 to-orange-500" />
+              <div className="absolute left-0 top-0 h-full w-1 bg-linear-to-b from-blue-500 to-blue-500" />
 
               <div className="flex items-center gap-4 h-full">
                 {/* Icon */}
@@ -501,7 +501,7 @@ const AdminDashboard = () => {
         <div className="mb-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                 <MessageSquare size={18} />
               </div>
               <div>
@@ -523,7 +523,7 @@ const AdminDashboard = () => {
                   <div key={conversation._id} className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
                     <div className="mb-2 flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
-                        <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-red-500 text-xs font-bold text-white">
+                        <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-red-500 text-xs font-bold text-white">
                           {`${participant?.firstName?.[0] || ""}${participant?.lastName?.[0] || ""}`.toUpperCase() || "A"}
                           {unreadCount > 0 && (
                             <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[8px] font-bold text-white">
@@ -542,7 +542,7 @@ const AdminDashboard = () => {
                     <div className="flex items-center justify-between gap-2">
                       <p className="line-clamp-2 text-sm text-slate-600">{conversation.lastMessage || "New conversation started"}</p>
                       {unreadCount > 0 && (
-                        <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-bold text-orange-700">
+                        <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-blue-700">
                           {unreadCount} new
                         </span>
                       )}
@@ -565,7 +565,7 @@ const AdminDashboard = () => {
                 key={key}
                 onClick={() => setActiveTab(key)}
                 className={`px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition ${activeTab === key
-                  ? "bg-orange-600 text-white"
+                  ? "bg-blue-600 text-white"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
               >
@@ -695,7 +695,7 @@ const AdminDashboard = () => {
                   <select
                     value={selectedCampaignId || ""}
                     onChange={(e) => handleCampaignSelect(e.target.value)}
-                    className="w-full max-w-md px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-orange-400"
+                    className="w-full max-w-md px-4 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-400"
                   >
                     {campaignList.map((campaign) => (
                       <option key={campaign._id} value={campaign._id}>
@@ -815,7 +815,7 @@ const AdminDashboard = () => {
                   {/* Profile Column */}
                   <div className="md:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-100">
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-28 h-28 rounded-full overflow-hidden bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-2xl mb-4 ring-4 ring-white shadow-md">
+                      <div className="w-28 h-28 rounded-full overflow-hidden bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-extrabold text-2xl mb-4 ring-4 ring-white shadow-md">
                         {selectedItem.files?.currentPhoto ? (
                           <img
                             src={`${API_BASE}/uploads/${selectedItem.files.currentPhoto}`}
@@ -907,7 +907,7 @@ const AdminDashboard = () => {
                       {!selectedItem.isApproved && (
                         <button
                           onClick={() => handleApprove(selectedItem._id)}
-                          className="flex-1 px-4 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition"
+                          className="flex-1 px-4 py-3 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition"
                         >
                           Approve Alumni
                         </button>

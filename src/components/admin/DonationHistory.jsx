@@ -317,15 +317,15 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
   const getStatusStyles = (status) => {
     const styles = {
       completed: {
-        bg: "bg-emerald-50",
-        text: "text-emerald-700",
-        border: "border-emerald-200",
+        bg: "bg-blue-50",
+        text: "text-blue-700",
+        border: "border-blue-200",
         icon: <CheckCircle size={14} />,
       },
       pending: {
-        bg: "bg-yellow-50",
-        text: "text-yellow-700",
-        border: "border-yellow-200",
+        bg: "bg-blue-50",
+        text: "text-blue-700",
+        border: "border-blue-200",
         icon: <Clock size={14} />,
       },
       failed: {
@@ -399,14 +399,14 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
           className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
         >
           {/* Header */}
-          <div className="sticky top-0 bg-linear-to-r from-emerald-600 to-emerald-700 px-6 py-4 flex items-center justify-between border-b border-emerald-500/30">
+          <div className="sticky top-0 bg-linear-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center justify-between border-b border-blue-500/30">
             <div>
               <h2 className="text-xl font-bold text-white">Donation Details</h2>
-              <p className="text-emerald-100 text-sm">ID: {donation._id}</p>
+              <p className="text-blue-100 text-sm">ID: {donation._id}</p>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-emerald-500/30 rounded-lg transition-colors"
+              className="p-2 hover:bg-blue-500/30 rounded-lg transition-colors"
             >
               <X size={20} className="text-white" />
             </button>
@@ -415,9 +415,9 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
           {/* Content */}
           <div className="p-6 space-y-6">
             {/* Donor Information */}
-            <div className="bg-linear-to-br from-orange-50 to-orange-50 rounded-xl p-4 border border-orange-100">
+            <div className="bg-linear-to-br from-blue-50 to-blue-50 rounded-xl p-4 border border-blue-100">
               <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                <User size={18} className="text-orange-600" />
+                <User size={18} className="text-blue-600" />
                 Donor Information
               </h3>
               <div className="grid grid-cols-2 gap-4">
@@ -445,15 +445,15 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
             </div>
 
             {/* Donation Details */}
-            <div className="bg-linear-to-br from-emerald-50 to-green-50 rounded-xl p-4 border border-emerald-100">
+            <div className="bg-linear-to-br from-blue-50 to-blue-50 rounded-xl p-4 border border-blue-100">
               <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                <DollarSign size={18} className="text-emerald-600" />
+                <DollarSign size={18} className="text-blue-600" />
                 Donation Details
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-xs text-gray-500 font-semibold">Amount</p>
-                  <p className="font-bold text-2xl text-emerald-600">
+                  <p className="font-bold text-2xl text-blue-600">
                     {donation.currency === "INR" ? "₹" : "$"}
                     {donation.amount?.toLocaleString()}
                   </p>
@@ -474,7 +474,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
             </div>
 
             {/* Status & Transaction */}
-            <div className="bg-linear-to-br from-orange-50 to-pink-50 rounded-xl p-4 border border-orange-100">
+            <div className="bg-linear-to-br from-blue-50 to-blue-50 rounded-xl p-4 border border-blue-100">
               <h3 className="font-bold text-gray-900 mb-3">Status & Transaction</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -503,9 +503,9 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
 
             {/* Message */}
             {donation.message && (
-              <div className="bg-orange-50 rounded-xl p-4 border border-orange-100">
+              <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
                 <h3 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
-                  <MessageCircle size={18} className="text-orange-600" />
+                  <MessageCircle size={18} className="text-blue-600" />
                   Message
                 </h3>
                 <p className="text-gray-700 italic">{donation.message}</p>
@@ -514,10 +514,10 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
 
             {/* Admin Note Section */}
             {isSuperAdmin && (
-              <div className="bg-orange-50 rounded-xl p-4 border border-orange-100">
+              <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="font-bold text-gray-900 flex items-center gap-2">
-                    <Shield size={18} className="text-orange-600" />
+                    <Shield size={18} className="text-blue-600" />
                     Admin Note
                   </h3>
                   {!editingNote && (
@@ -526,9 +526,9 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
                         setEditingNote(true);
                         setAdminNote(donation.adminNote || "");
                       }}
-                      className="p-1.5 hover:bg-orange-200 rounded-lg transition-colors"
+                      className="p-1.5 hover:bg-blue-200 rounded-lg transition-colors"
                     >
-                      <Edit2 size={16} className="text-orange-600" />
+                      <Edit2 size={16} className="text-blue-600" />
                     </button>
                   )}
                 </div>
@@ -538,21 +538,21 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
                       value={adminNote}
                       onChange={(e) => setAdminNote(e.target.value)}
                       placeholder="Add admin notes here..."
-                      className="w-full px-4 py-3 border border-orange-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 resize-none"
+                      className="w-full px-4 py-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                       rows="4"
                     />
                     <div className="flex gap-2">
                       <button
                         onClick={handleSaveAdminNote}
                         disabled={loading}
-                        className="flex-1 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+                        className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
                       >
                         <Save size={16} />
                         Save Note
                       </button>
                       <button
                         onClick={() => setEditingNote(false)}
-                        className="flex-1 px-4 py-2 border border-orange-300 hover:bg-orange-100 text-gray-700 font-semibold rounded-lg transition-colors"
+                        className="flex-1 px-4 py-2 border border-blue-300 hover:bg-blue-100 text-gray-700 font-semibold rounded-lg transition-colors"
                       >
                         Cancel
                       </button>
@@ -589,7 +589,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
                   <button
                     onClick={() => handleMarkAsCompleted(donation._id)}
                     disabled={loading}
-                    className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
                   >
                     <CheckCircle size={16} />
                     Mark Completed
@@ -630,11 +630,11 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
   return (
     <motion.div className="w-full bg-white rounded-xl shadow-lg overflow-hidden">
       {/* Header Section */}
-      <div className="bg-linear-to-r from-emerald-600 to-emerald-700 px-6 py-6">
+      <div className="bg-linear-to-r from-blue-600 to-blue-700 px-6 py-6">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Donation History</h1>
-            <p className="text-emerald-100">Manage and track all donations</p>
+            <p className="text-blue-100">Manage and track all donations</p>
           </div>
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -644,7 +644,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
               fetchStats();
             }}
             disabled={loading}
-            className="p-3 bg-emerald-500 hover:bg-emerald-400 text-white rounded-lg transition-colors disabled:opacity-50"
+            className="p-3 bg-blue-500 hover:bg-blue-400 text-white rounded-lg transition-colors disabled:opacity-50"
           >
             <RefreshCw size={20} className={loading ? "animate-spin" : ""} />
           </motion.button>
@@ -652,20 +652,20 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-emerald-400/20">
-            <p className="text-emerald-100 text-sm font-semibold mb-1">Total Donations</p>
+          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-blue-400/20">
+            <p className="text-blue-100 text-sm font-semibold mb-1">Total Donations</p>
             <p className="text-3xl font-bold text-white">{stats.total}</p>
           </div>
-          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-emerald-400/20">
-            <p className="text-emerald-100 text-sm font-semibold mb-1">Completed</p>
+          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-blue-400/20">
+            <p className="text-blue-100 text-sm font-semibold mb-1">Completed</p>
             <p className="text-3xl font-bold text-white">{stats.completed}</p>
           </div>
-          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-emerald-400/20">
-            <p className="text-emerald-100 text-sm font-semibold mb-1">Total Amount</p>
+          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-blue-400/20">
+            <p className="text-blue-100 text-sm font-semibold mb-1">Total Amount</p>
             <p className="text-2xl font-bold text-white">₹{stats.totalAmount?.toLocaleString()}</p>
           </div>
-          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-emerald-400/20">
-            <p className="text-emerald-100 text-sm font-semibold mb-1">Avg Amount</p>
+          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-blue-400/20">
+            <p className="text-blue-100 text-sm font-semibold mb-1">Avg Amount</p>
             <p className="text-2xl font-bold text-white">₹{stats.averageAmount?.toLocaleString()}</p>
           </div>
         </div>
@@ -689,7 +689,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mx-6 mt-4 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 flex items-center gap-3"
+            className="mx-6 mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-blue-700 flex items-center gap-3"
           >
             <CheckCircle size={20} />
             {success}
@@ -710,7 +710,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
             placeholder="Search by donor name, email, or transaction ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
@@ -719,7 +719,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
           <select
             value={filters.status}
             onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Status</option>
             <option value="completed">Completed</option>
@@ -731,7 +731,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
           <select
             value={filters.currency}
             onChange={(e) => setFilters({ ...filters, currency: e.target.value })}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Currency</option>
             <option value="INR">₹ INR</option>
@@ -741,7 +741,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
           <select
             value={filters.paymentMethod}
             onChange={(e) => setFilters({ ...filters, paymentMethod: e.target.value })}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Methods</option>
             <option value="UPI">UPI</option>
@@ -753,7 +753,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
 
           <button
             onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-            className="px-4 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+            className="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
           >
             <Filter size={18} />
             Advanced
@@ -774,26 +774,26 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
                 placeholder="Min Amount"
                 value={amountRange.min}
                 onChange={(e) => setAmountRange({ ...amountRange, min: e.target.value })}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="number"
                 placeholder="Max Amount"
                 value={amountRange.max}
                 onChange={(e) => setAmountRange({ ...amountRange, max: e.target.value })}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="date"
                 value={dateRange.startDate}
                 onChange={(e) => setDateRange({ ...dateRange, startDate: e.target.value })}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <input
                 type="date"
                 value={dateRange.endDate}
                 onChange={(e) => setDateRange({ ...dateRange, endDate: e.target.value })}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </motion.div>
           )}
@@ -805,7 +805,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
         <button
           onClick={handleExportCSV}
           disabled={donations.length === 0 || loading}
-          className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2"
+          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2"
         >
           <Download size={18} />
           Export CSV
@@ -816,7 +816,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
       {loading && (
         <div className="px-6 py-12 flex items-center justify-center">
           <div className="flex items-center gap-3">
-            <Loader size={24} className="animate-spin text-emerald-600" />
+            <Loader size={24} className="animate-spin text-blue-600" />
             <p className="text-gray-600 font-semibold">Loading donations...</p>
           </div>
         </div>
@@ -848,7 +848,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
                       <div>
                         <p className="text-xs text-gray-500 font-semibold">Amount</p>
-                        <p className="font-bold text-emerald-600">
+                        <p className="font-bold text-blue-600">
                           {donation.currency === "INR" ? "₹" : "$"}
                           {donation.amount?.toLocaleString()}
                         </p>
@@ -895,7 +895,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
                         setAdminNote(donation.adminNote || "");
                         setShowDetailModal(true);
                       }}
-                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors flex items-center gap-2"
                     >
                       <Eye size={16} />
                       View
@@ -940,7 +940,7 @@ export const DonationHistory = ({ isSuperAdmin = false }) => {
                     onClick={() => handlePageChange(page)}
                     className={`w-10 h-10 rounded-lg font-semibold transition-all ${
                       pagination.page === page
-                        ? "bg-emerald-600 text-white"
+                        ? "bg-blue-600 text-white"
                         : "border border-gray-300 text-gray-700 hover:bg-gray-100"
                     }`}
                   >

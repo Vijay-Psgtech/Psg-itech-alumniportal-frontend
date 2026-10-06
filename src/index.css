@@ -4,9 +4,72 @@
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1ece0;
+  background: #f5f7ff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c7bb9d;
+  background: #5141b5;
   border-radius: 8px;
+}
+
+#route-content.site-scroll-reveal-ready .site-scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(0.985);
+  filter: blur(7px);
+  transition:
+    opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 720ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--scroll-reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+#route-content.site-scroll-reveal-ready .site-scroll-reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+  will-change: auto;
+}
+
+#route-content :is(article, [data-motion-card]) {
+  transition:
+    box-shadow 280ms ease,
+    border-color 280ms ease,
+    transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#route-content :is(article, [data-motion-card]):hover {
+  transform: translateY(-5px);
+}
+
+#route-content.site-scroll-reveal-ready .site-scroll-reveal-visible:is(article, [data-motion-card]):hover {
+  transform: translateY(-5px) scale(1.01);
+}
+
+#route-content :is(article, [data-motion-card]) img {
+  transition: transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#route-content :is(article, [data-motion-card]):hover img {
+  transform: scale(1.035);
+}
+
+#route-content a,
+#route-content button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#route-content :is(a, button):focus-visible {
+  outline: 3px solid rgb(59 130 246 / 55%);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #route-content.site-scroll-reveal-ready .site-scroll-reveal,
+  #route-content :is(article, [data-motion-card]),
+  #route-content :is(article, [data-motion-card]) img {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
 }

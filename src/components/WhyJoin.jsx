@@ -22,14 +22,14 @@ export default function WhyJoin() {
           <circle cx="200" cy="180" r="120" fill="none" stroke="#cbd5e1" strokeWidth="1.5" strokeDasharray="4 6" />
           <circle cx="200" cy="180" r="80" fill="none" stroke="#94a3b8" strokeWidth="1.5" />
           <motion.circle
-            cx="200" cy="180" r="7" fill="#f97316"
+            cx="200" cy="180" r="7" fill="#3b82f6"
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
           />
           <circle cx="270" cy="130" r="6" fill="#0f172a" />
-          <circle cx="130" cy="230" r="6" fill="#f97316" />
+          <circle cx="130" cy="230" r="6" fill="#3b82f6" />
           <circle cx="290" cy="240" r="6" fill="#0f172a" />
-          <circle cx="120" cy="120" r="6" fill="#f97316" />
+          <circle cx="120" cy="120" r="6" fill="#3b82f6" />
           <line x1="200" y1="180" x2="270" y2="130" stroke="#94a3b8" strokeWidth="1" />
           <line x1="200" y1="180" x2="130" y2="230" stroke="#94a3b8" strokeWidth="1" />
           <line x1="200" y1="180" x2="290" y2="240" stroke="#94a3b8" strokeWidth="1" />
@@ -39,7 +39,7 @@ export default function WhyJoin() {
 
       <div className="order-1 lg:order-2">
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
-          <p className="text-orange-500 text-xs font-medium tracking-[0.2em] uppercase mb-3">Why join</p>
+          <p className="text-blue-500 text-xs font-medium tracking-[0.2em] uppercase mb-3">Why join</p>
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 leading-tight">
             Focused on your next chapter
           </h2>
@@ -59,9 +59,9 @@ export default function WhyJoin() {
         >
           {reasons.map((r) => (
             <motion.div key={r.title} variants={fadeUp} className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-orange-50 grid place-items-center shrink-0">
+              <div className="w-10 h-10 rounded-full bg-blue-50 grid place-items-center shrink-0">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 6L9 17l-5-5" stroke="#f97316" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M20 6L9 17l-5-5" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </div>
               <div>
@@ -75,7 +75,7 @@ export default function WhyJoin() {
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="mt-9 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium px-8 py-3.5 rounded-full text-sm"
+          className="mt-9 bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium px-8 py-3.5 rounded-full text-sm"
         >
           Join the network
         </motion.button>

@@ -62,8 +62,8 @@ const ModalRow = ({
   icon: Icon,
   label,
   children,
-  iconColor = "text-indigo-500",
-  bgColor = "bg-indigo-50",
+  iconColor = "text-blue-500",
+  bgColor = "bg-blue-50",
 }) => (
   <div className="flex items-start gap-3 py-3 border-b border-slate-100 last:border-0">
     <div
@@ -193,13 +193,13 @@ const AlumniMap = () => {
               icon={Globe}
               value={mapData.stats?.countriesRepresented || 0}
               label="Countries"
-              color="bg-emerald-500"
+              color="bg-blue-500"
             />
             <StatPill
               icon={MapPin}
               value={mapData.stats?.citiesRepresented || 0}
               label="Cities"
-              color="bg-amber-500"
+              color="bg-blue-500"
             />
           </motion.div>
 
@@ -212,7 +212,7 @@ const AlumniMap = () => {
           >
             {/* Map Container */}
             <div className="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-              <div className="h-1 bg-linear-to-r from-[#667eea] to-[#764ba2]" />
+              <div className="h-1 bg-linear-to-r from-[#6366f1] to-[#5141b5]" />
               <div className="p-1">
                 <MapContainer
                   center={[20, 0]}
@@ -268,7 +268,7 @@ const AlumniMap = () => {
                   className="w-full lg:w-80 xl:w-96 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col"
                 >
                   {/* Panel header accent */}
-                  <div className="h-1 bg-linear-to-r from-[#667eea] to-[#764ba2]" />
+                  <div className="h-1 bg-linear-to-r from-[#6366f1] to-[#5141b5]" />
 
                   {/* Avatar + name block */}
                   <div className="relative bg-linear-to-br from-blue-50 to-blue-50 px-6 pt-6 pb-5">
@@ -302,7 +302,7 @@ const AlumniMap = () => {
                           {selectedAlumni.firstName} {selectedAlumni.lastName}
                         </h2>
                         {selectedAlumni.isApproved && (
-                          <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">
+                          <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700 border border-blue-200">
                             <CheckCircle size={9} /> Verified Alumni
                           </span>
                         )}
@@ -347,8 +347,8 @@ const AlumniMap = () => {
                       <ModalRow
                         icon={MapPin}
                         label="Location"
-                        iconColor="text-emerald-600"
-                        bgColor="bg-emerald-50"
+                        iconColor="text-blue-600"
+                        bgColor="bg-blue-50"
                       >
                         <p className="text-sm text-slate-700 font-medium">
                           {selectedAlumni.fullAddress ||
@@ -360,8 +360,8 @@ const AlumniMap = () => {
                         <ModalRow
                           icon={Building2}
                           label="Company"
-                          iconColor="text-amber-600"
-                          bgColor="bg-amber-50"
+                          iconColor="text-blue-600"
+                          bgColor="bg-blue-50"
                         >
                           <p className="text-sm text-slate-700 font-medium">
                             {selectedAlumni.currentCompany}
