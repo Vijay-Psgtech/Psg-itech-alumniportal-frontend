@@ -81,20 +81,20 @@ export default function QuickAccess() {
       {/* ambient background layer */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-[2.5rem]">
         <Blob
-          className="bg-orange-300/30 -left-24 -top-24"
+          className="bg-blue-300/30 -left-24 -top-24"
           size={340}
           duration={14}
           path={{ x: [0, 40, 0], y: [0, 30, 0] }}
         />
         <Blob
-          className="bg-amber-200/40 right-[-6rem] top-10"
+          className="bg-blue-200/40 right-[-6rem] top-10"
           size={280}
           duration={18}
           delay={2}
           path={{ x: [0, -30, 0], y: [0, 40, 0] }}
         />
         <Blob
-          className="bg-orange-100/50 left-1/3 bottom-[-8rem]"
+          className="bg-blue-100/50 left-1/3 bottom-[-8rem]"
           size={320}
           duration={20}
           delay={1}
@@ -138,24 +138,24 @@ export default function QuickAccess() {
           >
             {/* gradient ring that sweeps in on hover */}
             <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-              <div className="absolute inset-0 rounded-2xl bg-[conic-gradient(from_180deg_at_50%_50%,#f97316_0deg,transparent_100deg,transparent_260deg,#f97316_360deg)] opacity-20" />
+              <div className="absolute inset-0 rounded-2xl bg-[conic-gradient(from_180deg_at_50%_50%,#3b82f6_0deg,transparent_100deg,transparent_260deg,#3b82f6_360deg)] opacity-20" />
               <div className="absolute inset-[1px] rounded-2xl bg-white/95" />
             </div>
 
             {/* oversized watermark index number */}
-            <span className="pointer-events-none absolute -top-3 right-3 font-display text-6xl font-bold text-slate-900/[0.04] transition-colors duration-500 group-hover:text-orange-500/[0.08]">
+            <span className="pointer-events-none absolute -top-3 right-3 font-display text-6xl font-bold text-slate-900/[0.04] transition-colors duration-500 group-hover:text-blue-500/[0.08]">
               {c.index}
             </span>
 
             <div className="relative">
-              <div className="relative mb-5 grid h-12 w-12 place-items-center rounded-xl bg-orange-50 text-orange-500 transition-colors duration-300 group-hover:bg-orange-500 group-hover:text-white">
+              <div className="relative mb-5 grid h-12 w-12 place-items-center rounded-xl bg-blue-50 text-blue-500 transition-colors duration-300 group-hover:bg-blue-500 group-hover:text-white">
                 {c.icon}
               </div>
 
               <h3 className="font-display text-lg font-semibold text-slate-900">{c.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-500">{c.desc}</p>
 
-              <button className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-orange-500 transition-colors hover:text-orange-600">
+              <button className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-blue-500 transition-colors hover:text-blue-600">
                 {c.cta}
                 <motion.span
                   className="inline-block"
@@ -168,7 +168,7 @@ export default function QuickAccess() {
             </div>
 
             {/* bottom accent bar that grows in on hover */}
-            <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-gradient-to-r from-orange-400 to-amber-300 transition-all duration-500 ease-out group-hover:w-full" />
+            <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-linear-to-r from-blue-400 to-blue-300 transition-all duration-500 ease-out group-hover:w-full" />
           </motion.div>
         ))}
       </motion.div>

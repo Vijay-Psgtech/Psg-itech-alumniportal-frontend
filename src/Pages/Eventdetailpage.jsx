@@ -87,7 +87,7 @@ export default function EventDetailPage() {
         <p className="text-slate-500 mt-2">This event may have been removed or the link is incorrect.</p>
         <Link
           to="/events"
-          className="inline-flex mt-6 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
+          className="inline-flex mt-6 bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
         >
           Back to Events
         </Link>
@@ -101,13 +101,13 @@ export default function EventDetailPage() {
     <div className="bg-slate-50 min-h-screen">
       {/* Header */}
       <section className="relative overflow-hidden bg-slate-900 pt-24 pb-16 sm:pt-28 sm:pb-20">
-        <div className="absolute -top-20 -right-20 w-96 h-96 bg-orange-500/12 rounded-full blur-3xl" />
+        <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-500/12 rounded-full blur-3xl" />
         <div className="relative max-w-6xl mx-auto px-6 lg:px-10">
           <motion.p
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-orange-400 mb-5"
+            className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-blue-400 mb-5"
           >
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <span className="text-white/30">/</span>
@@ -122,7 +122,7 @@ export default function EventDetailPage() {
               initial="hidden"
               animate="show"
               transition={{ delay: 0.05 }}
-              className="hidden sm:grid w-20 h-20 shrink-0 rounded-[28px] bg-white/6 border border-white/10 place-items-center text-orange-400"
+              className="hidden sm:grid w-20 h-20 shrink-0 rounded-[28px] bg-white/6 border border-white/10 place-items-center text-blue-400"
             >
               {categoryIcon[event.category]}
             </motion.div>
@@ -145,14 +145,14 @@ export default function EventDetailPage() {
                 className="grid gap-3 sm:grid-cols-3 text-sm text-white/70"
               >
                 <div className="flex items-center gap-2 rounded-3xl bg-white/5 px-4 py-3">
-                  <CalendarIcon className="text-orange-300" />
+                  <CalendarIcon className="text-blue-300" />
                   <span>{formatDate(event.date)}, {event.time}</span>
                 </div>
                 <div className="flex items-center gap-2 rounded-3xl bg-white/5 px-4 py-3">
-                  <PinIcon className="text-orange-300" />
+                  <PinIcon className="text-blue-300" />
                   <span>{event.venue}, {event.city}</span>
                 </div>
-                <div className="inline-flex items-center justify-center rounded-3xl bg-orange-500/15 px-4 py-3 text-orange-100 font-medium text-sm">
+                <div className="inline-flex items-center justify-center rounded-3xl bg-blue-500/15 px-4 py-3 text-blue-100 font-medium text-sm">
                   {event.status === "upcoming" ? "Upcoming Event" : "Past Event"}
                 </div>
               </motion.div>
@@ -203,7 +203,7 @@ export default function EventDetailPage() {
                   ))}
               </div>
               <div className="mt-8">
-                <button className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-orange-400 hover:text-orange-600">
+                <button className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-blue-400 hover:text-blue-600">
                   <ShareIcon />
                   Share this event
                 </button>
@@ -220,7 +220,7 @@ export default function EventDetailPage() {
             className=""
           >
             <div className="rounded-[32px] bg-white p-6 shadow-sm lg:sticky lg:top-28">
-              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-orange-500 mb-5">
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-blue-500 mb-5">
                 Event details
               </p>
               <dl className="space-y-4 text-sm text-slate-600">
@@ -267,7 +267,7 @@ export default function EventDetailPage() {
                       />
                     </div>
                     <div className="p-5">
-                      <h3 className="font-semibold text-base text-slate-900 transition-colors group-hover:text-orange-600">
+                      <h3 className="font-semibold text-base text-slate-900 transition-colors group-hover:text-blue-600">
                         {e.title}
                       </h3>
                       <p className="mt-3 text-sm text-slate-500">{formatDate(e.date)}</p>

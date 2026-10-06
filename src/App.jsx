@@ -12,8 +12,10 @@ import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 const Home = lazy(() => import("./Pages/Home"));
 const AboutPage = lazy(() => import("./Pages/Aboutpage"));
+const LeadershipPage = lazy(() => import("./Pages/LeadershipPage"));
 const EventsPage = lazy(() => import("./Pages/Eventspage"));
 const EventDetailPage = lazy(() => import("./Pages/Eventdetailpage"));
+const AlumniCalendarPage = lazy(() => import("./Pages/AlumniCalendarPage"));
 const FeedPage = lazy(() => import("./Pages/Feedpage"));
 const FeedDetailPage = lazy(() => import("./Pages/Feeddetailpage"));
 const GalleryPage = lazy(() => import("./Pages/Gallerypage"));
@@ -49,7 +51,7 @@ function ScrollProgressBar() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-orange-400 via-amber-400 to-orange-500"
+      className="fixed top-0 left-0 right-0 z-60 h-[3px] origin-left bg-linear-to-r from-blue-400 via-blue-400 to-blue-500"
       style={{ scaleX }}
     />
   )
@@ -66,8 +68,10 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/leadership" element={<LeadershipPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/events/:id" element={<EventDetailPage />} />
+        <Route path="/events/calendar" element={<AlumniCalendarPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:slug" element={<FeedDetailPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
@@ -107,7 +111,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <BacktoTop />
-      <Suspense fallback={<div className="fixed inset-0 grid place-items-center bg-slate-900/70 z-[60]"><div className="w-12 h-12 rounded-full border-4 border-t-orange-400 border-r-orange-400 border-b-transparent border-l-transparent animate-spin" /></div>}>
+      <Suspense fallback={<div className="fixed inset-0 grid place-items-center bg-slate-900/70 z-60"><div className="w-12 h-12 rounded-full border-4 border-t-blue-400 border-r-blue-400 border-b-transparent border-l-transparent animate-spin" /></div>}>
         <div className="text-slate-900 antialiased">
           <ScrollProgressBar />
           <Navbar />
