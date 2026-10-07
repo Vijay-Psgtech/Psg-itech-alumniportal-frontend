@@ -19,6 +19,7 @@ const AlumniCalendarPage = lazy(() => import("./Pages/AlumniCalendarPage"));
 const FeedPage = lazy(() => import("./Pages/Feedpage"));
 const FeedDetailPage = lazy(() => import("./Pages/Feeddetailpage"));
 const GalleryPage = lazy(() => import("./Pages/Gallerypage"));
+const ChapterCityPage = lazy(() => import("./Pages/ChapterCityPage"));
 
 const AlumniDashboard = lazy(() => import("./Pages/alumni/AlumniDashboard"));
 const AlumniRegistration = lazy(() => import("./Pages/alumni/AlumniRegistration"));
@@ -75,6 +76,7 @@ function AnimatedRoutes() {
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/feed/:slug" element={<FeedDetailPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/chapters/:city" element={<ChapterCityPage />} />
 
         {/* Alumni Routes */}
         <Route path="/alumni/dashboard" element={<ProtectedRoute><AlumniDashboard /></ProtectedRoute>} />

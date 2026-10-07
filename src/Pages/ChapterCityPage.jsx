@@ -1,0 +1,98 @@
+import { motion } from "framer-motion";
+import { Link, useParams } from "react-router-dom";
+import { ArrowRight, MapPin, Users } from "lucide-react";
+import { fadeUp } from "../utils/motion";
+
+const chapterCities = {
+  bangalore: "Bangalore",
+  chennai: "Chennai",
+};
+
+export default function ChapterCityPage() {
+  const { city = "" } = useParams();
+  const cityName = chapterCities[city.toLowerCase()];
+
+  if (!cityName) {
+    return (
+      <main className="grid min-h-[60vh] place-items-center bg-slate-50 px-6 pt-24 text-center">
+        <div>
+          <h1 className="font-display text-3xl font-semibold text-slate-900">Chapter not found</h1>
+          <Link to="/chapters/bangalore" className="mt-5 inline-flex text-blue-600 hover:text-blue-700">
+            Browse alumni chapters
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="min-h-screen bg-slate-50">
+      <section className="bg-slate-900 px-6 pb-16 pt-32 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            className="mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-blue-400"
+          >
+            <MapPin size={14} /> Alumni Chapters
+          </motion.p>
+          <motion.h1
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            transition={{ delay: 0.05 }}
+            className="font-display text-4xl font-semibold leading-tight text-white sm:text-5xl"
+          >
+            {cityName} Chapter
+          </motion.h1>
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+            transition={{ delay: 0.1 }}
+            className="mt-5 max-w-2xl leading-relaxed text-white/65"
+          >
+            Stay connected with PSG iTech alumni in {cityName}. Meet fellow
+            graduates, share experiences, and take part in the wider alumni
+            community.
+          </motion.p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-6 py-16 lg:py-20">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-12"
+        >
+          <div className="grid h-14 w-14 place-items-center rounded-2xl bg-blue-50 text-blue-600">
+            <Users size={26} />
+          </div>
+          <h2 className="mt-6 font-display text-2xl font-semibold text-slate-900">
+            Connect with the community
+          </h2>
+          <p className="mt-3 max-w-2xl leading-relaxed text-slate-500">
+            Browse the alumni chapters directory to find current groups and
+            connect with members. Sign in to join a chapter or start a new one.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link
+              to="/alumni/chapters"
+              className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+            >
+              Browse alumni chapters <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/alumni/login"
+              className="inline-flex items-center rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-blue-200 hover:text-blue-700"
+            >
+              Alumni sign in
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+    </main>
+  );
+}
