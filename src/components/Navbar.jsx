@@ -4,48 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../context/AuthContext.jsx';
 import logo from '/Alumni Logo 1.jpg'
 
-const links = [
-  { label: 'About', to: '/about' },
-  { label: 'Leadership', to: '/leadership' },
-  {
-    label: 'Events',
-    to: '/events',
-    children: [
-      { label: 'All Events', to: '/events' },
-      { label: 'Gallery', to: '/gallery' },
-      { label: 'Alumni Calendar', to: '/events/calendar' },
-    ],
-  },
-  {
-    label: 'Find Alumni',
-    to: '/alumni/dashboard',
-    children: [
-      { label: 'Dashboard', to: '/alumni/dashboard' },
-      { label: 'Directory', to: '/alumni/directory' },
-      { label: 'Map', to: '/alumni/map' },
-      { label: 'Messages', to: '/alumni/messages' },
-    ],
-  },
-  {
-    label: 'Careers',
-    to: '/careers/job',
-    children: [
-      { label: 'Job', to: '/careers/job' },
-      { label: 'Internship', to: '/careers/internship' },
-      { label: 'Mentorship', to: '/careers/mentorship' },
-    ],
-  },
-  {
-    label: 'Chapters',
-    to: '/chapters/bangalore',
-    children: [
-      { label: 'Bangalore', to: '/chapters/bangalore' },
-      { label: 'Chennai', to: '/chapters/chennai' },
-    ],
-  },
-  { label: 'Donations', to: '/campaigns' },
-  { label: 'Institute', href: 'https://psgitech.ac.in/' },
-]
+
 
 function ChevronIcon({ className }) {
   return (
@@ -66,6 +25,62 @@ export default function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, isAuthenticated, logout } = useAuth()
+
+  const links = [
+    { label: 'About', to: '/about' },
+    { label: 'Leadership', to: '/leadership' },
+    {
+      label: 'Events',
+      to: '/events',
+      children: [
+        { label: 'All Events', to: '/events' },
+        { label: 'Gallery', to: '/gallery' },
+        { label: 'Alumni Calendar', to: '/events/calendar' },
+      ],
+    },
+    {
+      label: 'Find Alumni',
+      to: '/alumni/dashboard',
+      children: [
+        { label: 'Dashboard', to: '/alumni/dashboard' },
+        { label: 'Directory', to: '/alumni/directory' },
+        { label: 'Messages', to: '/alumni/messages' },
+      ],
+    },
+    {
+      label: 'Careers',
+      to: '/careers/job',
+      children: [
+        { label: 'Job', to: '/careers/job' },
+        { label: 'Internship', to: '/careers/internship' },
+        { label: 'Mentorship', to: '/careers/mentorship' },
+      ],
+    },
+    {
+      label: 'Chapters',
+      to: '/chapters/bangalore',
+      children: [
+        { label: 'Bangalore', to: '/chapters/bangalore' },
+        { label: 'Chennai', to: '/chapters/chennai' },
+      ],
+    },
+    { label: 'Donations', to: '/campaigns' },
+    { label: 'Institute', href: 'https://psgitech.ac.in/' },
+    ...(user?.role === 'admin' || user?.role === 'superadmin' ? [
+      {
+        label: 'Admin',
+        to: '/admin/dashboard',
+        children: [
+          { label: 'Dashboard', to: '/admin/dashboard' },
+          { label: 'Events', to: '/admin/events' },
+          { label: 'Alumni Users', to: '/admin/alumni' },
+          { label: 'Newsletter', to: '/admin/newsletter' },
+          { label: 'Notifications', to: '/admin/notifications' },
+          { label: 'Reports', to: '/admin/reports' },
+        ],
+      },
+    ] : []),
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -123,9 +138,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur transition-all duration-300 ${
-        transparent ? 'bg-transparent shadow-none' : 'bg-white/95 shadow-sm shadow-black/3'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur transition-all duration-300 ${transparent ? 'bg-transparent shadow-none' : 'bg-white/95 shadow-sm shadow-black/3'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 shrink-0">
@@ -265,8 +279,8 @@ export default function Navbar() {
                         type="button"
                         onClick={() => handleAuthAction(item.action || item.to)}
                         className={`block w-full px-4 py-2.5 text-left text-sm transition-colors ${item.action === 'logout'
-                            ? 'text-red-500 hover:bg-red-50'
-                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                          ? 'text-red-500 hover:bg-red-50'
+                          : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                           }`}
                       >
                         {item.label}
@@ -372,8 +386,8 @@ export default function Navbar() {
                       type="button"
                       onClick={() => handleAuthAction(item.action || item.to)}
                       className={`rounded-xl px-4 py-3 text-left text-sm font-semibold ${item.action === 'logout'
-                          ? 'bg-red-50 text-red-500'
-                          : 'bg-blue-500 text-white'
+                        ? 'bg-red-50 text-red-500'
+                        : 'bg-blue-500 text-white'
                         }`}
                     >
                       {item.label}
