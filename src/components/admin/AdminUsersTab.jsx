@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Plus, Edit3, Trash2, CheckCircle, X, Search } from "lucide-react";
+import { Plus, Edit3, Trash2, X, Search } from "lucide-react";
 import { adminUsersAPI, departmentAPI } from "../../services/api";
 
 const INITIAL_FORM = {
@@ -209,7 +209,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search users..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-sm text-slate-900 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-slate-200 bg-slate-50 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
             />
           </div>
           <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-700">
@@ -244,7 +244,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                   name="firstName"
                   value={form.firstName}
                   onChange={handleChange}
-                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200"
+                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
                   placeholder="John"
                 />
               </label>
@@ -254,7 +254,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                   name="lastName"
                   value={form.lastName}
                   onChange={handleChange}
-                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200"
+                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
                   placeholder="Doe"
                 />
               </label>
@@ -267,7 +267,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200"
+                className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
                 placeholder="john@example.com"
               />
             </label>
@@ -279,7 +279,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                   name="role"
                   value={form.role}
                   onChange={handleChange}
-                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200"
+                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
                 >
                   <option value="admin">Admin</option>
                 </select>
@@ -291,7 +291,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                   value={form.department}
                   onChange={handleChange}
                   disabled={departmentsLoading}
-                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200 disabled:bg-slate-100 disabled:cursor-not-allowed"
+                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 disabled:bg-slate-100 disabled:cursor-not-allowed"
                 >
                   <option value="">Select a department</option>
                   {departments.map((dept) => (
@@ -314,7 +314,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-200"
+                  className="mt-2 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200"
                   placeholder="Create a password"
                 />
               </label>
@@ -327,7 +327,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                   name="isActive"
                   checked={form.isActive}
                   onChange={handleChange}
-                  className="h-4 w-4 rounded border-slate-300 text-orange-600 focus:ring-orange-500"
+                  className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
                 Keep account active
               </label>
@@ -337,7 +337,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-orange-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {editingId ? "Update User" : "Create User"}
               </button>
@@ -364,7 +364,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                 All system users
               </h3>
             </div>
-            <span className="rounded-full bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-700">
+            <span className="rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
               {filteredUsers.length} records
             </span>
           </div>
@@ -420,8 +420,8 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                         <span
                           className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
                             user.isActive
-                              ? "bg-emerald-100 text-emerald-700"
-                              : "bg-amber-100 text-amber-700"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-blue-100 text-blue-700"
                           }`}
                         >
                           {user.isActive ? "Active" : "Inactive"}
@@ -440,7 +440,7 @@ const AdminUsersTab = ({ onError = () => {}, onSuccess = () => {} }) => {
                             type="button"
                             onClick={() => handleDelete(user._id || user.id)}
                             disabled={submitting}
-                            className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-rose-50 text-rose-600 transition hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-70"
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-blue-50 text-blue-600 transition hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-70"
                           >
                             <Trash2 size={16} />
                           </button>

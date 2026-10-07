@@ -298,11 +298,11 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
             onClick={handleStartFromScratch}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full p-6 border-2 border-dashed border-orange-300 rounded-2xl hover:border-orange-500 hover:bg-orange-50 transition text-left group"
+            className="w-full p-6 border-2 border-dashed border-blue-300 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition text-left group"
           >
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center group-hover:bg-orange-200 transition">
-                <Plus size={24} className="text-orange-600" />
+              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition">
+                <Plus size={24} className="text-blue-600" />
               </div>
               <div>
                 <h3 className="font-bold text-slate-900 text-lg">
@@ -327,7 +327,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                   onClick={() => handleSelectTemplate(template)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="p-4 bg-white border border-slate-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition text-left"
+                  className="p-4 bg-white border border-slate-200 rounded-2xl hover:border-blue-400 hover:shadow-lg transition text-left"
                 >
                   <h4 className="font-bold text-slate-900 mb-1">
                     {template.title}
@@ -377,9 +377,9 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
           )}
 
           {success && (
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex gap-3">
-              <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
-              <p className="text-green-700">{success}</p>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex gap-3">
+              <CheckCircle className="w-5 h-5 text-blue-600 shrink-0" />
+              <p className="text-blue-700">{success}</p>
             </div>
           )}
 
@@ -394,7 +394,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                 value={formData.title}
                 onChange={(e) => handleInputChange("title", e.target.value)}
                 placeholder="Enter campaign title"
-                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
@@ -410,7 +410,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                 }
                 placeholder="Describe your campaign"
                 rows={3}
-                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
@@ -422,7 +422,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
               <select
                 value={formData.category}
                 onChange={(e) => handleInputChange("category", e.target.value)}
-                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
               >
                 <option value="">Select category</option>
                 <option value="Nostalgic Stories">Nostalgic Stories</option>
@@ -456,7 +456,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                   onChange={(e) =>
                     handleInputChange("startDate", e.target.value)
                   }
-                  className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
               <div>
@@ -467,7 +467,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                   type="date"
                   value={formData.endDate}
                   onChange={(e) => handleInputChange("endDate", e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                  className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
             </div>
@@ -483,7 +483,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                 onChange={(e) => handleInputChange("duration", e.target.value)}
                 min="1"
                 max="365"
-                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
               />
             </div>
 
@@ -528,7 +528,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
             </button>
             <button
               onClick={() => setStep(3)}
-              className="px-6 py-2 rounded-xl bg-orange-600 text-white font-bold hover:bg-orange-700"
+              className="px-6 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700"
             >
               Next: Form Fields
             </button>
@@ -561,11 +561,11 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
           )}
 
           {success && (
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex gap-3">
-              <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex gap-3">
+              <CheckCircle className="w-5 h-5 text-blue-600 shrink-0" />
               <div>
-                <p className="text-green-700 font-bold">{success}</p>
-                <p className="text-green-600 text-sm mt-2">
+                <p className="text-blue-700 font-bold">{success}</p>
+                <p className="text-blue-600 text-sm mt-2">
                   Redirecting to campaign manager...
                 </p>
               </div>
@@ -705,7 +705,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                   />
                   <button
                     onClick={handleAddOption}
-                    className="px-4 py-2 bg-orange-600 text-white rounded-lg font-bold hover:bg-orange-700"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700"
                   >
                     Add
                   </button>
@@ -807,7 +807,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
             <button
               onClick={handleCreateCampaign}
               disabled={isLoading || formData.formFields.length === 0}
-              className="flex-1 px-6 py-3 rounded-xl bg-green-600 text-white font-bold hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <>
@@ -828,11 +828,11 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="bg-green-50 border border-green-200 rounded-2xl p-6 space-y-4"
+              className="bg-blue-50 border border-blue-200 rounded-2xl p-6 space-y-4"
             >
               <div className="flex items-center gap-2">
-                <CheckCircle size={24} className="text-green-600" />
-                <h3 className="font-bold text-green-900">Campaign Created!</h3>
+                <CheckCircle size={24} className="text-blue-600" />
+                <h3 className="font-bold text-blue-900">Campaign Created!</h3>
               </div>
 
               <div className="bg-white rounded-lg p-4 font-mono text-sm">
@@ -851,7 +851,7 @@ const CampaignCreator = ({ onCampaignCreated = () => {} }) => {
                 </div>
               </div>
 
-              <p className="text-sm text-green-700">
+              <p className="text-sm text-blue-700">
                 You can now share this campaign ID with respondents or manage
                 responses in the Campaign Manager tab.
               </p>

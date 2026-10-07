@@ -351,7 +351,7 @@ const CampaignForm = ({ campaignId: propCampaignId }) => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <Loader className="w-12 h-12 animate-spin text-orange-600 mx-auto mb-4" />
+          <Loader className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
           <p className="text-slate-600 font-semibold">Loading campaign...</p>
         </div>
       </div>
@@ -388,15 +388,15 @@ const CampaignForm = ({ campaignId: propCampaignId }) => {
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-md w-full text-center"
         >
-          <div className="bg-green-50 border border-green-200 rounded-xl p-8">
-            <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-green-900 mb-2">
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-8">
+            <CheckCircle className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-blue-900 mb-2">
               Thank You!
             </h2>
-            <p className="text-green-700 mb-4">
+            <p className="text-blue-700 mb-4">
               Your response has been submitted successfully.
             </p>
-            <p className="text-sm text-green-600">
+            <p className="text-sm text-blue-600">
               Redirecting you back home...
             </p>
           </div>
@@ -486,7 +486,7 @@ const CampaignForm = ({ campaignId: propCampaignId }) => {
               className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition ${
                 isSubmitting
                   ? "bg-slate-300 text-slate-500 cursor-not-allowed"
-                  : "bg-orange-600 text-white hover:bg-orange-700"
+                  : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
             >
               {isSubmitting ? (
@@ -515,7 +515,7 @@ const FormField = ({ field, value, onChange }) => {
   }
 
   const baseClasses =
-    "w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition";
+    "w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition";
 
   return (
     <div className="space-y-2">
@@ -652,7 +652,7 @@ const FormField = ({ field, value, onChange }) => {
           <input
             type="file"
             onChange={(e) => onChange(e.target.files?.[0])}
-            className={`${baseClasses} file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100`}
+            className={`${baseClasses} file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100`}
             required={field.required}
           />
           {field.placeholder && (

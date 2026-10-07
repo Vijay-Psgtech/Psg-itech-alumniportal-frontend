@@ -1,25 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Calendar,
-  Plus,
-  Search,
-  AlertCircle,
-  CheckCircle,
-  Clock,
-  Pencil,
-  Trash2,
-  Star,
-  TrendingUp,
-  BarChart3,
-  Loader,
-  Grid3x3,
-  List,
-  ChevronUp,
-  ChevronDown,
-  MapPin,
-  Users,
-} from "lucide-react";
+import { Calendar, Plus, Search, AlertCircle, CheckCircle, Clock, Pencil, Trash2, Star, Loader, Grid3x3, List, ChevronUp, ChevronDown, MapPin, Users } from "lucide-react";
 import { eventsAPI, API_BASE } from "../../services/api";
 import { DeleteModal } from "../../components/admin/AdminSharedUI";
 import { EventFormModal } from "../../components/admin/EventFormModal";
@@ -27,15 +8,15 @@ import usePageTitle from "../../hooks/usePageTitle";
 
 // Category colors mapping
 const CATEGORY_COLORS = {
-  Awards: "#f97316",
-  Lecture: "#ea580c",
-  Sports: "#f093fb",
-  Memorial: "#4facfe",
-  Congress: "#00f2fe",
-  Workshop: "#43e97b",
-  Networking: "#fa709a",
-  Cultural: "#fee140",
-  Other: "#a0aec0",
+  Awards: "#5141b5",
+  Lecture: "#4338ca",
+  Sports: "#6366f1",
+  Memorial: "#3b82f6",
+  Congress: "#2563eb",
+  Workshop: "#60a5fa",
+  Networking: "#818cf8",
+  Cultural: "#a5b4fc",
+  Other: "#94a3b8",
 };
 
 const AdminEvents = () => {
@@ -216,7 +197,7 @@ const AdminEvents = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-orange-50 mt-16 p-4 sm:p-6 lg:p-24">
+    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-blue-50 mt-16 p-4 sm:p-6 lg:p-24">
       {/* ========== LOADING STATE ========== */}
       {isFetching && (
         <motion.div
@@ -227,7 +208,7 @@ const AdminEvents = () => {
           <div className="text-center">
             <Loader
               size={40}
-              className="mx-auto mb-4 text-orange-500 animate-spin"
+              className="mx-auto mb-4 text-blue-500 animate-spin"
             />
             <p className="text-gray-600 font-medium">
               Loading events...
@@ -248,7 +229,7 @@ const AdminEvents = () => {
           </div>
           <button
             onClick={() => setModal({ type: "add" })}
-            className="px-6 py-3 rounded-xl border-none bg-gradient-to-br from-[#f97316] to-[#ea580c] text-white font-bold text-sm cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 transition-all hover:-translate-y-0.5 hover:shadow-orange-500/40 active:translate-y-0 w-full sm:w-auto"
+            className="px-6 py-3 rounded-xl border-none bg-linear-to-br from-[#3b82f6] to-[#2563eb] text-white font-bold text-sm cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5 hover:shadow-blue-500/40 active:translate-y-0 w-full sm:w-auto"
           >
             <Plus size={18} /> Add Event
           </button>
@@ -262,18 +243,18 @@ const AdminEvents = () => {
               value: stats.total,
               icon: Calendar,
               color: "blue",
-              bg: "bg-orange-50",
-              iconBg: "bg-orange-100",
-              iconColor: "text-orange-600",
+              bg: "bg-blue-50",
+              iconBg: "bg-blue-100",
+              iconColor: "text-blue-600",
             },
             {
               label: "Upcoming",
               value: stats.upcoming,
               icon: Clock,
               color: "emerald",
-              bg: "bg-emerald-50",
-              iconBg: "bg-emerald-100",
-              iconColor: "text-emerald-600",
+              bg: "bg-blue-50",
+              iconBg: "bg-blue-100",
+              iconColor: "text-blue-600",
             },
             {
               label: "Completed",
@@ -289,9 +270,9 @@ const AdminEvents = () => {
               value: stats.highlighted,
               icon: Star,
               color: "amber",
-              bg: "bg-amber-50",
-              iconBg: "bg-amber-100",
-              iconColor: "text-amber-600",
+              bg: "bg-blue-50",
+              iconBg: "bg-blue-100",
+              iconColor: "text-blue-600",
             },
           ].map((stat, i) => {
             const Icon = stat.icon;
@@ -337,7 +318,7 @@ const AdminEvents = () => {
             exit={{ opacity: 0, y: -20 }}
             className={`mb-6 p-4 rounded-xl border flex items-center gap-3 ${
               notification.type === "success"
-                ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+                ? "bg-blue-50 border-blue-200 text-blue-700"
                 : "bg-red-50 border-red-200 text-red-700"
             }`}
           >
@@ -365,7 +346,7 @@ const AdminEvents = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by title, category, or venue…"
-                className="w-full py-3 px-4 pl-10 border border-slate-200 rounded-xl text-sm outline-none bg-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all"
+                className="w-full py-3 px-4 pl-10 border border-slate-200 rounded-xl text-sm outline-none bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all"
               />
             </div>
           </div>
@@ -395,8 +376,8 @@ const AdminEvents = () => {
                     }}
                     className={`px-3 py-2 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 ${
                       sortBy === option.value
-                        ? "bg-[#ea580c] text-white border-[#ea580c]"
-                        : "bg-white text-gray-600 border-slate-200 hover:border-orange-300"
+                        ? "bg-[#2563eb] text-white border-[#2563eb]"
+                        : "bg-white text-gray-600 border-slate-200 hover:border-blue-300"
                     }`}
                   >
                     {option.label}
@@ -421,7 +402,7 @@ const AdminEvents = () => {
                   onClick={() => setStatusFilter(f)}
                   className={`flex-1 sm:flex-none px-4 py-2.5 border-none text-xs sm:text-sm font-bold transition-all capitalize ${
                     statusFilter === f
-                      ? "bg-[#f97316] text-white"
+                      ? "bg-[#3b82f6] text-white"
                       : "bg-white text-gray-500 hover:bg-slate-50 hover:text-gray-700"
                   }`}
                 >
@@ -446,7 +427,7 @@ const AdminEvents = () => {
                   onClick={() => setViewMode("grid")}
                   className={`p-2.5 transition-all ${
                     viewMode === "grid"
-                      ? "bg-[#f97316] text-white"
+                      ? "bg-[#3b82f6] text-white"
                       : "bg-white text-gray-500 hover:bg-slate-50 hover:text-gray-700"
                   }`}
                   title="Grid View"
@@ -458,7 +439,7 @@ const AdminEvents = () => {
                   onClick={() => setViewMode("table")}
                   className={`p-2.5 transition-all ${
                     viewMode === "table"
-                      ? "bg-[#ea580c] text-white"
+                      ? "bg-[#2563eb] text-white"
                       : "bg-white text-gray-500 hover:bg-slate-50 hover:text-gray-700"
                   }`}
                   title="Table View"
@@ -494,7 +475,7 @@ const AdminEvents = () => {
             {/* GRID VIEW */}
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {paginatedData.map((event, idx) => {
-                const cc = CATEGORY_COLORS[event.category] || "#f97316";
+                const cc = CATEGORY_COLORS[event.category] || "#3b82f6";
                 return (
                   <motion.div
                     key={event._id}
@@ -509,10 +490,10 @@ const AdminEvents = () => {
                         {/* Title with highlight badge */}
                         <div className="flex items-center gap-2 mb-2">
                           {event.highlight && (
-                            <div className="flex items-center gap-1 bg-amber-50 text-amber-600 px-2 py-1 rounded-full border border-amber-200">
+                            <div className="flex items-center gap-1 bg-blue-50 text-blue-600 px-2 py-1 rounded-full border border-blue-200">
                               <Star
                                 size={11}
-                                className="fill-amber-500 text-amber-500"
+                                className="fill-blue-500 text-blue-500"
                               />
                               <span className="text-[10px] font-bold ">
                                 Featured
@@ -546,7 +527,7 @@ const AdminEvents = () => {
                       <div
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider whitespace-nowrap border ${
                           event.status === "upcoming"
-                            ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                            ? "bg-blue-50 text-blue-700 border-blue-200"
                             : "bg-slate-50 text-gray-600 border-gray-200"
                         }`}
                       >
@@ -616,7 +597,7 @@ const AdminEvents = () => {
                       <button
                         onClick={() => setModal({ type: "edit", data: event })}
                         disabled={isLoading}
-                        className="flex-1 px-4 py-2.5 border border-orange-200 hover:bg-orange-50 rounded-lg bg-white text-orange-600 text-sm font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex-1 px-4 py-2.5 border border-blue-200 hover:bg-blue-50 rounded-lg bg-white text-blue-600 text-sm font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <Pencil size={14} /> Edit
                       </button>
@@ -652,7 +633,7 @@ const AdminEvents = () => {
                       onClick={() => setCurrentPage(page)}
                       className={`w-9 h-9 rounded-lg text-sm font-bold transition-all ${
                         currentPage === page
-                          ? "bg-orange-500 text-white border border-orange-500"
+                          ? "bg-blue-500 text-white border border-blue-500"
                           : "border border-slate-200 hover:bg-slate-50"
                       }`}
                     >
@@ -680,7 +661,7 @@ const AdminEvents = () => {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gradient-to-r from-slate-50 to-orange-50 border-b border-slate-200">
+                    <tr className="bg-linear-to-r from-slate-50 to-blue-50 border-b border-slate-200">
                       <th className="px-6 py-4 text-left">
                         <span className="text-xs font-bold uppercase tracking-wider text-gray-600">
                           Event
@@ -720,7 +701,7 @@ const AdminEvents = () => {
                   </thead>
                   <tbody>
                     {paginatedData.map((event, idx) => {
-                      const cc = CATEGORY_COLORS[event.category] || "#f97316";
+                      const cc = CATEGORY_COLORS[event.category] || "#3b82f6";
                       return (
                         <motion.tr
                           key={event._id}
@@ -743,7 +724,7 @@ const AdminEvents = () => {
                                 {event.highlight && (
                                   <Star
                                     size={14}
-                                    className="fill-amber-500 text-amber-500 shrink-0"
+                                    className="fill-blue-500 text-blue-500 shrink-0"
                                   />
                                 )}
                                 <div className="flex-1">
@@ -784,7 +765,7 @@ const AdminEvents = () => {
                           {/* Attendees */}
                           <td className="px-6 py-4 text-center">
                             <div className="flex items-center justify-center gap-1 text-sm font-semibold text-slate-900 ">
-                              <Users size={14} className="text-orange-500" />
+                              <Users size={14} className="text-blue-500" />
                               {event.attendees || "—"}
                             </div>
                           </td>
@@ -807,7 +788,7 @@ const AdminEvents = () => {
                             <span
                               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider border ${
                                 event.status === "upcoming"
-                                  ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                  ? "bg-blue-50 text-blue-700 border-blue-200"
                                   : "bg-slate-50 text-gray-600 border-gray-200"
                               }`}
                             >
@@ -830,7 +811,7 @@ const AdminEvents = () => {
                                   setModal({ type: "edit", data: event })
                                 }
                                 disabled={isLoading}
-                                className="p-2 rounded-lg border border-orange-200 bg-orange-50 text-orange-600 hover:bg-orange-100 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="p-2 rounded-lg border border-blue-200 bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 title="Edit"
                               >
                                 <Pencil size={14} />
@@ -867,7 +848,7 @@ const AdminEvents = () => {
                       setPageSize(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="ml-3 px-2 py-1 border border-slate-200 rounded-lg text-sm bg-white outline-none focus:border-orange-500"
+                    className="ml-3 px-2 py-1 border border-slate-200 rounded-lg text-sm bg-white outline-none focus:border-blue-500"
                   >
                     {[5, 10, 25, 50].map((size) => (
                       <option key={size} value={size}>
@@ -895,7 +876,7 @@ const AdminEvents = () => {
                             onClick={() => setCurrentPage(page)}
                             className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
                               currentPage === page
-                                ? "bg-orange-500 text-white border border-orange-500"
+                                ? "bg-blue-500 text-white border border-blue-500"
                                 : "border border-slate-200 hover:bg-slate-50"
                             }`}
                           >
@@ -909,7 +890,7 @@ const AdminEvents = () => {
                           onClick={() => setCurrentPage(1)}
                           className={`w-8 h-8 rounded-lg text-xs font-bold ${
                             currentPage === 1
-                              ? "bg-orange-500 text-white border border-orange-500"
+                              ? "bg-blue-500 text-white border border-blue-500"
                               : "border border-slate-200 hover:bg-slate-50"
                           }`}
                         >
@@ -921,7 +902,7 @@ const AdminEvents = () => {
                         {currentPage > 2 && currentPage < totalPages - 1 && (
                           <button
                             onClick={() => setCurrentPage(currentPage)}
-                            className="w-8 h-8 rounded-lg text-xs font-bold bg-orange-500 text-white border border-orange-500"
+                            className="w-8 h-8 rounded-lg text-xs font-bold bg-blue-500 text-white border border-blue-500"
                           >
                             {currentPage}
                           </button>
@@ -933,7 +914,7 @@ const AdminEvents = () => {
                           onClick={() => setCurrentPage(totalPages)}
                           className={`w-8 h-8 rounded-lg text-xs font-bold ${
                             currentPage === totalPages
-                              ? "bg-orange-500 text-white border border-orange-500"
+                              ? "bg-blue-500 text-white border border-blue-500"
                               : "border border-slate-200 hover:bg-slate-50"
                           }`}
                         >
