@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, fadeIn, staggerContainer, viewport } from '../utils/motion'
 import bannerImage from '../assets/building1.jpg'
+import usePageTitle from '../hooks/usePageTitle'
 
 const aboutParagraphs = [
   'PSG Institute of Technology and Applied Research (PSG iTech) has emerged as one of the most preferred institutions for engineering aspirants in our country. PSG iTech is renowned for its commitment towards the teaching-learning process for the effective transfer of knowledge, pursuit of truth, and moulding students to become ideal citizens of the country.',
@@ -11,6 +12,7 @@ const aboutParagraphs = [
 ]
 
 export default function AboutPage() {
+  usePageTitle('About Us');
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [sent, setSent] = useState(false)
 
@@ -262,7 +264,7 @@ export default function AboutPage() {
               viewport={viewport}
               transition={{ delay: 0.1 }}
               className="lg:col-span-8 rounded-2xl overflow-hidden border border-white/10 min-h-[420px]"
-            >  
+            >
               <iframe
                 title="PSG iTech campus location"
                 src="https://www.google.com/maps?q=PSG+Institute+of+Technology+and+Applied+Research,+Avinashi+Road,+Neelambur,+Coimbatore&output=embed"

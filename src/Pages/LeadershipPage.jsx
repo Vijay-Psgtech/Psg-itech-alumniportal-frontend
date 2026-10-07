@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight, GraduationCap } from "lucide-react";
 import { leadershipTeam } from "../content/data/leadership";
 import { fadeUp, staggerContainer, viewport } from "../utils/motion";
+import usePageTitle from '../hooks/usePageTitle'
+
 
 export default function LeadershipPage() {
+  usePageTitle('Leadership Team');
   return (
     <main className="min-h-screen bg-slate-50">
       <section className="bg-slate-900 pt-32 pb-16">

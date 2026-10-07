@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeUp, staggerContainer, viewport } from "../utils/motion";
 import { albumsAPI, API_BASE } from "../services/api";
+import usePageTitle from '../hooks/usePageTitle'
+
 
 function SearchIcon(props) {
   return (
@@ -75,6 +77,7 @@ const sortOptions = [
 ]
 
 export default function GalleryPage() {
+  usePageTitle('Gallery');
   const [activeCategories, setActiveCategories] = useState([])
   const [sortKey, setSortKey] = useState('newest')
   const [sortOpen, setSortOpen] = useState(false)
