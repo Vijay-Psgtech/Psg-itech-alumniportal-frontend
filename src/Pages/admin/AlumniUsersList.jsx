@@ -1,26 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Search,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Building,
-  Briefcase,
-  Share2 as Linkedin,
-  CheckCircle,
-  XCircle,
-  Users,
-  Filter,
-  Grid3x3,
-  List,
-  Eye,
-  UserCheck,
-  UserX,
-  X,
-  Download,
-} from "lucide-react";
+import { Search, Mail, Phone, MapPin, Calendar, Building, Briefcase, Share2 as Linkedin, CheckCircle, XCircle, Users, Grid3x3, List, Eye, X, Download } from "lucide-react";
 import { adminAPI, API_BASE } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import usePageTitle from "../../hooks/usePageTitle";
@@ -168,11 +148,6 @@ const AlumniUsersList = () => {
     }
   };
 
-  // Scroll to top smoothly
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   const escapeCsvValue = (value) => {
     if (value === null || value === undefined) return "";
     const stringValue = String(value);
@@ -256,11 +231,11 @@ const AlumniUsersList = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-orange-50 mt-16 p-4 sm:p-6 lg:p-24 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-blue-50 mt-16 p-4 sm:p-6 lg:p-24 flex items-center justify-center">
         <div className="text-center">
           <Users
             size={48}
-            className="mx-auto mb-4 text-orange-500 animate-pulse"
+            className="mx-auto mb-4 text-blue-500 animate-pulse"
           />
           <p className="text-gray-600 font-medium">Loading alumni users...</p>
         </div>
@@ -269,7 +244,7 @@ const AlumniUsersList = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-orange-50 mt-16 p-4 sm:p-6 lg:p-24">
+    <div className="min-h-screen bg-linear-to-br from-slate-100 via-white to-blue-50 mt-16 p-4 sm:p-6 lg:p-24">
       {/* Header */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
@@ -299,27 +274,27 @@ const AlumniUsersList = () => {
               value: formatNumber(pageData.totalAlumni),
               icon: Users,
               color: "blue",
-              bg: "bg-orange-50",
-              iconBg: "bg-orange-100",
-              iconColor: "text-orange-600",
+              bg: "bg-blue-50",
+              iconBg: "bg-blue-100",
+              iconColor: "text-blue-600",
             },
             {
               label: "Approved",
               value: formatNumber(pageData.totalApproved),
               icon: CheckCircle,
               color: "green",
-              bg: "bg-emerald-50",
-              iconBg: "bg-emerald-100",
-              iconColor: "text-emerald-600",
+              bg: "bg-blue-50",
+              iconBg: "bg-blue-100",
+              iconColor: "text-blue-600",
             },
             {
               label: "Pending",
               value: formatNumber(pageData.totalPending),
               icon: XCircle,
               color: "yellow",
-              bg: "bg-amber-50",
-              iconBg: "bg-amber-100",
-              iconColor: "text-amber-600",
+              bg: "bg-blue-50",
+              iconBg: "bg-blue-100",
+              iconColor: "text-blue-600",
             },
           ].map((stat, i) => {
             const Icon = stat.icon;
@@ -378,7 +353,7 @@ const AlumniUsersList = () => {
                 });
               }}
               placeholder="Search by name, email, department, or company..."
-              className="w-full py-3 px-4 pl-10 border border-slate-200 rounded-xl text-sm outline-none bg-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all"
+              className="w-full py-3 px-4 pl-10 border border-slate-200 rounded-xl text-sm outline-none bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all"
             />
           </div>
 
@@ -402,7 +377,7 @@ const AlumniUsersList = () => {
                     });
                   }}
                   className={`flex-1 sm:flex-none px-4 py-2.5 border-none text-xs sm:text-sm font-bold transition-all capitalize ${statusFilter === filter.value
-                    ? "bg-orange-500 text-white"
+                    ? "bg-blue-500 text-white"
                     : "bg-white text-gray-600 hover:bg-slate-50"
                     }`}
                 >
@@ -496,7 +471,7 @@ const AlumniUsersList = () => {
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`p-2.5 transition-all ${viewMode === "grid"
-                    ? "bg-orange-500 text-white"
+                    ? "bg-blue-500 text-white"
                     : "bg-white text-gray-500 hover:bg-slate-50"
                     }`}
                   title="Grid View"
@@ -507,7 +482,7 @@ const AlumniUsersList = () => {
                 <button
                   onClick={() => setViewMode("table")}
                   className={`p-2.5 transition-all ${viewMode === "table"
-                    ? "bg-orange-500 text-white"
+                    ? "bg-blue-500 text-white"
                     : "bg-white text-gray-500 hover:bg-slate-50"
                     }`}
                   title="Table View"
@@ -521,7 +496,7 @@ const AlumniUsersList = () => {
             <button
               onClick={handleExportCSV}
               disabled={alumniUsers.length === 0}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Download size={16} />
               Export CSV
@@ -561,7 +536,7 @@ const AlumniUsersList = () => {
                 >
                   {/* Profile Header */}
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 shrink-0">
                       {alumni.profileImage ? (
                         <img
                           src={`${API_BASE}/${alumni.profileImage}`}
@@ -569,7 +544,7 @@ const AlumniUsersList = () => {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center text-white font-bold text-lg">
+                        <div className="w-full h-full bg-linear-to-br from-blue-400 to-blue-500 flex items-center justify-center text-white font-bold text-lg">
                           {alumni.firstName.charAt(0)}
                           {alumni.lastName && alumni.lastName.charAt(0)}
                         </div>
@@ -585,8 +560,8 @@ const AlumniUsersList = () => {
                       <div className="flex items-center gap-2 mt-1">
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${alumni.isApproved
-                            ? "bg-green-100 text-green-700"
-                            : "bg-yellow-100 text-yellow-700"
+                            ? "bg-blue-100 text-blue-700"
+                            : "bg-blue-100 text-blue-700"
                             }`}
                         >
                           {alumni.isApproved ? (
@@ -631,7 +606,7 @@ const AlumniUsersList = () => {
                         href={alumni.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm text-orange-600 hover:text-orange-800"
+                        className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800"
                       >
                         <Linkedin size={14} />
                         LinkedIn Profile
@@ -644,7 +619,7 @@ const AlumniUsersList = () => {
                     {!alumni.isApproved && (
                       <button
                         onClick={() => handleApprove(alumni._id)}
-                        className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+                        className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors"
                       >
                         Approve
                       </button>
@@ -713,7 +688,7 @@ const AlumniUsersList = () => {
                             handlePageChange(page);
                           }}
                           className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${pageData.currentPage === page
-                            ? "bg-orange-500 text-white"
+                            ? "bg-blue-500 text-white"
                             : "border border-slate-200 text-slate-600 hover:bg-slate-50"
                             }`}
                         >
@@ -748,7 +723,7 @@ const AlumniUsersList = () => {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="bg-gradient-to-r from-slate-50 to-orange-50 border-b border-slate-200">
+                    <tr className="bg-linear-to-r from-slate-50 to-blue-50 border-b border-slate-200">
                       <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-gray-600">
                         Alumni
                       </th>
@@ -780,7 +755,7 @@ const AlumniUsersList = () => {
                       >
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                            <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 shrink-0">
                               {alumni.profileImage ? (
                                 <img
                                   src={`${API_BASE}/${alumni.profileImage}`}
@@ -788,7 +763,7 @@ const AlumniUsersList = () => {
                                   className="w-full h-full object-cover"
                                 />
                               ) : (
-                                <div className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center text-white font-bold text-sm">
+                                <div className="w-full h-full bg-linear-to-br from-blue-400 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
                                   {alumni.firstName.charAt(0)}
                                   {alumni.lastName && alumni.lastName.charAt(0)}
                                 </div>
@@ -843,8 +818,8 @@ const AlumniUsersList = () => {
                         <td className="px-6 py-4 text-center">
                           <span
                             className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${alumni.isApproved
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-blue-100 text-blue-700"
                               }`}
                           >
                             {alumni.isApproved ? (
@@ -860,14 +835,14 @@ const AlumniUsersList = () => {
                             {!alumni.isApproved && (
                               <button
                                 onClick={() => handleApprove(alumni._id)}
-                                className="p-1.5 rounded-lg bg-green-100 text-green-600 hover:bg-green-200 transition-colors"
+                                className="p-1.5 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
                                 title="Approve"
                               >
                                 <CheckCircle size={14} />
                               </button>
                             )}
                             <button
-                              className="p-1.5 rounded-lg bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors"
+                              className="p-1.5 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
                               title="View Details"
                               onClick={() => setSelectedItem(alumni)}
                             >
@@ -935,7 +910,7 @@ const AlumniUsersList = () => {
                             handlePageChange(page);
                           }}
                           className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${pageData.currentPage === page
-                            ? "bg-orange-500 text-white"
+                            ? "bg-blue-500 text-white"
                             : "border border-slate-200 text-slate-600 hover:bg-slate-50"
                             }`}
                         >
@@ -979,7 +954,7 @@ const AlumniUsersList = () => {
               <div
                 onClick={() => setSelectedItem(null)}
                 style={{
-                  position: "absolute inset-0 z-[2000]",
+                  position: "absolute inset-0 z-2000",
                   inset: 0,
                   background: "rgba(0,0,0,0.45)",
                   backdropFilter: "blur(4px)",
@@ -1006,7 +981,7 @@ const AlumniUsersList = () => {
                   {/* Profile Column */}
                   <div className="md:col-span-1 bg-slate-50 rounded-2xl p-5 border border-slate-100">
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-28 h-28 rounded-full overflow-hidden bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-extrabold text-2xl mb-4 ring-4 ring-white shadow-md">
+                      <div className="w-28 h-28 rounded-full overflow-hidden bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-extrabold text-2xl mb-4 ring-4 ring-white shadow-md">
                         {selectedItem.files?.currentPhoto ? (
                           <img
                             src={`${API_BASE}/uploads/${selectedItem.files.currentPhoto}`}
@@ -1098,7 +1073,7 @@ const AlumniUsersList = () => {
                       {!selectedItem.isApproved && (
                         <button
                           onClick={() => handleApprove(selectedItem._id)}
-                          className="flex-1 px-4 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition"
+                          className="flex-1 px-4 py-3 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition"
                         >
                           Approve Alumni
                         </button>
