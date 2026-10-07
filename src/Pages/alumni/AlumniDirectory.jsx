@@ -18,14 +18,14 @@ const getInitials = (first = "", last = "") =>
   `${first.charAt(0)}${last.charAt(0)}`.toUpperCase() || "?";
 
 const avatarGradients = [
-  "from-rose-400 to-orange-400",
-  "from-sky-400 to-blue-500",
-  "from-emerald-400 to-teal-500",
-  "from-violet-400 to-purple-500",
-  "from-amber-400 to-orange-500",
-  "from-pink-400 to-rose-500",
-  "from-cyan-400 to-sky-500",
-  "from-indigo-400 to-blue-500",
+  "from-blue-400 to-blue-400",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
 ];
 const pickGradient = (str = "") =>
   avatarGradients[str.charCodeAt(0) % avatarGradients.length];
@@ -33,72 +33,72 @@ const pickGradient = (str = "") =>
 const BATCH_PALETTES = [
   {
     bg: "from-slate-800 to-slate-900",
-    accent: "border-amber-400",
-    dot: "bg-amber-400",
-    text: "text-amber-300",
+    accent: "border-blue-400",
+    dot: "bg-blue-400",
+    text: "text-blue-300",
   },
   {
     bg: "from-blue-800 to-blue-950",
-    accent: "border-sky-400",
-    dot: "bg-sky-400",
-    text: "text-sky-300",
+    accent: "border-blue-400",
+    dot: "bg-blue-400",
+    text: "text-blue-300",
   },
   {
-    bg: "from-emerald-800 to-emerald-950",
-    accent: "border-emerald-400",
-    dot: "bg-emerald-400",
-    text: "text-emerald-300",
+    bg: "from-blue-800 to-blue-950",
+    accent: "border-blue-400",
+    dot: "bg-blue-400",
+    text: "text-blue-300",
   },
   {
-    bg: "from-violet-800 to-violet-950",
-    accent: "border-violet-400",
-    dot: "bg-violet-400",
-    text: "text-violet-300",
+    bg: "from-blue-800 to-blue-950",
+    accent: "border-blue-400",
+    dot: "bg-blue-400",
+    text: "text-blue-300",
   },
   {
-    bg: "from-rose-800 to-rose-950",
-    accent: "border-rose-400",
-    dot: "bg-rose-400",
-    text: "text-rose-300",
+    bg: "from-blue-800 to-blue-950",
+    accent: "border-blue-400",
+    dot: "bg-blue-400",
+    text: "text-blue-300",
   },
   {
-    bg: "from-amber-800 to-amber-950",
-    accent: "border-amber-400",
-    dot: "bg-amber-400",
-    text: "text-amber-300",
+    bg: "from-blue-800 to-blue-950",
+    accent: "border-blue-400",
+    dot: "bg-blue-400",
+    text: "text-blue-300",
   },
 ];
 
 const ACCENT_MAP = {
-  "from-violet-500 to-purple-600": {
-    ring: "ring-violet-200",
-    dot: "bg-violet-500",
-    badge: "bg-violet-50  text-violet-700 ring-violet-200",
+  "from-blue-500 to-blue-600": {
+    ring: "ring-blue-200",
+    dot: "bg-blue-500",
+    badge: "bg-blue-50  text-blue-700 ring-blue-200",
   },
-  "from-sky-400   to-blue-600": {
-    ring: "ring-sky-200",
-    dot: "bg-sky-500",
-    badge: "bg-sky-50     text-sky-700    ring-sky-200",
+  "from-blue-400   to-blue-600": {
+    ring: "ring-blue-200",
+    dot: "bg-blue-500",
+    badge: "bg-blue-50     text-blue-700    ring-blue-200",
   },
-  "from-emerald-400 to-teal-600": {
-    ring: "ring-emerald-200",
-    dot: "bg-emerald-500",
-    badge: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+  "from-blue-400 to-blue-600": {
+    ring: "ring-blue-200",
+    dot: "bg-blue-500",
+    badge: "bg-blue-50 text-blue-700 ring-blue-200",
   },
-  "from-amber-400 to-orange-500": {
-    ring: "ring-amber-200",
-    dot: "bg-amber-500",
-    badge: "bg-amber-50   text-amber-700  ring-amber-200",
+  "from-blue-400 to-blue-500": {
+    ring: "ring-blue-200",
+    dot: "bg-blue-500",
+    badge: "bg-blue-50   text-blue-700  ring-blue-200",
   },
-  "from-rose-400  to-pink-600": {
-    ring: "ring-rose-200",
-    dot: "bg-rose-500",
-    badge: "bg-rose-50    text-rose-700   ring-rose-200",
+  "from-blue-400  to-blue-600": {
+    ring: "ring-blue-200",
+    dot: "bg-blue-500",
+    badge: "bg-blue-50    text-blue-700   ring-blue-200",
   },
-  "from-cyan-400  to-sky-500": {
-    ring: "ring-cyan-200",
-    dot: "bg-cyan-500",
-    badge: "bg-cyan-50    text-cyan-700   ring-cyan-200",
+  "from-blue-400  to-blue-500": {
+    ring: "ring-blue-200",
+    dot: "bg-blue-500",
+    badge: "bg-blue-50    text-blue-700   ring-blue-200",
   },
 };
 
@@ -137,10 +137,10 @@ const Pill = ({ children, color = "slate" }) => {
   const map = {
     slate: "bg-slate-100 text-slate-600",
     blue: "bg-blue-50 text-blue-700",
-    emerald: "bg-emerald-50 text-emerald-700",
-    amber: "bg-amber-50 text-amber-700",
-    rose: "bg-rose-50 text-rose-700",
-    violet: "bg-violet-50 text-violet-700",
+    emerald: "bg-blue-50 text-blue-700",
+    amber: "bg-blue-50 text-blue-700",
+    rose: "bg-blue-50 text-blue-700",
+    violet: "bg-blue-50 text-blue-700",
   };
   return (
     <span
@@ -294,7 +294,7 @@ const AlumniCard = ({ alumni, apiBase, index, onSelect }) => {
               >
                 <CheckCircle
                   size={12}
-                  className="text-emerald-500 fill-emerald-100 dark:fill-emerald-900/60"
+                  className="text-blue-500 fill-blue-100 dark:fill-blue-900/60"
                   strokeWidth={2.5}
                 />
               </span>
@@ -310,7 +310,7 @@ const AlumniCard = ({ alumni, apiBase, index, onSelect }) => {
               <span>
                 {paidMembership && (
                   <Pill color="emerald">
-                    <Crown size={10} className="text-emerald-500" />
+                    <Crown size={10} className="text-blue-500" />
                     Membership Active
                   </Pill>
                 )}
@@ -343,7 +343,7 @@ const AlumniCard = ({ alumni, apiBase, index, onSelect }) => {
                 </span>
               )}
               {alumni.batchYear && (
-                <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 ring-1 ring-amber-200 dark:ring-amber-800">
+                <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 ring-1 ring-blue-200 dark:ring-blue-800">
                   <Calendar size={9} />
                   {alumni.batchYear}
                 </span>
@@ -596,7 +596,7 @@ const AlumniDirectory = () => {
 
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="text-[11px] font-extrabold text-indigo-400 uppercase tracking-widest mb-1">
+                <p className="text-[11px] font-extrabold text-blue-400 uppercase tracking-widest mb-1">
                   Alumni Portal
                 </p>
                 <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none">
@@ -642,13 +642,13 @@ const AlumniDirectory = () => {
                   <div className="flex items-center bg-white border border-slate-200 rounded-xl p-1 shadow-sm">
                     <button
                       onClick={() => setGridMode("grid")}
-                      className={`p-1.5 rounded-lg transition-all ${gridMode === "grid" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+                      className={`p-1.5 rounded-lg transition-all ${gridMode === "grid" ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
                     >
                       <LayoutGrid size={14} />
                     </button>
                     <button
                       onClick={() => setGridMode("list")}
-                      className={`p-1.5 rounded-lg transition-all ${gridMode === "list" ? "bg-indigo-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+                      className={`p-1.5 rounded-lg transition-all ${gridMode === "list" ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
                     >
                       <List size={14} />
                     </button>
@@ -656,12 +656,12 @@ const AlumniDirectory = () => {
                   {/* Filter toggle */}
                   <button
                     onClick={() => setShowFilters((p) => !p)}
-                    className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl border text-sm font-bold transition-all shadow-sm ${showFilters ? "bg-indigo-600 border-indigo-600 text-white" : "bg-white border-slate-200 text-slate-600 hover:border-indigo-300"}`}
+                    className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl border text-sm font-bold transition-all shadow-sm ${showFilters ? "bg-blue-600 border-blue-600 text-white" : "bg-white border-slate-200 text-slate-600 hover:border-blue-300"}`}
                   >
                     <SlidersHorizontal size={14} />
                     Filters
                     {(filterOccupation || filterDept) && (
-                      <span className="w-4 h-4 rounded-full bg-amber-400 text-white text-[9px] font-black flex items-center justify-center">
+                      <span className="w-4 h-4 rounded-full bg-blue-400 text-white text-[9px] font-black flex items-center justify-center">
                         {[filterOccupation, filterDept].filter(Boolean).length}
                       </span>
                     )}
@@ -766,7 +766,7 @@ const AlumniDirectory = () => {
                       placeholder="Search by name, roll number…"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full pl-10 pr-10 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300 shadow-sm transition-all"
+                      className="w-full pl-10 pr-10 py-3 rounded-2xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-300 shadow-sm transition-all"
                     />
                     {search && (
                       <button
@@ -794,7 +794,7 @@ const AlumniDirectory = () => {
                             onChange={(e) =>
                               setFilterOccupation(e.target.value)
                             }
-                            className="appearance-none pl-3.5 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm cursor-pointer"
+                            className="appearance-none pl-3.5 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm cursor-pointer"
                           >
                             <option value="">All Occupations</option>
                             {filters.occupations.map((o) => (
@@ -811,7 +811,7 @@ const AlumniDirectory = () => {
                           <select
                             value={filterDept}
                             onChange={(e) => setFilterDept(e.target.value)}
-                            className="appearance-none pl-3.5 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm cursor-pointer"
+                            className="appearance-none pl-3.5 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm cursor-pointer"
                           >
                             <option value="">All Departments</option>
                             {filters.departments.map((d) => (
@@ -861,7 +861,7 @@ const AlumniDirectory = () => {
                           setFilterOccupation("");
                           setFilterDept("");
                         }}
-                        className="mt-3 text-indigo-500 text-sm font-bold hover:underline"
+                        className="mt-3 text-blue-500 text-sm font-bold hover:underline"
                       >
                         Clear filters
                       </button>
@@ -873,7 +873,7 @@ const AlumniDirectory = () => {
                     {displayedAlumni.length > 0 && (
                       <section className="mb-8">
                         <div className="flex items-center gap-2 mb-4">
-                          <Eye size={13} className="text-emerald-500" />
+                          <Eye size={13} className="text-blue-500" />
                           <span className="text-xs font-extrabold text-slate-500 uppercase tracking-widest">
                             Alumni Profiles
                           </span>
@@ -1000,7 +1000,7 @@ const AlumniDirectory = () => {
                             );
                           }}
                           disabled={currentPage === 1}
-                          className="px-3 py-2 rounded-lg border border-indigo-300 text-indigo-600 hover:bg-indigo-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          className="px-3 py-2 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                           ← Prev
                         </button>
@@ -1058,8 +1058,8 @@ const AlumniDirectory = () => {
                                   }}
                                   className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
                                     currentPage === page
-                                      ? "bg-indigo-600 text-white shadow-md"
-                                      : "border border-indigo-200 text-indigo-600 hover:bg-indigo-50"
+                                      ? "bg-blue-600 text-white shadow-md"
+                                      : "border border-blue-200 text-blue-600 hover:bg-blue-50"
                                   }`}
                                 >
                                   {page}
@@ -1083,7 +1083,7 @@ const AlumniDirectory = () => {
                             );
                           }}
                           disabled={currentPage === totalPages}
-                          className="px-3 py-2 rounded-lg border border-indigo-300 text-indigo-600 hover:bg-indigo-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                          className="px-3 py-2 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                         >
                           Next →
                         </button>
