@@ -194,7 +194,7 @@ const NewsLetterFormModal = ({ initial, onSave, onClose, isLoading }) => {
                   </button>
                 </div>
               ) : (
-                <label className="block w-full rounded-2xl border border-dashed border-slate-300 bg-slate-50/90 px-4 py-6 text-center cursor-pointer hover:border-orange-400 hover:bg-orange-50 transition-colors">
+                <label className="block w-full rounded-2xl border border-dashed border-slate-300 bg-slate-50/90 px-4 py-6 text-center cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors">
                   <div className="flex flex-col items-center gap-2 text-slate-500">
                     <FileText size={24} />
                     <span className="text-sm font-semibold">
@@ -217,7 +217,7 @@ const NewsLetterFormModal = ({ initial, onSave, onClose, isLoading }) => {
           </FLabel>
           <FLabel label="PDF File" span2>
             <div className="space-y-3">
-              <label className="block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 cursor-pointer hover:border-orange-400 transition-colors">
+              <label className="block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 cursor-pointer hover:border-blue-400 transition-colors">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-sm font-semibold text-slate-700">
@@ -242,7 +242,7 @@ const NewsLetterFormModal = ({ initial, onSave, onClose, isLoading }) => {
                   href={getPreviewUrl(form.pdfUrl)}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-orange-600 hover:underline"
+                  className="inline-flex items-center gap-2 text-sm text-blue-600 hover:underline"
                 >
                   <FileText size={14} />
                   View existing PDF
@@ -268,7 +268,7 @@ const NewsLetterFormModal = ({ initial, onSave, onClose, isLoading }) => {
             disabled={!valid || isLoading}
             className={`flex-1 py-3 rounded-xl border-none text-sm font-bold flex items-center justify-center gap-2 transition-all ${
               valid && !isLoading
-                ? "bg-linear-to-br from-orange-600 to-orange-900 text-white shadow-lg shadow-orange-600/25 hover:shadow-orange-600/40"
+                ? "bg-linear-to-br from-blue-600 to-blue-900 text-white shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40"
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
             } ${isLoading ? "opacity-70" : ""}`}
           >
@@ -292,7 +292,7 @@ const NewsLetterFormModal = ({ initial, onSave, onClose, isLoading }) => {
         </div>
 
         {!valid && (
-          <p className="mt-3 text-xs text-amber-600">
+          <p className="mt-3 text-xs text-blue-600">
             Please add title, date, category, and description before saving.
           </p>
         )}
@@ -478,7 +478,7 @@ const AdminNewsLetter = () => {
         <button
           type="button"
           onClick={() => setModal({ type: "add" })}
-          className="inline-flex items-center gap-2 rounded-2xl bg-linear-to-br from-orange-600 to-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 hover:brightness-105 transition-all"
+          className="inline-flex items-center gap-2 rounded-2xl bg-linear-to-br from-blue-600 to-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 hover:brightness-105 transition-all"
         >
           <Plus size={16} /> New Newsletter
         </button>
@@ -488,7 +488,7 @@ const AdminNewsLetter = () => {
         <div
           className={`rounded-2xl px-4 py-3 text-sm font-medium ${
             notice.type === "success"
-              ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+              ? "bg-blue-50 text-blue-700 border border-blue-100"
               : "bg-red-50 text-red-700 border border-red-100"
           }`}
         >
@@ -580,7 +580,7 @@ const AdminNewsLetter = () => {
                           {item.category}
                         </span>
                         {item.tags?.length > 0 && (
-                          <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700">
+                          <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
                             {item.tags.slice(0, 3).join(", ")}
                           </span>
                         )}

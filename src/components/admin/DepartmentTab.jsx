@@ -286,7 +286,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
     return (
       <div className="flex items-center justify-center p-12">
         <div className="text-center">
-          <div className="w-10 h-10 border-[3px] border-slate-200 border-t-orange-500 rounded-full mx-auto mb-4 animate-spin" />
+          <div className="w-10 h-10 border-[3px] border-slate-200 border-t-blue-500 rounded-full mx-auto mb-4 animate-spin" />
           <p className="text-gray-400 font-medium">Loading departments...</p>
         </div>
       </div>
@@ -312,7 +312,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
             resetForm();
             setShowForm(true);
           }}
-          className="flex items-center gap-2 px-4 py-2.5 bg-linear-to-br from-[#f97316] to-[#ea580c] text-white rounded-xl font-semibold text-sm hover:shadow-lg transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 bg-linear-to-br from-[#3b82f6] to-[#2563eb] text-white rounded-xl font-semibold text-sm hover:shadow-lg transition-all"
         >
           <Plus size={16} /> Add Department
         </motion.button>
@@ -334,7 +334,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm
-            outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition"
+            outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
           />
         </div>
 
@@ -346,14 +346,14 @@ const DepartmentTab = ({ onError, onSuccess }) => {
             onClick={() => setShowFilterPanel(!showFilterPanel)}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl border font-medium text-sm transition ${
               showFilterPanel || hasActiveFilters
-                ? "border-orange-500 bg-orange-50 text-orange-700"
+                ? "border-blue-500 bg-blue-50 text-blue-700"
                 : "border-slate-200 text-slate-600 hover:border-slate-300"
             }`}
           >
             <Filter size={16} />
             Filters
             {hasActiveFilters && (
-              <span className="ml-1 px-2 py-0.5 rounded-full bg-orange-600 text-white text-xs font-bold">
+              <span className="ml-1 px-2 py-0.5 rounded-full bg-blue-600 text-white text-xs font-bold">
                 {[
                   selectedProgrammeTypes.length,
                   selectedStatus.length,
@@ -400,7 +400,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                           type="checkbox"
                           checked={selectedProgrammeTypes.includes(type)}
                           onChange={() => toggleProgrammeType(type)}
-                          className="w-4 h-4 rounded border-slate-300 text-orange-600 focus:ring-2 focus:ring-orange-500/20 cursor-pointer"
+                          className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-2 focus:ring-blue-500/20 cursor-pointer"
                         />
                         <span className="text-sm text-slate-600 group-hover:text-slate-900 transition">
                           {type === "UG" ? "Undergraduate" : "Postgraduate"}
@@ -428,7 +428,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                           type="checkbox"
                           checked={selectedStatus.includes(value)}
                           onChange={() => toggleStatus(value)}
-                          className="w-4 h-4 rounded border-slate-300 text-orange-600 focus:ring-2 focus:ring-orange-500/20 cursor-pointer"
+                          className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-2 focus:ring-blue-500/20 cursor-pointer"
                         />
                         <span className="text-sm text-slate-600 group-hover:text-slate-900 transition">
                           {label}
@@ -470,12 +470,12 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                 key={type}
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-orange-100 text-orange-700 text-xs font-medium"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-100 text-blue-700 text-xs font-medium"
               >
                 <span>Type: {type}</span>
                 <button
                   onClick={() => toggleProgrammeType(type)}
-                  className="hover:text-orange-900"
+                  className="hover:text-blue-900"
                 >
                   <X size={14} />
                 </button>
@@ -488,14 +488,14 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                 key={status}
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-100 text-green-700 text-xs font-medium"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-100 text-blue-700 text-xs font-medium"
               >
                 <span>
                   Status: {status === "active" ? "Active" : "Inactive"}
                 </span>
                 <button
                   onClick={() => toggleStatus(status)}
-                  className="hover:text-green-900"
+                  className="hover:text-blue-900"
                 >
                   <X size={14} />
                 </button>
@@ -550,7 +550,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                       ? "border-red-400 bg-red-50"
                       : "border-slate-200"
                   }
-                  outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition`}
+                  outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition`}
                 />
                 {formErrors.name && (
                   <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
@@ -577,7 +577,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                       ? "border-red-400 bg-red-50"
                       : "border-slate-200"
                   }
-                  outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition`}
+                  outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition`}
                 />
                 {formErrors.degree && (
                   <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
@@ -607,7 +607,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                         ? "border-red-400 bg-red-50"
                         : "border-slate-200"
                     }
-                    outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition`}
+                    outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition`}
                   >
                     <option value="">-- Select --</option>
                     <option value="UG">UG (Undergraduate)</option>
@@ -634,7 +634,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                   placeholder="Add any additional details about this department..."
                   rows="3"
                   className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 text-sm
-                  outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition"
+                  outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
                 />
               </div>
 
@@ -654,7 +654,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-linear-to-br from-[#f97316] to-[#ea580c] text-white font-semibold text-sm hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-linear-to-br from-[#3b82f6] to-[#2563eb] text-white font-semibold text-sm hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {submitting ? (
                     <>
@@ -714,7 +714,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                       {dept.degree}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <span className="inline-block px-3 py-1 rounded-lg text-xs font-semibold bg-orange-100 text-orange-700">
+                      <span className="inline-block px-3 py-1 rounded-lg text-xs font-semibold bg-blue-100 text-blue-700">
                         {dept.programmeType}
                       </span>
                     </td>
@@ -723,7 +723,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                         onClick={() => handleToggleStatus(dept._id)}
                         className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-xs transition ${
                           dept.active
-                            ? "bg-green-100 text-green-700 hover:bg-green-200"
+                            ? "bg-blue-100 text-blue-700 hover:bg-blue-200"
                             : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                         }`}
                       >
@@ -744,7 +744,7 @@ const DepartmentTab = ({ onError, onSuccess }) => {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => handleEdit(dept)}
-                          className="text-orange-600 hover:text-orange-700 hover:bg-orange-50 p-2 rounded-lg transition"
+                          className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-2 rounded-lg transition"
                           title="Edit department"
                         >
                           <Edit2 size={16} />

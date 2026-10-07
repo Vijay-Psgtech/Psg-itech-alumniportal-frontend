@@ -4,32 +4,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Plus,
-  Search,
-  X,
-  Edit2,
-  Trash2,
-  MapPin,
-  Users,
-  Calendar,
-  ChevronRight,
-  AlertCircle,
-  CheckCircle,
-  Image as ImageIcon,
-  LogOut,
-  ArrowLeft,
-  ExternalLink,
-  Tag,
-  Eye,
-  UserPlus,
-  UserMinus,
-  MoreHorizontal,
-  Share2,
-  MessageCircle,
-  Clock,
-  Globe,
-} from "lucide-react";
+import { Plus, Search, X, Edit2, Trash2, MapPin, Users, AlertCircle, CheckCircle, Image as ImageIcon, LogOut, ArrowLeft, Tag, Eye, UserPlus, UserMinus, MessageCircle, Clock, Globe } from "lucide-react";
 import { alumniAPI, API_BASE } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -47,21 +22,21 @@ const CHAPTER_CATEGORIES = [
 ];
 
 const CATEGORY_COLORS = {
-  regional: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" },
-  professional: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
-  interest: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" },
-  industry: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
+  regional: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
+  professional: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
+  interest: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
+  industry: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
 };
 
 const getInitials = (name = "") =>
   name.split(" ").map(n => n[0]).join("").toUpperCase() || "?";
 
 const avatarGradients = [
-  "from-rose-400 to-orange-400",
-  "from-sky-400 to-orange-500",
-  "from-emerald-400 to-teal-500",
-  "from-orange-400 to-purple-500",
-  "from-amber-400 to-orange-500",
+  "from-blue-400 to-blue-400",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
+  "from-blue-400 to-blue-500",
 ];
 const pickGradient = (str = "") =>
   avatarGradients[str.charCodeAt(0) % avatarGradients.length];
@@ -121,7 +96,7 @@ const ChapterCard = ({
         {/* Status Badge */}
         {isAuthor && (
           <div className="absolute top-3 left-3 flex items-center gap-1 bg-white/90 backdrop-blur px-2.5 py-1 rounded-full">
-            <Eye size={12} className="text-orange-600" />
+            <Eye size={12} className="text-blue-600" />
             <span className="text-xs font-bold text-slate-700">Author</span>
           </div>
         )}
@@ -131,7 +106,7 @@ const ChapterCard = ({
       <div className="p-5 flex flex-col flex-1 gap-3">
         {/* Title & Location */}
         <div>
-          <h3 className="text-lg font-bold text-slate-800 group-hover:text-orange-600 transition-colors line-clamp-2">
+          <h3 className="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
             {chapter.title}
           </h3>
           {chapter.location && (
@@ -173,7 +148,7 @@ const ChapterCard = ({
                   e.stopPropagation();
                   onEdit();
                 }}
-                className="p-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-600 transition-colors"
+                className="p-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 transition-colors"
                 title="Edit chapter"
               >
                 <Edit2 size={14} />
@@ -205,7 +180,7 @@ const ChapterCard = ({
             className={`w-full py-2 rounded-lg font-semibold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
               isMember
                 ? "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                : "bg-orange-600 text-white hover:bg-orange-700"
+                : "bg-blue-600 text-white hover:bg-blue-700"
             }`}
           >
             {isLoadingChapter ? (
@@ -240,6 +215,7 @@ const ChapterDetailModal = ({
   onClose, 
   onEdit, 
   onJoin,
+  onMessage,
   isLoadingChapter, // ✅ NEW: Loading state
 }) => {
   const bannerUrl = chapter.bannerImage
@@ -298,7 +274,7 @@ const ChapterDetailModal = ({
               {isAuthor && (
                 <button
                   onClick={onEdit}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 font-semibold transition-colors"
+                  className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold transition-colors"
                 >
                   <Edit2 size={16} />
                   Edit
@@ -329,7 +305,7 @@ const ChapterDetailModal = ({
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">
                 Status
               </p>
-              <p className="text-sm font-bold text-emerald-700">Active</p>
+              <p className="text-sm font-bold text-blue-700">Active</p>
             </div>
           </div>
 
@@ -357,24 +333,39 @@ const ChapterDetailModal = ({
           )}
 
           {/* Founder Info */}
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-            <p className="text-xs font-semibold text-orange-700 uppercase tracking-widest mb-2">
-              Founder
-            </p>
-            <div className="flex items-center gap-3">
-              <div
-                className={`w-10 h-10 rounded-lg bg-gradient-to-br ${pickGradient(
-                  chapter.founderName
-                )} flex items-center justify-center text-white font-bold`}
-              >
-                {getInitials(chapter.founderName)}
-              </div>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="font-semibold text-slate-800">
-                  {chapter.founderName || "Unknown"}
+                <p className="text-xs font-semibold text-blue-700 uppercase tracking-widest mb-2">
+                  Founder
                 </p>
-                <p className="text-sm text-slate-600">{chapter.founderEmail}</p>
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-10 h-10 rounded-lg bg-linear-to-br ${pickGradient(
+                      chapter.founderName || chapter.foundedBy || "A"
+                    )} flex items-center justify-center text-white font-bold`}
+                  >
+                    {getInitials(chapter.founderName || "Chapter Founder")}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-800">
+                      {chapter.founderName || "Unknown"}
+                    </p>
+                    <p className="text-sm text-slate-600">{chapter.founderEmail || chapter.foundedByEmail || "No email shared"}</p>
+                  </div>
+                </div>
               </div>
+
+              {onMessage && user && String(user?._id || user?.id) !== String(typeof chapter?.foundedBy === "object" ? chapter?.foundedBy?._id : chapter?.foundedBy || "") && (
+                <button
+                  type="button"
+                  onClick={() => onMessage(chapter)}
+                  className="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white px-3 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-50"
+                >
+                  <MessageCircle size={16} />
+                  Message
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -390,7 +381,7 @@ const ChapterDetailModal = ({
               className={`w-full py-3 rounded-lg font-bold text-base transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                 isMember
                   ? "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                  : "bg-orange-600 text-white hover:bg-orange-700"
+                  : "bg-blue-600 text-white hover:bg-blue-700"
               }`}
             >
               {isLoadingChapter ? (
@@ -460,7 +451,7 @@ const ChapterFormModal = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[2000] flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-2000 flex items-center justify-center p-4"
       onClick={onCancel}
     >
       <motion.div
@@ -471,7 +462,7 @@ const ChapterFormModal = ({
         className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-linear-to-r from-slate-50 to-white">
           <h2 className="text-xl font-bold text-slate-800">
             {chapter ? "Edit Chapter" : "Create New Chapter"}
           </h2>
@@ -487,7 +478,7 @@ const ChapterFormModal = ({
         <form onSubmit={handleSubmit} className="overflow-y-auto flex-1 p-6 space-y-5">
           {error && (
             <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <AlertCircle size={18} className="text-red-600 flex-shrink-0 mt-0.5" />
+              <AlertCircle size={18} className="text-red-600 shrink-0 mt-0.5" />
               <div>
                 <p className="font-semibold text-red-800">Error</p>
                 <p className="text-sm text-red-700 mt-0.5">{error}</p>
@@ -510,7 +501,7 @@ const ChapterFormModal = ({
               />
               <label
                 htmlFor="banner-upload"
-                className="block relative h-40 border-2 border-dashed border-slate-300 rounded-lg overflow-hidden cursor-pointer hover:border-orange-400 hover:bg-orange-50 transition-all group"
+                className="block relative h-40 border-2 border-dashed border-slate-300 rounded-lg overflow-hidden cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all group"
               >
                 {bannerPreview ? (
                   <>
@@ -550,7 +541,7 @@ const ChapterFormModal = ({
               onChange={handleInputChange}
               placeholder="e.g., Bangalore Tech Alumni Chapter"
               required
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-slate-800 placeholder:text-slate-400"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-800 placeholder:text-slate-400"
             />
           </div>
 
@@ -565,7 +556,7 @@ const ChapterFormModal = ({
               value={formData.location}
               onChange={handleInputChange}
               placeholder="e.g., Bangalore, India"
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-slate-800 placeholder:text-slate-400"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-800 placeholder:text-slate-400"
             />
           </div>
 
@@ -578,7 +569,7 @@ const ChapterFormModal = ({
               name="category"
               value={formData.category}
               onChange={handleInputChange}
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-slate-800"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-800"
             >
               {CHAPTER_CATEGORIES.map((cat) => (
                 <option key={cat.id} value={cat.id}>
@@ -600,7 +591,7 @@ const ChapterFormModal = ({
               placeholder="Brief description of your chapter..."
               required
               rows="3"
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-slate-800 placeholder:text-slate-400 resize-none"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-800 placeholder:text-slate-400 resize-none"
             />
           </div>
 
@@ -615,7 +606,7 @@ const ChapterFormModal = ({
               onChange={handleInputChange}
               placeholder="Detailed information about your chapter..."
               rows="5"
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-slate-800 placeholder:text-slate-400 resize-none"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-800 placeholder:text-slate-400 resize-none"
             />
           </div>
 
@@ -630,7 +621,7 @@ const ChapterFormModal = ({
               value={formData.tags}
               onChange={handleInputChange}
               placeholder="e.g., networking, tech, startup"
-              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-slate-800 placeholder:text-slate-400"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-slate-800 placeholder:text-slate-400"
             />
           </div>
         </form>
@@ -646,7 +637,7 @@ const ChapterFormModal = ({
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-6 py-2 rounded-lg bg-orange-600 text-white font-semibold hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="px-6 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
             {loading ? (
               <>
@@ -853,6 +844,22 @@ const AlumniChapters = () => {
     [userChapterIds, fetchChapters, joiningChapterId] // ✅ Added joiningChapterId
   );
 
+  const handleMessageFounder = (chapter) => {
+    const founderId = typeof chapter?.foundedBy === "object"
+      ? chapter.foundedBy._id
+      : chapter?.foundedBy;
+
+    if (!founderId) return;
+
+    const founderName = typeof chapter?.foundedBy === "object"
+      ? `${chapter.foundedBy.firstName || ""} ${chapter.foundedBy.lastName || ""}`.trim()
+      : chapter?.founderName || "Chapter Founder";
+
+    navigate(
+      `/alumni/messages?recipientId=${founderId}&recipientName=${encodeURIComponent(founderName)}`
+    );
+  };
+
   // Handlers
   const handleLogout = () => {
     logout();
@@ -875,7 +882,7 @@ const AlumniChapters = () => {
         }
       `}</style>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 pt-24 pb-16 px-4 sm:px-6">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-50 pt-24 pb-16 px-4 sm:px-6">
         {/* Header */}
         <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm border-b border-slate-200/50 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
@@ -900,7 +907,7 @@ const AlumniChapters = () => {
                   setEditingChapter(null);
                   setShowCreateForm(true);
                 }}
-                className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 font-semibold shadow-md transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold shadow-md transition-all"
               >
                 <Plus size={18} />
                 <span className="hidden sm:inline">New Chapter</span>
@@ -926,10 +933,10 @@ const AlumniChapters = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="mb-6 flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-lg"
+                className="mb-6 flex items-center gap-3 p-4 bg-blue-50 border border-blue-200 rounded-lg"
               >
-                <CheckCircle size={20} className="text-emerald-600 flex-shrink-0" />
-                <p className="font-semibold text-emerald-800">{success}</p>
+                <CheckCircle size={20} className="text-blue-600 shrink-0" />
+                <p className="font-semibold text-blue-800">{success}</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -943,7 +950,7 @@ const AlumniChapters = () => {
                 exit={{ opacity: 0, y: -10 }}
                 className="mb-6 flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg"
               >
-                <AlertCircle size={20} className="text-red-600 flex-shrink-0" />
+                <AlertCircle size={20} className="text-red-600 shrink-0" />
                 <p className="font-semibold text-red-800">{error}</p>
               </motion.div>
             )}
@@ -962,7 +969,7 @@ const AlumniChapters = () => {
                 placeholder="Search chapters by name, location, or description…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-slate-800 placeholder:text-slate-400 shadow-sm"
+                className="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-slate-800 placeholder:text-slate-400 shadow-sm"
               />
             </div>
 
@@ -973,7 +980,7 @@ const AlumniChapters = () => {
                 onClick={() => setFilterCategory("")}
                 className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
                   !filterCategory
-                    ? "bg-orange-600 text-white"
+                    ? "bg-blue-600 text-white"
                     : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                 }`}
               >
@@ -985,7 +992,7 @@ const AlumniChapters = () => {
                   onClick={() => setFilterCategory(cat.id)}
                   className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 ${
                     filterCategory === cat.id
-                      ? "bg-orange-600 text-white"
+                      ? "bg-blue-600 text-white"
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                   }`}
                 >
@@ -1004,7 +1011,7 @@ const AlumniChapters = () => {
           {/* Chapters Grid */}
           {loading ? (
             <div className="flex flex-col items-center justify-center py-24 gap-4">
-              <div className="w-12 h-12 rounded-full border-4 border-slate-200 border-t-orange-500 animate-spin" />
+              <div className="w-12 h-12 rounded-full border-4 border-slate-200 border-t-blue-500 animate-spin" />
               <p className="text-slate-500 font-medium">Loading chapters…</p>
             </div>
           ) : filteredChapters.length === 0 ? (
@@ -1024,7 +1031,7 @@ const AlumniChapters = () => {
                     setSearch("");
                     setFilterCategory("");
                   }}
-                  className="mt-4 text-orange-600 font-bold hover:underline"
+                  className="mt-4 text-blue-600 font-bold hover:underline"
                 >
                   Clear filters
                 </button>
@@ -1089,6 +1096,7 @@ const AlumniChapters = () => {
               handleToggleJoin(selectedChapter._id);
               setSelectedChapter(null);
             }}
+            onMessage={handleMessageFounder}
           />
         )}
       </AnimatePresence>

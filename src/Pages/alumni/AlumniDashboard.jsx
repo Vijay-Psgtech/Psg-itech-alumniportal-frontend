@@ -35,10 +35,10 @@ import { formatNumber } from "../../utils/formatters";
 
 /* ─── helpers ─── */
 const avatarColors = [
-  "from-orange-500 to-orange-600",
-  "from-rose-500 to-pink-600",
-  "from-emerald-500 to-teal-600",
-  "from-amber-500 to-orange-600",
+  "from-blue-500 to-blue-600",
+  "from-blue-500 to-blue-600",
+  "from-blue-500 to-blue-600",
+  "from-blue-500 to-blue-600",
 ];
 const pickColor = (s = "") =>
   avatarColors[s.charCodeAt(0) % avatarColors.length];
@@ -58,9 +58,9 @@ const QUICK_CARDS = [
     title: "Alumni Directory",
     desc: "Browse and connect with thousands of alumni worldwide",
     path: "/alumni/directory",
-    accent: "from-orange-500 to-orange-600",
-    lightBg: "bg-orange-50",
-    iconColor: "text-orange-600",
+    accent: "from-blue-500 to-blue-600",
+    lightBg: "bg-blue-50",
+    iconColor: "text-blue-600",
     cta: "Find connections",
   },
   {
@@ -69,9 +69,9 @@ const QUICK_CARDS = [
     title: "Alumni Map",
     desc: "Discover fellow alumni in your city and around the globe",
     path: "/alumni/map",
-    accent: "from-emerald-500 to-teal-600",
-    lightBg: "bg-emerald-50",
-    iconColor: "text-emerald-600",
+    accent: "from-blue-500 to-blue-600",
+    lightBg: "bg-blue-50",
+    iconColor: "text-blue-600",
     cta: "Explore locations",
   },
   {
@@ -80,9 +80,9 @@ const QUICK_CARDS = [
     title: "Campaigns",
     desc: "Participate in alumni campaigns and share your stories",
     path: "/campaigns",
-    accent: "from-orange-500 to-purple-600",
-    lightBg: "bg-orange-50",
-    iconColor: "text-orange-600",
+    accent: "from-blue-500 to-blue-600",
+    lightBg: "bg-blue-50",
+    iconColor: "text-blue-600",
     cta: "View campaigns",
   },
   {
@@ -91,9 +91,9 @@ const QUICK_CARDS = [
     title: "Make a Donation",
     desc: "Support PSG and make a difference in students' lives",
     path: "/alumni/donations",
-    accent: "from-rose-500 to-pink-600",
-    lightBg: "bg-rose-50",
-    iconColor: "text-rose-600",
+    accent: "from-blue-500 to-blue-600",
+    lightBg: "bg-blue-50",
+    iconColor: "text-blue-600",
     cta: "Give back today",
   },
   {
@@ -102,9 +102,9 @@ const QUICK_CARDS = [
     title: "Notifications",
     desc: "View announcements and messages from the alumni community",
     path: null,
-    accent: "from-amber-500 to-orange-500",
-    lightBg: "bg-amber-50",
-    iconColor: "text-amber-600",
+    accent: "from-blue-500 to-blue-500",
+    lightBg: "bg-blue-50",
+    iconColor: "text-blue-600",
     cta: "Stay updated",
   },
 ];
@@ -155,29 +155,29 @@ const AlumniDashboard = () => {
       label: "Alumni Network",
       value: formatNumber(stats.totalAlumni), 
       icon: GraduationCap,
-      color: "text-orange-600",
-      bg: "bg-orange-50",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
     },
     {
       label: "Departments",
       value: formatNumber(stats.departmentStats),
       icon: BookOpen,
-      color: "text-emerald-600",
-      bg: "bg-emerald-50",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
     },
     {
       label: "Cities Covered",
       value: stats.topCities ? stats.topCities + " + " : 0,
       icon: MapPin,
-      color: "text-rose-600",
-      bg: "bg-rose-50",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
     },
     {
       label: "Batch Years",
       value: stats.batchStats,
       icon: Award,
-      color: "text-amber-600",
-      bg: "bg-amber-50",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
     },
   ];
 
@@ -258,7 +258,7 @@ const AlumniDashboard = () => {
               onClick={() => setShowSendModal(true)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold shadow-lg shadow-orange-200 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-lg shadow-blue-200 transition-colors"
             >
               <Send size={13} />
               <span className="hidden sm:inline">Send Notification</span>
@@ -318,8 +318,8 @@ const AlumniDashboard = () => {
         >
           {/* BG decorations */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-orange-600/25 blur-3xl" />
-            <div className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-orange-600/20 blur-2xl" />
+            <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-blue-600/25 blur-3xl" />
+            <div className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-blue-600/20 blur-2xl" />
             <div className="absolute top-0 right-0 opacity-[0.04]">
               <GraduationCap size={220} />
             </div>
@@ -347,11 +347,11 @@ const AlumniDashboard = () => {
             {/* Text */}
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="text-[10px] font-extrabold text-orange-400 uppercase tracking-widest bg-orange-500/10 border border-orange-500/20 px-2.5 py-1 rounded-full">
+                <span className="text-[10px] font-extrabold text-blue-400 uppercase tracking-widest bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full">
                   {getGreeting()}
                 </span>
                 {user?.isApproved && (
-                  <span className="text-[10px] font-extrabold text-emerald-400 uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <span className="text-[10px] font-extrabold text-blue-400 uppercase tracking-widest bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full flex items-center gap-1">
                     <Shield size={9} /> Verified
                   </span>
                 )}
@@ -370,24 +370,24 @@ const AlumniDashboard = () => {
               <div className="flex flex-wrap gap-2 mt-4">
                 {user?.department && (
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-white/8 border border-white/10 px-3 py-1 rounded-full">
-                    <BookOpen size={10} className="text-orange-400" />{" "}
+                    <BookOpen size={10} className="text-blue-400" />{" "}
                     {user.department}
                   </span>
                 )}
                 {user?.batchYear && (
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-white/8 border border-white/10 px-3 py-1 rounded-full">
-                    <Award size={10} className="text-amber-400" /> Batch of{" "}
+                    <Award size={10} className="text-blue-400" /> Batch of{" "}
                     {user.batchYear}
                   </span>
                 )}
                 {user?.city && (
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-white/8 border border-white/10 px-3 py-1 rounded-full">
-                    <MapPin size={10} className="text-rose-400" /> {user.city}
+                    <MapPin size={10} className="text-blue-400" /> {user.city}
                   </span>
                 )}
                 {user?.occupation && (
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 bg-white/8 border border-white/10 px-3 py-1 rounded-full">
-                    <Award size={10} className="text-emerald-400" />{" "}
+                    <Award size={10} className="text-blue-400" />{" "}
                     {user.occupation}
                   </span>
                 )}
@@ -400,7 +400,7 @@ const AlumniDashboard = () => {
                 onClick={() => navigate("/alumni/profile")}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white text-sm font-bold shadow-xl shadow-orange-900/40 transition-colors"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold shadow-xl shadow-blue-900/40 transition-colors"
               >
                 <User size={14} /> My Profile
               </motion.button>
@@ -420,7 +420,7 @@ const AlumniDashboard = () => {
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="mb-4 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                   <MessageSquare size={16} />
                 </div>
                 <div>
@@ -444,9 +444,9 @@ const AlumniDashboard = () => {
                     <button
                       key={conversation._id}
                       onClick={() => navigate(`/alumni/messages?recipientId=${conversation.otherPerson?._id || ""}`)}
-                      className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3 text-left transition hover:border-orange-200 hover:bg-orange-50"
+                      className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3 text-left transition hover:border-blue-200 hover:bg-blue-50"
                     >
-                      <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-orange-500 to-rose-500 text-sm font-bold text-white">
+                      <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-blue-500 text-sm font-bold text-white">
                         {`${conversation.otherPerson?.firstName?.[0] || ""}${conversation.otherPerson?.lastName?.[0] || ""}`.toUpperCase() || "A"}
                         {unreadCount > 0 && (
                           <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">
@@ -468,7 +468,7 @@ const AlumniDashboard = () => {
                             {conversation.lastMessage || "New conversation started"}
                           </p>
                           {unreadCount > 0 && (
-                            <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-bold text-orange-700">
+                            <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-blue-700">
                               {unreadCount} new
                             </span>
                           )}
@@ -497,7 +497,7 @@ const AlumniDashboard = () => {
                 <span>Open inbox</span>
                 <ChevronRight size={14} />
               </button>
-              <button onClick={() => navigate("/alumni/directory")} className="flex w-full items-center justify-between rounded-2xl bg-orange-50 px-3 py-3 text-left text-sm font-semibold text-orange-700 hover:bg-orange-100">
+              <button onClick={() => navigate("/alumni/directory")} className="flex w-full items-center justify-between rounded-2xl bg-blue-50 px-3 py-3 text-left text-sm font-semibold text-blue-700 hover:bg-blue-100">
                 <span>Message alumni</span>
                 <ChevronRight size={14} />
               </button>
@@ -538,12 +538,12 @@ const AlumniDashboard = () => {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.22, duration: 0.38 }}
-          className="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden"
+          className="bg-white rounded-2xl border border-blue-100 shadow-sm overflow-hidden"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-6 py-5">
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center shrink-0">
-                <Zap size={19} className="text-orange-500" />
+              <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                <Zap size={19} className="text-blue-500" />
               </div>
               <div>
                 <h3 className="text-sm font-extrabold text-slate-900">
@@ -559,12 +559,12 @@ const AlumniDashboard = () => {
               onClick={() => setShowSendModal(true)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold shadow-lg shadow-orange-200 transition-colors"
+              className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-lg shadow-blue-200 transition-colors"
             >
               <Send size={13} /> Compose
             </motion.button>
           </div>
-          <div className="h-0.5 bg-linear-to-r from-orange-500 via-orange-500 to-purple-600" />
+          <div className="h-0.5 bg-linear-to-r from-blue-500 via-blue-500 to-blue-600" />
         </motion.div>
 
         {/* ── Quick Access Cards ── */}
@@ -647,7 +647,7 @@ const AlumniDashboard = () => {
               </div>
               <button
                 onClick={() => navigate("/alumni/profile")}
-                className="flex items-center gap-1 text-xs font-bold text-orange-600 hover:text-orange-800 transition-colors"
+                className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
               >
                 Edit <ArrowUpRight size={11} />
               </button>
@@ -665,7 +665,7 @@ const AlumniDashboard = () => {
               </div>
               <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
                 <motion.div 
-                  className="h-full bg-linear-to-r from-orange-500 to-orange-500 rounded-full"
+                  className="h-full bg-linear-to-r from-blue-500 to-blue-500 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${completionPct}%` }}
                   transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
@@ -683,14 +683,14 @@ const AlumniDashboard = () => {
                   >
                     <div className="flex items-center gap-2.5">
                       <div
-                        className={`w-1.5 h-1.5 rounded-full shrink-0 ${done ? "bg-emerald-500" : "bg-slate-200"}`}
+                        className={`w-1.5 h-1.5 rounded-full shrink-0 ${done ? "bg-blue-500" : "bg-slate-200"}`}
                       />
                       <span className="text-xs font-semibold text-slate-600">
                         {label}
                       </span>
                     </div>
                     <span
-                      className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${done ? "bg-emerald-50 text-emerald-600" : "bg-slate-100 text-slate-400"}`}
+                      className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${done ? "bg-blue-50 text-blue-600" : "bg-slate-100 text-slate-400"}`}
                     >
                       {done ? "Complete" : "Pending"}
                     </span>
@@ -716,36 +716,36 @@ const AlumniDashboard = () => {
                   label: "View Alumni Directory",
                   icon: Users,
                   path: "/alumni/directory",
-                  color: "text-orange-500",
-                  bg: "bg-orange-50",
+                  color: "text-blue-500",
+                  bg: "bg-blue-50",
                 },
                 {
                   label: "Explore Alumni Map",
                   icon: Map,
                   path: "/alumni/map",
-                  color: "text-emerald-500",
-                  bg: "bg-emerald-50",
+                  color: "text-blue-500",
+                  bg: "bg-blue-50",
                 },
                 {
                   label: "View All Campaigns",
                   icon: Megaphone,
                   path: "/campaigns",
-                  color: "text-orange-500",
-                  bg: "bg-orange-50",
+                  color: "text-blue-500",
+                  bg: "bg-blue-50",
                 },
                 {
                   label: "Make a Donation",
                   icon: Heart,
                   path: "/alumni/donations",
-                  color: "text-rose-500",
-                  bg: "bg-rose-50",
+                  color: "text-blue-500",
+                  bg: "bg-blue-50",
                 },
                 {
                   label: "Update My Profile",
                   icon: User,
                   path: "/alumni/profile",
-                  color: "text-purple-500",
-                  bg: "bg-purple-50",
+                  color: "text-blue-500",
+                  bg: "bg-blue-50",
                 },  
               ].map(({ label, icon: Icon, path, color, bg }) => (
                 <button
@@ -805,8 +805,8 @@ const AlumniDashboard = () => {
             >
               <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-orange-50 flex items-center justify-center">
-                    <Bell size={15} className="text-orange-600" />
+                  <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center">
+                    <Bell size={15} className="text-blue-600" />
                   </div>
                   <div>
                     <h3 className="text-sm font-extrabold text-slate-900">

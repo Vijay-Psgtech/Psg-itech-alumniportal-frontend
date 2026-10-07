@@ -34,7 +34,7 @@ export const FLabel = ({ label, children, span2 }) => (
 );
 
 const inpClass =
-  "px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm text-slate-900 outline-none w-full bg-[#fafbfd] focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all";
+  "px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm text-slate-900 outline-none w-full bg-[#fafbfd] focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all";
 
 export const Inp = (props) => (
   <input {...props} className={`${inpClass} ${props.className || ""}`} />
@@ -56,7 +56,7 @@ export const Txt = (props) => (
 export const ModalHeader = ({ title, sub, onClose }) => (
   <div className="px-7 pt-6 pb-5 border-b border-slate-100 flex justify-between items-start">
     <div>
-      <div className="text-[10px] text-orange-500 font-bold tracking-[1.5px] mb-1 uppercase">
+      <div className="text-[10px] text-blue-500 font-bold tracking-[1.5px] mb-1 uppercase">
         {sub}
       </div>
       <h2 className="font-display text-[21px] font-extrabold text-slate-900">

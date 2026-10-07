@@ -144,7 +144,7 @@ const CampaignFormPage = () => {
             value={value}
             onChange={(e) => handleInputChange(field.label, e.target.value)}
             placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}`}
-            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             required={field.required}
           />
         );
@@ -157,7 +157,7 @@ const CampaignFormPage = () => {
             onChange={(e) => handleInputChange(field.label, e.target.value)}
             placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}`}
             rows={4}
-            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all resize-none"
+            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all resize-none"
             required={field.required}
           />
         );
@@ -170,7 +170,7 @@ const CampaignFormPage = () => {
             value={value}
             onChange={(e) => handleInputChange(field.label, e.target.value)}
             placeholder={field.placeholder || "Enter email address"}
-            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             required={field.required}
           />
         );
@@ -183,7 +183,7 @@ const CampaignFormPage = () => {
             value={value}
             onChange={(e) => handleInputChange(field.label, e.target.value)}
             placeholder={field.placeholder || "Enter phone number"}
-            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             required={field.required}
           />
         );
@@ -196,7 +196,7 @@ const CampaignFormPage = () => {
             value={value}
             onChange={(e) => handleInputChange(field.label, e.target.value)}
             placeholder={field.placeholder || "Enter a number"}
-            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             required={field.required}
           />
         );
@@ -208,7 +208,7 @@ const CampaignFormPage = () => {
             name={field.label}
             value={value}
             onChange={(e) => handleInputChange(field.label, e.target.value)}
-            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             required={field.required}
           />
         );
@@ -219,7 +219,7 @@ const CampaignFormPage = () => {
             name={field.label}
             value={value}
             onChange={(e) => handleInputChange(field.label, e.target.value)}
-            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             required={field.required}
           >
             <option value="">-- Select an option --</option>
@@ -247,7 +247,7 @@ const CampaignFormPage = () => {
                   onChange={(e) =>
                     handleCheckboxChange(field.label, opt, e.target.checked)
                   }
-                  className="w-4 h-4 accent-orange-600 rounded"
+                  className="w-4 h-4 accent-blue-600 rounded"
                 />
                 <span className="text-sm text-slate-600">{opt}</span>
               </label>
@@ -269,7 +269,7 @@ const CampaignFormPage = () => {
                   value={opt}
                   checked={value === opt}
                   onChange={(e) => handleInputChange(field.label, e.target.value)}
-                  className="w-4 h-4 accent-orange-600"
+                  className="w-4 h-4 accent-blue-600"
                 />
                 <span className="text-sm text-slate-600">{opt}</span>
               </label>
@@ -285,7 +285,7 @@ const CampaignFormPage = () => {
             value={value}
             onChange={(e) => handleInputChange(field.label, e.target.value)}
             placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}`}
-            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all"
+            className="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"
             required={field.required}
           />
         );
@@ -298,7 +298,7 @@ const CampaignFormPage = () => {
         {/* Header */}
         <motion.button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold mb-6 transition-colors"
+          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold mb-6 transition-colors"
         >
           <ChevronLeft size={18} /> Back
         </motion.button>
@@ -306,7 +306,7 @@ const CampaignFormPage = () => {
         {/* Loading State */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
-            <Loader size={40} className="text-orange-600 animate-spin mb-4" />
+            <Loader size={40} className="text-blue-600 animate-spin mb-4" />
             <p className="text-slate-600 font-medium">Loading campaign...</p>
           </div>
         ) : error && !campaign ? (
@@ -337,9 +337,9 @@ const CampaignFormPage = () => {
             className="bg-white rounded-3xl shadow-xl overflow-hidden"
           >
             {/* Campaign Header */}
-            <div className="bg-linear-to-r from-orange-600 to-orange-600 px-8 py-10 text-white">
+            <div className="bg-linear-to-r from-blue-600 to-blue-600 px-8 py-10 text-white">
               <h1 className="text-3xl font-black mb-2">{campaign.title}</h1>
-              <p className="text-orange-100 text-base leading-relaxed max-w-2xl">
+              <p className="text-blue-100 text-base leading-relaxed max-w-2xl">
                 {campaign.description}
               </p>
 
@@ -366,7 +366,7 @@ const CampaignFormPage = () => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3 text-green-700"
+                    className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl flex items-center gap-3 text-blue-700"
                   >
                     <CheckCircle size={20} />
                     <span className="font-semibold">{success}</span>
@@ -464,7 +464,7 @@ const CampaignFormPage = () => {
                           disabled={submitting}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-orange-600 text-white font-bold hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-lg shadow-orange-200"
+                          className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-lg shadow-blue-200"
                         >
                           {submitting ? (
                             <>
