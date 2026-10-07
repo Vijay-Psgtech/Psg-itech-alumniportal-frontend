@@ -5,6 +5,8 @@ import { CalendarDays, MapPin, RotateCw } from "lucide-react";
 import { eventsAPI } from "../services/api";
 import { formatDate } from "../utils/dateFormat";
 import { fadeUp } from "../utils/motion";
+import usePageTitle from '../hooks/usePageTitle'
+
 
 function getEvents(payload) {
   if (Array.isArray(payload)) return payload;
@@ -16,6 +18,7 @@ function getEvents(payload) {
 }
 
 export default function AlumniCalendarPage() {
+  usePageTitle('Alumni Calendar');
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 import { eventsAPI, API_BASE } from '../services/api'
 import { formatDate } from '../utils/dateFormat'
+import usePageTitle from '../hooks/usePageTitle'
+
 
 function CalendarIcon(props) {
   return (
@@ -59,6 +61,7 @@ export default function EventDetailPage() {
   const { id } = useParams()
   const [event, setEvent] = useState(null)
   const [eventsData, setEventsData] = useState([]);
+  usePageTitle(event ? event.title : 'Event Details');
 
   useEffect(() => {
     eventsAPI.getById(id)

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
-
 import bannerImage from '../assets/campus.jpg'
 import { newsLetterAPI, API_BASE } from '../services/api'
+import usePageTitle from '../hooks/usePageTitle'
 
 function EyeIcon(props) {
   return (
@@ -73,7 +73,7 @@ const shareChannels = [
   },
   {
     label: 'WhatsApp',
-    color: 'bg-[#25D366]',
+    color: 'bg-[#2563eb]',
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
         <path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Zm0 16.3a7.3 7.3 0 0 1-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.3 7.3 0 1 1 12 19.3Z" />
@@ -97,6 +97,7 @@ export default function FeedDetailPage() {
   const [newsData, setNewsData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  usePageTitle(post?.title || 'NewsCorner')
 
   useEffect(() => {
     let isMounted = true
@@ -148,7 +149,7 @@ export default function FeedDetailPage() {
         <p className="text-slate-500 mt-2">This post may have been removed or the link is incorrect.</p>
         <Link
           to="/feed"
-          className="inline-flex mt-6 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
+          className="inline-flex mt-6 bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium text-sm px-6 py-3 rounded-full"
         >
           Back to NewsCorner
         </Link>
@@ -164,7 +165,7 @@ export default function FeedDetailPage() {
         <motion.div variants={fadeUp} initial="hidden" animate="show">
           <Link
             to="/feed"
-            className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-orange-600 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors"
           >
             <svg width="14" height="10" viewBox="0 0 16 12" fill="none">
               <path d="M1 6h14M1 6l5-5M1 6l5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -172,7 +173,7 @@ export default function FeedDetailPage() {
             Go Back
           </Link>
 
-          <p className="text-xs font-medium tracking-[0.18em] uppercase text-orange-500 mt-6 mb-2">
+          <p className="text-xs font-medium tracking-[0.18em] uppercase text-blue-500 mt-6 mb-2">
             {post.category}
           </p>
           <h1 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 leading-tight">
@@ -197,7 +198,7 @@ export default function FeedDetailPage() {
           transition={{ delay: 0.12 }}
           className="flex items-center gap-3 mt-6 pb-6 border-b border-slate-200"
         >
-          <div className="w-10 h-10 rounded-full bg-orange-50 grid place-items-center font-display font-semibold text-orange-500 text-sm shrink-0">
+          <div className="w-10 h-10 rounded-full bg-blue-50 grid place-items-center font-display font-semibold text-blue-500 text-sm shrink-0">
             {post.author
               .split(' ')
               .map((word) => word[0])
@@ -228,13 +229,13 @@ export default function FeedDetailPage() {
           viewport={viewport}
           className="relative rounded-2xl overflow-hidden bg-slate-900 py-10 px-6 text-center"
         >
-          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-orange-500 via-orange-400 to-orange-500" />
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-blue-500 via-blue-400 to-blue-500" />
           <p className="font-display text-white font-semibold text-lg">
             To view all the Posts of PSG iTech Alumni Portal Community
           </p>
           <Link
             to="/"
-            className="inline-flex mt-5 bg-orange-500 hover:bg-orange-600 transition-colors text-white font-medium text-sm px-7 py-3 rounded-full"
+            className="inline-flex mt-5 bg-blue-500 hover:bg-blue-600 transition-colors text-white font-medium text-sm px-7 py-3 rounded-full"
           >
             Login now
           </Link>
@@ -260,7 +261,7 @@ export default function FeedDetailPage() {
           <div className="flex items-center gap-2 text-sm text-slate-400">
             <span>Tagged</span>
             <span className="inline-flex items-center gap-1.5 bg-slate-100 rounded-full pl-1 pr-3 py-1">
-              <span className="w-5 h-5 rounded-full bg-orange-100 grid place-items-center text-[10px] font-semibold text-orange-600">
+              <span className="w-5 h-5 rounded-full bg-blue-100 grid place-items-center text-[10px] font-semibold text-blue-600">
                 {post.author[0]}
               </span>
               <span className="text-slate-600">{post.author}</span>
@@ -287,14 +288,14 @@ export default function FeedDetailPage() {
                 <Link
                   key={item.slug}
                   to={`/feed/${item.slug}`}
-                  className="group flex items-center gap-4 bg-white border border-slate-100 rounded-xl p-3 hover:border-orange-300 transition-colors"
+                  className="group flex items-center gap-4 bg-white border border-slate-100 rounded-xl p-3 hover:border-blue-300 transition-colors"
                 >
                   <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-slate-100">
                     <img src={item.imageUrl || bannerImage} alt={item.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs text-orange-500 font-medium">{item.category}</p>
-                    <p className="text-sm font-medium text-slate-900 group-hover:text-orange-600 transition-colors leading-snug truncate">
+                    <p className="text-xs text-blue-500 font-medium">{item.category}</p>
+                    <p className="text-sm font-medium text-slate-900 group-hover:text-blue-600 transition-colors leading-snug truncate">
                       {item.title}
                     </p>
                   </div>

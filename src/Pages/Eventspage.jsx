@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { fadeUp, staggerContainer, viewport } from '../utils/motion'
 import { eventsAPI, API_BASE } from "../services/api";
 import { formatDate } from '../utils/dateFormat'
+import usePageTitle from '../hooks/usePageTitle'
+
 
 
 function CalendarIcon(props) {
@@ -64,6 +66,7 @@ const normalizeEventsPayload = (payload) => {
 }
 
 export default function EventsPage() {
+  usePageTitle('Events');
   const [query, setQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState([])
   const [modeFilter, setModeFilter] = useState([])

@@ -36,6 +36,7 @@ export default function Navbar() {
         { label: 'All Events', to: '/events' },
         { label: 'Gallery', to: '/gallery' },
         { label: 'Alumni Calendar', to: '/events/calendar' },
+        { label: 'Newsletter', to: '/feed' },
       ],
     },
     {

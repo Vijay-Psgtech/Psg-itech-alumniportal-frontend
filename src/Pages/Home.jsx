@@ -11,6 +11,7 @@ import Process from '../components/Process'
 import Testimonials from '../components/Testimonials'
 import AppCTA from '../components/AppCTA'
 import News from '../components/News'
+import usePageTitle  from '../hooks/usePageTitle'
 
 // Page-level transition — used by AnimatePresence in App.jsx when routing
 // in and out of "/". Kept subtle: a short fade + rise, no bounce, so it
@@ -43,6 +44,7 @@ const sectionReveal = {
 const sections = [Events, About, Engagement, WhyJoin, Process, AppCTA, News]
 
 export default function Home() {
+  usePageTitle('Official Website of PSG iTech Alumni Association')
   return (
     <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
       <Hero />
