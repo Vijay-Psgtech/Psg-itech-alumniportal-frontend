@@ -22,6 +22,7 @@ const links = [
     children: [
       { label: 'Dashboard', to: '/alumni/dashboard' },
       { label: 'Directory', to: '/alumni/directory' },
+      { label: 'Map', to: '/alumni/map' },
       { label: 'Messages', to: '/alumni/messages' },
     ],
   },

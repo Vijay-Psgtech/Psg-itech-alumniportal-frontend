@@ -116,9 +116,9 @@ const AlumniDonations = () => {
     <>
       <style>{`
         :root {
-          --psg-orange: #f97316;
-          --psg-orange-strong: #ea580c;
-          --psg-orange-soft: #fff3e9;
+          --psg-orange: #3b82f6;
+          --psg-orange-strong: #2563eb;
+          --psg-orange-soft: #eff6ff;
           --psg-navy: #0f172a;
           --psg-slate: #475569;
           --psg-line: rgba(148, 163, 184, 0.22);
@@ -289,7 +289,7 @@ const AlumniDonations = () => {
           border-radius: 999px;
           border: 1px solid rgba(34, 197, 94, 0.18);
           background: rgba(34, 197, 94, 0.08);
-          color: #15803d;
+          color: #1d4ed8;
           padding: 8px 12px;
           font-size: 0.72rem;
           font-weight: 700;
@@ -315,8 +315,8 @@ const AlumniDonations = () => {
         }
 
         .alert-success {
-          color: #166534;
-          background: #ecfdf5;
+          color: #1e40af;
+          background: #eff6ff;
           border: 1px solid rgba(34, 197, 94, 0.25);
         }
 
