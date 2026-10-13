@@ -47,7 +47,7 @@ export default function LeadershipPage() {
           variants={staggerContainer(0.06)}
           initial="hidden"
           whileInView="show"
-          viewport={viewport}
+          viewport={{ ...viewport, amount: 0.01 }}
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 xl:grid-cols-4"
         >
           {leadershipTeam.map((member) => (
