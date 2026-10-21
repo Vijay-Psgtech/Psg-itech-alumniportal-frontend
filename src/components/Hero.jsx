@@ -175,27 +175,6 @@ export default function Hero() {
               <p className="mt-1 font-display text-lg font-semibold text-slate-900">A lifetime of connection</p>
             </motion.div>
           </motion.div>
-
-          {/* <div className="lg:col-span-5 relative hidden lg:block h-[420px]">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="absolute right-0 bottom-0 w-72 bg-white rounded-2xl p-4 shadow-lg shadow-black/20 flex items-center gap-3"
-            >
-              <div className="w-11 h-11 rounded-full bg-blue-50 flex items-center justify-center font-display font-semibold text-blue-500 shrink-0">
-                AR
-              </div>
-              <div className="min-w-0">
-                <p className="font-medium text-sm text-slate-900">Ananya R.</p>
-                <p className="text-xs text-slate-400">Batch of 2019 · Google</p>
-              </div>
-            </motion.div>
-
-            <div className="absolute top-0 right-0 bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-full">
-              New listing
-            </div>
-          </div> */}
         </div>
       </div>
     </section>
